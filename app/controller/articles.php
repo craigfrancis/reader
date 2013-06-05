@@ -2,52 +2,36 @@
 
 	class articles_controller extends controller {
 
-		public function action_index($source = NULL, $article = NULL) {
+		public function action_index($source = NULL) {
 
-			$output_js = (request('output') == 'js');
+			$response = response_get();
 
-			if ($article !== NULL) {
+			$article_id = request('id');
 
-				$unit = unit_get('article_view', array(
-						'source' => ($output_js ? NULL : $source),
-						'article' => $article,
+			if ($article_id !== NULL) {
+
+				$unit = unit_add('article_view', array(
+						'source' => $source,
+						'article' => $article_id,
 					));
 
-				if (!$output_js) {
-					$response = response_get();
-					$response->title_folder_set(1, $source);
-					$response->title_folder_set(2, 'Title');
-				}
+				$response->title_folder_set(1, $source);
+				$response->title_folder_set(2, $unit->title_get());
 
 			} else if ($source !== NULL) {
 
-				$unit = unit_get('article_list', array(
-						'source' => ($output_js ? NULL : $source),
+				unit_add('article_list', array(
+						'source' => $source,
 					));
 
-				if (!$output_js) {
-					$response = response_get();
-					$response->title_folder_set(1, $source);
-				}
+				$response->title_folder_set(1, $source);
 
 			} else {
 
-				$unit = unit_get('article_index');
+				unit_add('article_index');
 
-				if (!$output_js) {
-					$response = response_get();
-					$response->js_add('/a/js/reader.js');
-				}
+				$response->js_add('/a/js/reader.js');
 
-			}
-
-			if ($output_js) {
-				$response = response_get('file');
-				$response->mime_set('text/xml');
-				$response->inline_set(true);
-				$response->content_set(trim($unit->html()));
-			} else {
-				$response->unit_add($unit);
 			}
 
 		}

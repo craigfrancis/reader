@@ -1,0 +1,53 @@
+/*--------------------------------------------------*/
+/* General Setup                                    */
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, font, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+	}
+
+	article, aside, figcaption, figure, footer,
+	header, hgroup, main, nav, section {
+		display: block;
+	}
+
+	body {
+		font-family: verdana, arial, helvetica, sans-serif;
+		font-size: 0.8em;
+		line-height: 1.2em;
+		color: #000;
+		background-color: #FFF;
+	}
+
+	a {
+		color: #00E;
+	}
+
+	a img {
+		border: 0;
+	}
+
+	p,
+	h1,
+	h2,
+	h3 {
+		margin: 0 0 1em 0;
+	}
+
+/*--------------------------------------------------*/
+/* Article                                          */
+
+	#article_wrapper {
+		padding: 10px 5px;
+	}

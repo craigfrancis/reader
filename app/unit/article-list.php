@@ -10,23 +10,12 @@
 
 			$articles = array();
 
-			if ($config['source'] === NULL) {
+			foreach (array(1, 3, 5, 10, 15) as $id) {
 
 				$articles[] = array(
-						'url' => '/articles/:source/:id/',
-						'name' => 'Article',
+						'url' => url('/articles/:source/', array('source' => $config['source'], 'id' => $id)),
+						'name' => 'Article ' . ucfirst($id),
 					);
-
-			} else {
-
-				foreach (array(1, 3, 5, 10, 15) as $id) {
-
-					$articles[] = array(
-							'url' => url('/articles/:source/:id/', array('source' => $config['source'], 'id' => $id)),
-							'name' => 'Article ' . ucfirst($id),
-						);
-
-				}
 
 			}
 

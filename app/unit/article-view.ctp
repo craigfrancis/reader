@@ -1,1 +1,4 @@
-<p>Hello</p>
+
+	<div id="reader_view">
+
+	</div>

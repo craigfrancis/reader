@@ -109,30 +109,6 @@
 
 		}
 
-	/*--------------------------------------------------*/
-	/* Footer                                           */
-
-		#page_footer {
-			background: #000;
-			color: #FFF;
-			font-weight: normal;
-			margin: 0;
-			padding: 5px;
-		}
-
-		#page_footer h2 {
-			display: none;
-		}
-
-		#page_footer p {
-			margin: 0;
-		}
-
-		#page_footer p a {
-			background: #000;
-			color: #FFF;
-		}
-
 /*--------------------------------------------------*/
 /* Thank you message                                */
 
@@ -169,6 +145,10 @@
 		display: flex;            /* NEW, Spec - Opera 12.1, Firefox 20+ */
 	}
 
+	#reader_index li.no_articles {
+		display: none;
+	}
+
 	#reader_index li a {
 		-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
 		-webkit-flex: 1;          /* Chrome */
@@ -184,18 +164,47 @@
 	}
 
 /*--------------------------------------------------*/
-/* Index                                            */
+/* List                                             */
 
-	#reader_articles {
+	#reader_list {
 		list-style: none;
 		margin: 0;
 	}
 
-	#reader_articles li {
+	#reader_list li {
 		border-bottom: 1px solid #EEE;
 	}
 
-	#reader_articles li a {
+	#reader_list li a {
 		display: block;
 		padding: 5px;
+	}
+
+/*--------------------------------------------------*/
+/* View                                             */
+
+	#reader_view iframe {
+		width: 100%;
+	}
+
+	#reader_view .controls {
+		background: #000;
+		color: #FFF;
+		padding: 5px;
+	}
+
+	#reader_view .controls a {
+		color: #FFF;
+	}
+
+	#reader_view .controls a[href="#"] {
+		color: #666;
+	}
+
+	#reader_view .controls a.read {
+		float: right;
+	}
+
+	#debug_wrapper {
+		display: none;
 	}

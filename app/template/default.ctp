@@ -22,7 +22,7 @@
 	<div id="page_wrapper">
 
 		<header id="page_title" role="banner">
-			<h1><a href="/"><?= html($this->title_get()) ?></a></h1>
+			<h1><a href="/">Reader</a></h1>
 		</header>
 
 		<main id="page_content" role="main">
@@ -52,11 +52,6 @@
 
 
 		</main>
-
-		<footer id="page_footer" role="contentinfo" class="visually_hidden">
-			<h2>Footer</h2>
-			<p class="copyright">© <?= html(config::get('output.site_name')) ?> <?= html(date('Y')) ?></p>
-		</footer>
 
 	</div>
 

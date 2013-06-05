@@ -10,6 +10,10 @@
 				), $config);
 
 		}
+		
+		public function title_get() {
+			return 'My Title';
+		}
 
 	}
 
