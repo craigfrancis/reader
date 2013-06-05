@@ -1,8 +1,8 @@
 
-	<ul id="reader_articles">
-		<?php foreach ($articles as $article) { ?>
+	<ul id="reader_index">
+		<?php foreach ($sources as $source) { ?>
 
-			<li><a href="<?= html($article['url']) ?>"><?= html($article['name']) ?></a></li>
+			<li data-source="<?= html($source['ref']) ?>"><a href="<?= html($source['url']) ?>"><?= html($source['name']) ?></a> <em><?= html($source['count']) ?></em></li>
 
 		<?php } ?>
 	</ul>

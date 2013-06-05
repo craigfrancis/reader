@@ -21,7 +21,7 @@
 
 			} else if ($source !== NULL) {
 
-				$unit = unit_get('article_index', array(
+				$unit = unit_get('article_list', array(
 						'source' => ($output_js ? NULL : $source),
 					));
 
@@ -32,7 +32,7 @@
 
 			} else {
 
-				$unit = unit_get('article_sources');
+				$unit = unit_get('article_index');
 
 				if (!$output_js) {
 					$response = response_get();

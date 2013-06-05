@@ -30,7 +30,7 @@
 		dom_get('/articles/null/null/?output=js', 'article_view_dom');
 
 	//--------------------------------------------------
-	// View sources article listing
+	// View source list
 
 		function view_source() {
 console.log(article_list_dom);
