@@ -1,0 +1,201 @@
+/*--------------------------------------------------*/
+/* General Setup                                    */
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, font, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+	}
+
+	article, aside, figcaption, figure, footer,
+	header, hgroup, main, nav, section {
+		display: block;
+	}
+
+	body {
+		font-family: verdana, arial, helvetica, sans-serif;
+		font-size: 0.8em;
+		line-height: 1.2em;
+		color: #000;
+		background-color: #FFF;
+	}
+
+	a {
+		color: #00E;
+	}
+
+	a img {
+		border: 0;
+	}
+
+	p,
+	h1,
+	h2,
+	h3 {
+		margin: 0 0 1em 0;
+	}
+
+	ul,
+	ol {
+		margin: 0 0 1em 2em;
+	}
+
+	hr {
+		margin: 1em 0 1em 0;
+		border: 0;
+		border-bottom: 1px solid #000;
+	}
+
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	table th,
+	table td {
+		vertical-align: top;
+	}
+
+/*--------------------------------------------------*/
+/* Generic Classes                                  */
+
+	.visually_hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		border: 0;
+		margin: -1px;
+		padding: 0;
+	}
+
+/*--------------------------------------------------*/
+/* Page Frame                                       */
+
+	/*--------------------------------------------------*/
+	/* Page title                                       */
+
+		#page_title h1 {
+			background: #000;
+			color: #FFF;
+			font-weight: normal;
+			margin: 0;
+			padding: 5px;
+		}
+
+		#page_title h1 a {
+			display: block;
+			background: #000;
+			color: #FFF;
+			text-decoration: none;
+		}
+
+	/*--------------------------------------------------*/
+	/* Page content                                     */
+
+		@media only screen and (min-width: 35em) {
+
+
+		}
+
+	/*--------------------------------------------------*/
+	/* Footer                                           */
+
+		#page_footer {
+			background: #000;
+			color: #FFF;
+			font-weight: normal;
+			margin: 0;
+			padding: 5px;
+		}
+
+		#page_footer h2 {
+			display: none;
+		}
+
+		#page_footer p {
+			margin: 0;
+		}
+
+		#page_footer p a {
+			background: #000;
+			color: #FFF;
+		}
+
+/*--------------------------------------------------*/
+/* Thank you message                                */
+
+	#page_message {
+		border: 1px solid #191D58;
+		margin: 1em 0 1em 0;
+		padding: 1em;
+		text-align: center;
+		color: #FFF;
+		background: #20287A;
+		font-weight: bold;
+	}
+
+	#page_message p {
+		margin: 0;
+	}
+
+	#page_message p a {
+		color: #FFF;
+	}
+
+/*--------------------------------------------------*/
+/* Index                                            */
+
+	#reader_index {
+		list-style: none;
+		margin: 0;
+	}
+
+	#reader_index li {
+		border-bottom: 1px solid #EEE;
+		display: -webkit-box;     /* OLD - iOS 6-, Safari 3.1-6 */
+		display: -webkit-flex;    /* NEW - Chrome */
+		display: flex;            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	}
+
+	#reader_index li a {
+		-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+		-webkit-flex: 1;          /* Chrome */
+		flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+		display: block;
+		padding: 5px;
+	}
+
+	#reader_index li em {
+		float: right;
+		padding: 5px;
+		font-style: normal;
+	}
+
+/*--------------------------------------------------*/
+/* Index                                            */
+
+	#reader_articles {
+		list-style: none;
+		margin: 0;
+	}
+
+	#reader_articles li {
+		border-bottom: 1px solid #EEE;
+	}
+
+	#reader_articles li a {
+		display: block;
+		padding: 5px;
+	}
