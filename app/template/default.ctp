@@ -12,6 +12,8 @@
 
 	<?= $this->head_get_html(); ?>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
 	<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -52,6 +54,19 @@
 
 
 		</main>
+
+		<?php if (isset($footer_urls)) { ?>
+
+			<footer id="page_footer" role="contentinfo">
+				<?php
+					foreach ($footer_urls as $footer_url) {
+						echo '
+							<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</a>';
+					}
+				?>
+			</footer>
+
+		<?php } ?>
 
 	</div>
 

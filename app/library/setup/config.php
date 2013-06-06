@@ -18,12 +18,12 @@
 		//--------------------------------------------------
 		// Database
 
-			// $config['db.host'] = 'localhost';
-			// $config['db.user'] = 'stage';
-			// $config['db.pass'] = 'st8ge';
-			// $config['db.name'] = 's-company-project';
+			$config['db.host'] = 'localhost';
+			$config['db.user'] = 'stage';
+			$config['db.pass'] = 'st8ge';
+			$config['db.name'] = 's-craig-reader';
 
-			$config['db.prefix'] = 'tpl_';
+			$config['db.prefix'] = 'rdr_';
 
 		//--------------------------------------------------
 		// Email
