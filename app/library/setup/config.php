@@ -35,6 +35,11 @@
 			// $config['email.error'] = array('admin@example.com');
 			// $config['email.contact_us'] = array('admin@example.com');
 
+		//--------------------------------------------------
+		// Misc
+
+			$config['gateway.maintenance'] = true;
+
 	} else if (prefix_match('/www/demo/', ROOT)) {
 
 		//--------------------------------------------------
