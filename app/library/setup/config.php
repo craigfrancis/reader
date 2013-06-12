@@ -28,12 +28,9 @@
 		//--------------------------------------------------
 		// Email
 
-			$config['email.from_email'] = 'noreply@example.com';
-			$config['email.testing'] = 'admin@example.com';
+			$config['email.from_email'] = 'craig@craigfrancis.co.uk';
+			$config['email.testing'] = 'craig@craigfrancis.co.uk';
 			$config['email.check_domain'] = false;
-
-			// $config['email.error'] = array('admin@example.com');
-			// $config['email.contact_us'] = array('admin@example.com');
 
 		//--------------------------------------------------
 		// Misc
@@ -53,6 +50,23 @@
 		// Server
 
 			define('SERVER', 'live');
+
+		//--------------------------------------------------
+		// Database
+
+			$config['db.host'] = 'localhost';
+			$config['db.user'] = 'craig';
+			$config['db.pass'] = 'cr8ig';
+			$config['db.name'] = 'l-craig-reader';
+
+			$config['db.prefix'] = 'rdr_';
+
+		//--------------------------------------------------
+		// Email
+
+			$config['email.from_email'] = 'craig@craigfrancis.co.uk';
+			$config['email.testing'] = 'craig@craigfrancis.co.uk';
+			$config['email.error'] = 'craig@craigfrancis.co.uk';
 
 	}
 
