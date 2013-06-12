@@ -28,12 +28,18 @@
 
 			foreach ($db->fetch_all($sql) as $row) {
 
-				$sources[] = array(
-						'url' => url('/articles/:source/', array('source' => $row['ref'])),
-						'ref' => $row['ref'],
-						'name' => $row['title'],
-						'count' => ($row['article_total'] - $row['article_read']),
-					);
+				$unread_count = ($row['article_total'] - $row['article_read']);
+
+				if ($unread_count > 0) {
+
+					$sources[] = array(
+							'url' => url('/articles/:source/', array('source' => $row['ref'])),
+							'ref' => $row['ref'],
+							'name' => $row['title'],
+							'count' => $unread_count,
+						);
+
+				}
 
 			}
 
