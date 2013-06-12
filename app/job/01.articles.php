@@ -24,7 +24,7 @@
 
 			$db = db_get();
 
-			$source_id = 2;
+			$source_id = NULL;
 
 			if ($source_id !== NULL) {
 
@@ -164,8 +164,6 @@
 						}
 
 					}
-
-debug($source_articles);
 
 				//--------------------------------------------------
 				// Add articles
