@@ -66,6 +66,7 @@
 
 					$headers = array(
 							'User-Agent: RSS Reader',
+							'Accept: application/rss+xml',
 						);
 
 					$context = stream_context_create(array(
@@ -118,7 +119,7 @@
 								if ($published != '') {
 									$published = date('Y-m-d H:i:s', strtotime($published));
 								} else {
-									$error = 'Cannot extract published date';
+									$error = 'Cannot extract published date (RSS)';
 								}
 
 								$source_articles[] = array(
@@ -141,12 +142,22 @@
 									$description = strval($entry->summary);
 								}
 
+								$published = strval($entry->published);
+								if ($published == '') {
+									$published = strval($entry->updated);
+								}
+								if ($published != '') {
+									$published = date('Y-m-d H:i:s', strtotime($published));
+								} else {
+									$error = 'Cannot extract published date (Atom)';
+								}
+
 								$source_articles[] = array(
 										'guid'        => strval($entry->id),
 										'title'       => strval($entry->title),
 										'link'        => strval($entry->link['href']),
 										'description' => $description,
-										'published'   => date('Y-m-d H:i:s', strtotime(strval($entry->published))),
+										'published'   => $published,
 									);
 
 							}
