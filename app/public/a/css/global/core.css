@@ -221,7 +221,7 @@
 	#reader_index li {
 		border-bottom: 1px solid #EEE;
 		display: -webkit-box;   /* OLD: Safari, iOS, Android browser, older WebKit browsers. */
-		display: -moz-box;      /* OLD: Firefox (buggy) */
+		/* display: -moz-box;      OLD: Firefox (buggy) */
 		display: -webkit-flex;  /* NEW, Chrome 21+ */
 		display: flex;          /* NEW: Opera 12.1, Firefox 22+ */
 	}
