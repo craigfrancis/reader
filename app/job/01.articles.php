@@ -24,7 +24,7 @@
 
 			$db = db_get();
 
-			$source_id = 10;
+			$source_id = 22;
 
 			if ($source_id !== NULL) {
 
@@ -116,11 +116,6 @@
 										$published = strval($dc_node->date); // Namespaced <dc:date> tag
 									}
 								}
-								if ($published != '') {
-									$published = date('Y-m-d H:i:s', strtotime($published));
-								} else {
-									$error = 'Cannot extract published date (RSS)';
-								}
 
 								$source_articles[] = array(
 										'guid'        => strval($item->guid),
@@ -145,11 +140,6 @@
 								$published = strval($entry->published);
 								if ($published == '') {
 									$published = strval($entry->updated);
-								}
-								if ($published != '') {
-									$published = date('Y-m-d H:i:s', strtotime($published));
-								} else {
-									$error = 'Cannot extract published date (Atom)';
 								}
 
 								$source_articles[] = array(
@@ -181,14 +171,38 @@
 
 					foreach ($source_articles as $article) {
 
-						$values_update = $article;
-						$values_update['source_id'] = $source_id;
-						$values_update['updated'] = date('Y-m-d H:i:s');
+						//--------------------------------------------------
+						// Insert and update values
 
-						$values_insert = $values_update;
-						$values_insert['created'] = date('Y-m-d H:i:s');
+							$values_update = $article;
+							$values_update['source_id'] = $source_id;
+							$values_update['updated'] = date('Y-m-d H:i:s');
 
-						$db->insert(DB_PREFIX . 'source_article', $values_insert, $values_update);
+							$values_insert = $values_update;
+							$values_insert['created'] = date('Y-m-d H:i:s');
+
+						//--------------------------------------------------
+						// Published date
+
+							$published = strtotime($article['published']);
+
+							if ($published === false) {
+
+								$values_insert['published'] = date('Y-m-d H:i:s');
+
+								unset($values_update['published']);
+
+							} else {
+
+								$values_insert['published'] = date('Y-m-d H:i:s', $published);
+								$values_update['published'] = date('Y-m-d H:i:s', $published);
+
+							}
+
+						//--------------------------------------------------
+						// Store
+
+							$db->insert(DB_PREFIX . 'source_article', $values_insert, $values_update);
 
 					}
 
