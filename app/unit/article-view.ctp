@@ -1,4 +1,4 @@
 
-	<div id="reader_view" sandbox="">
-		<iframe src="<?= html($article_url) ?>"></iframe>
+	<div id="reader_view">
+		<iframe src="<?= html($article_url) ?>" sandbox=""></iframe>
 	</div>

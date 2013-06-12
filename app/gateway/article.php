@@ -13,17 +13,22 @@
 	$sql = 'SELECT
 				sa.title,
 				sa.link,
-				sa.description
+				sa.description,
+				s.ref AS source_ref
 			FROM
 				' . DB_PREFIX . 'source_article AS sa
+			LEFT JOIN
+				' . DB_PREFIX . 'source AS s ON s.id = sa.source_id
 			WHERE
-				sa.id = "' . $db->escape($article_id) . '"';
+				sa.id = "' . $db->escape($article_id) . '" AND
+				s.deleted = "0000-00-00 00:00:00"';
 
 	if ($row = $db->fetch($sql)) {
 
 		$article_title = $row['title'];
 		$article_link = $row['link'];
 		$article_html = $row['description'];
+		$article_source = $row['source_ref'];
 
 	} else {
 
@@ -34,36 +39,42 @@
 //--------------------------------------------------
 // Expose image title attributes as paragraphs
 
-	libxml_use_internal_errors(true);
+	$article_html = trim($article_html);
 
-	$article_dom = new DomDocument();
-	$article_dom->loadHTML($article_html);
+	if ($article_html != '') {
 
-	$images = $article_dom->getElementsByTagName('img');
-	foreach ($images as $image) {
-		$title = $image->getAttribute('title');
-		if (!$title) {
-			$title = $image->getAttribute('alt');
+		libxml_use_internal_errors(true);
+
+		$article_dom = new DomDocument();
+		$article_dom->loadHTML('<?xml encoding="UTF-8">' . $article_html);
+
+		$images = $article_dom->getElementsByTagName('img');
+		foreach ($images as $image) {
+			$title = $image->getAttribute('title');
+			if (!$title) {
+				$title = $image->getAttribute('alt');
+			}
+			if ($title) {
+
+				$title_node = $article_dom->createElement('p', $title);
+				$title_node->setAttribute('class', 'img_title');
+
+				$image->parentNode->insertBefore($title_node, $image->nextSibling);
+
+			}
 		}
-		if ($title) {
 
-			$title_node = $article_dom->createElement('p', $title);
-			$title_node->setAttribute('class', 'img_title');
+		// $article_html = $article_dom->saveXML();
 
-			$image->parentNode->insertBefore($title_node, $image->nextSibling);
+		$article_html = '';
 
+		$body = $article_dom->documentElement->firstChild;
+		if ($body->hasChildNodes()) {
+			foreach ($body->childNodes as $node) {
+				$article_html .= $article_dom->saveXML($node);
+			}
 		}
-	}
 
-	// $article_html = $article_dom->saveXML();
-
-	$article_html = '';
-
-	$body = $article_dom->documentElement->firstChild;
-	if ($body->hasChildNodes()) {
-		foreach ($body->childNodes as $node) {
-			$article_html .= $article_dom->saveXML($node);
-		}
 	}
 
 //--------------------------------------------------
@@ -86,7 +97,7 @@
 </head>
 <body id="p_articles">
 
-	<div id="article_wrapper">
+	<div id="article_wrapper" class="<?= html($article_source) ?>">
 		<h1><a href="<?= html($article_link) ?>"><?= html($article_title) ?></a></h1>
 		<div>
 			<?= $article_html . "\n" ?>

@@ -51,12 +51,35 @@
 	#article_wrapper {
 		padding: 5px;
 	}
-	
+
 	#article_wrapper p.img_title {
-		margin: 5px 0; 
+		margin: 5px 0;
 		background: #ffffd8;
 		padding: 5px;
 		border: 1px solid #ffcc00;
 		clear: both;
 		max-width: 50em;
+	}
+
+/*--------------------------------------------------*/
+/* Webmaster help                                   */
+
+	#article_wrapper.webmaster-help table td:first-child img {
+		width: 100px;
+	}
+
+	#article_wrapper.webmaster-help table td:last-child,
+	#article_wrapper.webmaster-help table td:nth-child(2) div:first-child {
+		display: none;
+	}
+
+	#article_wrapper.webmaster-help table td {
+		vertical-align: top;
+	}
+
+/*--------------------------------------------------*/
+/* What if?                                         */
+
+	#article_wrapper.what-if article.entry h1 {
+		display: none;
 	}
