@@ -24,15 +24,30 @@
 
 			$db = db_get();
 
+			$source_id = NULL;
+
+			if ($source_id !== NULL) {
+
+				$where_sql = '
+					s.id = "' . $db->escape($source_id) . '" AND
+					s.deleted = "0000-00-00 00:00:00"';
+
+			} else {
+
+				$where_sql = '
+					s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
+					s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
+					s.deleted = "0000-00-00 00:00:00"';
+
+			}
+
 			$sql = 'SELECT
 						s.id,
 						s.url_feed
 					FROM
 						' . DB_PREFIX . 'source AS s
 					WHERE
-						s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
-						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
-						s.deleted = "0000-00-00 00:00:00"';
+						' . $where_sql;
 
 			foreach ($db->fetch_all($sql) as $row) {
 
@@ -88,11 +103,17 @@
 
 							foreach ($rss_xml->channel->item as $item) {
 
+								$description = strval($item->description);
+
+								if ($description == '') {
+									$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
+								}
+
 								$source_articles[] = array(
 										'guid'        => strval($item->guid),
 										'title'       => strval($item->title),
 										'link'        => strval($item->link),
-										'description' => strval($item->description),
+										'description' => $description,
 										'published'   => date('Y-m-d H:i:s', strtotime(strval($item->pubDate))),
 									);
 
@@ -128,6 +149,10 @@
 
 							$error = 'No articles found';
 
+						}
+
+						if ($source_id !== NULL) {
+							debug($source_articles);
 						}
 
 					}
