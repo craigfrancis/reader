@@ -61,6 +61,11 @@
 		max-width: 50em;
 	}
 
+	#article_wrapper p.published {
+		color: #BBB;
+		font-style: italic;
+	}
+
 /*--------------------------------------------------*/
 /* Webmaster help                                   */
 

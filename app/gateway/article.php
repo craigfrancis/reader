@@ -13,6 +13,7 @@
 	$sql = 'SELECT
 				sa.title,
 				sa.link,
+				sa.published,
 				sa.description,
 				s.ref AS source_ref
 			FROM
@@ -27,12 +28,38 @@
 
 		$article_title = $row['title'];
 		$article_link = $row['link'];
+		$article_published = $row['published'];
 		$article_html = $row['description'];
 		$article_source = $row['source_ref'];
 
 	} else {
 
 		exit_with_error('Cannot find article "' . $article_id . '"');
+
+	}
+
+//--------------------------------------------------
+// Read or unread
+
+	$article_read = request('read');
+
+	if ($article_read == 'true') {
+
+		$values = array(
+				'article_id' => $article_id,
+				'user_id' => USER_ID,
+				'read_date' => date('Y-m-d H:i:s'),
+			);
+
+		$db->insert(DB_PREFIX . 'source_article_read', $values, $values);
+
+	} else if ($article_read == 'false') {
+
+		$db->query('DELETE FROM
+						' . DB_PREFIX . 'source_article_read
+					WHERE
+						article_id = "' . $db->escape($article_id) . '" AND
+						user_id = "' . $db->escape(USER_ID) . '"');
 
 	}
 
@@ -102,6 +129,7 @@
 		<div>
 			<?= $article_html . "\n" ?>
 		</div>
+		<p class="published"><?= html(date('l jS F Y, g:ia', strtotime($article_published))) ?></p>
 	</div>
 
 </body>

@@ -5,8 +5,8 @@
 		private $article_id = NULL;
 		private $article_title = NULL;
 		private $article_source_id = NULL;
-		private $article_source_ref = NULL;
 		private $article_published = NULL;
+		private $article_read = NULL;
 
 		public function setup($config = array()) {
 
@@ -16,6 +16,7 @@
 				$config = array_merge(array(
 						'source' => NULL,
 						'article' => NULL,
+						'read' => NULL,
 					), $config);
 
 			//--------------------------------------------------
@@ -44,7 +45,8 @@
 				$sql = 'SELECT
 							sa.id,
 							sa.title,
-							sa.published
+							sa.published,
+							IF(sar.article_id IS NOT NULL, 1, 0) AS article_read
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
 						LEFT JOIN
@@ -57,14 +59,12 @@
 
 				if ($row = $db->fetch($sql)) {
 
-					$this->article_id = $row['id'];
-					$this->article_title = $row['title'];
-					$this->article_source_id = $source_id;
-					$this->article_source_ref = $source_ref;
-					$this->article_published = $row['published'];
+					$article_id = $row['id'];
+					$article_title = $row['title'];
+					$article_read = ($row['article_read'] == 1);
+					$article_published = $row['published'];
 
-					$this->set('article_title', $row['title']);
-					$this->set('article_url', gateway_url('article', array('id' => $row['id'])));
+					$article_url = gateway_url('article', array('id' => $article_id));
 
 				} else {
 
@@ -72,13 +72,48 @@
 
 				}
 
+			//--------------------------------------------------
+			// Article read
+
+				if ($config['read'] !== NULL) {
+
+					if ($config['read'] !== $article_read) {
+						$article_url->param_set('read', ($config['read'] ? 'true' : 'false'));
+					}
+
+					$article_read = $config['read'];
+
+				} else if (!$article_read) {
+
+					$article_url->param_set('read', 'true');
+
+					$article_read = true;
+
+				}
+
+			//--------------------------------------------------
+			// Variables
+
+				$this->article_id = $article_id;
+				$this->article_title = $article_title;
+				$this->article_source_id = $source_id;
+				$this->article_published = $article_published;
+				$this->article_read = $article_read;
+
+				$this->set('article_title', $article_title);
+				$this->set('article_url', $article_url);
+
 		}
 
 		public function title_get() {
 			return $this->article_title;
 		}
 
-		public function sibling_url($rel) {
+		public function read_get() {
+			return $this->article_read;
+		}
+
+		public function sibling_id_get($rel) {
 
 			$db = db_get();
 
@@ -92,7 +127,7 @@
 						sa.published > "' . $db->escape($this->article_published) . '" OR
 						(
 							sa.published = "' . $db->escape($this->article_published) . '" AND
-							sa.id < "' . $db->escape($this->article_id) . '"
+							sa.id > "' . $db->escape($this->article_id) . '"
 						)
 					)';
 
@@ -106,7 +141,7 @@
 						sa.published < "' . $db->escape($this->article_published) . '" OR
 						(
 							sa.published = "' . $db->escape($this->article_published) . '" AND
-							sa.id > "' . $db->escape($this->article_id) . '"
+							sa.id < "' . $db->escape($this->article_id) . '"
 						)
 					)';
 
@@ -127,7 +162,7 @@
 						1';
 
 			if ($row = $db->fetch($sql)) {
-				return url('/articles/:source/', array('source' => $this->article_source_ref, 'id' => $row['id']));
+				return $row['id'];
 			} else {
 				return NULL;
 			}

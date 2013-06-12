@@ -139,11 +139,20 @@
 	/* Page footer                                      */
 
 		#page_footer {
+
 			background: #000;
 			color: #FFF;
 			padding: 15px 5px;
 			text-align: center;
 			overflow: auto;
+
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+
 		}
 
 		#page_footer a {
@@ -157,6 +166,8 @@
 
 		#page_footer a.back {
 			float: left;
+			text-align: left;
+			width: 5em;
 		}
 
 		#page_footer a.nextX {
@@ -171,8 +182,11 @@
 			border-bottom-color: #FFF;
 		}
 
-		#page_footer a.read {
+		#page_footer a.read,
+		#page_footer a.unread {
 			float: right;
+			text-align: right;
+			width: 5em;
 		}
 
 /*--------------------------------------------------*/
@@ -246,6 +260,11 @@
 	#reader_list li a {
 		display: block;
 		padding: 5px;
+	}
+
+	#reader_list li.no_articles {
+		padding: 20px;
+		text-align: center;
 	}
 
 /*--------------------------------------------------*/
