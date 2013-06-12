@@ -24,7 +24,7 @@
 
 			$db = db_get();
 
-			$source_id = NULL;
+			$source_id = 2;
 
 			if ($source_id !== NULL) {
 
@@ -104,9 +104,21 @@
 							foreach ($rss_xml->channel->item as $item) {
 
 								$description = strval($item->description);
-
 								if ($description == '') {
 									$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
+								}
+
+								$published = strval($item->pubDate);
+								if ($published == '') {
+									$dc_node = $item->children('dc', true);
+									if ($dc_node) {
+										$published = strval($dc_node->date); // Namespaced <dc:date> tag
+									}
+								}
+								if ($published != '') {
+									$published = date('Y-m-d H:i:s', strtotime($published));
+								} else {
+									$error = 'Cannot extract published date';
 								}
 
 								$source_articles[] = array(
@@ -114,7 +126,7 @@
 										'title'       => strval($item->title),
 										'link'        => strval($item->link),
 										'description' => $description,
-										'published'   => date('Y-m-d H:i:s', strtotime(strval($item->pubDate))),
+										'published'   => $published,
 									);
 
 							}
@@ -152,6 +164,9 @@
 						}
 
 					}
+
+debug($source_articles);
+exit();
 
 				//--------------------------------------------------
 				// Add articles
