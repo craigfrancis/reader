@@ -1,6 +1,6 @@
 <?php
 
-	class article_list_unit extends unit {
+	class article_list_source_unit extends unit {
 
 		public function setup($config = array()) {
 

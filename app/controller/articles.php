@@ -70,15 +70,26 @@
 				//--------------------------------------------------
 				// Listing unit
 
-					$unit = unit_add('article_list', array(
-							'source' => $source,
-						));
+					if ($source === 'read') {
 
-					// if (count($unit->get('articles')) == 0) {
-					// 	redirect(url('/articles/'));
-					// }
+						$unit = unit_add('article_list_read', array(
+							));
 
-					$response->title_folder_set(1, $source);
+						$response->title_folder_set(1, 'Read articles');
+
+					} else {
+
+						$unit = unit_add('article_list_source', array(
+								'source' => $source,
+							));
+
+						// if (count($unit->get('articles')) == 0) {
+						// 	redirect(url('/articles/'));
+						// }
+
+						$response->title_folder_set(1, $source);
+
+					}
 
 				//--------------------------------------------------
 				// Footer URLs
@@ -92,7 +103,9 @@
 				//--------------------------------------------------
 				// Index unit
 
-					unit_add('article_index');
+					unit_add('article_index', array(
+							'read_url' => url('/articles/:source/', array('source' => 'read')),
+						));
 
 				//--------------------------------------------------
 				// JavaScript

@@ -226,8 +226,9 @@
 		display: flex;          /* NEW: Opera 12.1, Firefox 22+ */
 	}
 
-	#reader_index li.no_articles {
-		display: none;
+	#reader_index li.read a {
+		color: #BBB;
+		text-decoration: none;
 	}
 
 	#reader_index li a {
@@ -255,11 +256,12 @@
 
 	#reader_list li {
 		border-bottom: 1px solid #EEE;
-	}
-
-	#reader_list li a {
 		display: block;
 		padding: 5px;
+	}
+
+	#reader_list li span {
+		color: #BBB;
 	}
 
 	#reader_list li.no_articles {
