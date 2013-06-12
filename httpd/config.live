@@ -17,4 +17,9 @@
 
 		AllowOverride All
 
+		AuthType Basic
+		AuthName "Reader"
+		AuthUserFile /www/live/craig.reader/httpd/htpasswd.live
+		Require valid-user
+
 	</Directory>
