@@ -1,6 +1,6 @@
 
 (function(window, document, undefined) {
-
+return;
 	//--------------------------------------------------
 	// Variables
 

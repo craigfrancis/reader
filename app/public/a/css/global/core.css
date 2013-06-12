@@ -84,26 +84,50 @@
 /* Page Frame                                       */
 
 	/*--------------------------------------------------*/
-	/* Page title                                       */
+	/* Page wrapper                                     */
 
-		#page_title h1 {
-			display: none;
-			background: #000;
-			color: #FFF;
-			font-weight: normal;
-			margin: 0;
-			padding: 5px;
+		html,
+		body,
+		#page_wrapper {
+			height: 100%; /* Used for display flex, to fix footer at bottom */
 		}
 
-		#page_title h1 a {
-			display: block;
-			background: #000;
-			color: #FFF;
-			text-decoration: none;
+		#page_wrapper {
+
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-box-align: stretch;
+
+			display: -moz-box;
+			-moz-box-orient: vertical;
+			-moz-box-align: stretch;
+
+			display: box;
+			box-orient: vertical;
+			box-align: stretch;
+
+			height: 100%;
+			background: red;
+
+		}
+
+	/*--------------------------------------------------*/
+	/* Page title                                       */
+
+		#page_title {
+			display: none;
 		}
 
 	/*--------------------------------------------------*/
 	/* Page content                                     */
+
+		#page_content {
+
+			-webkit-box-flex: 1;
+			-moz-box-flex: 1;
+			box-flex: 1;
+
+		}
 
 		@media only screen and (min-width: 35em) {
 
@@ -114,17 +138,24 @@
 	/* Page footer                                      */
 
 		#page_footer {
+
+			-webkit-box-flex: 2;
+			-moz-box-flex: 2;
+			box-flex: 2;
+
 			background: #000;
 			color: #FFF;
 			padding: 15px 5px;
 			text-align: center;
 			overflow: auto;
+
 		}
 
 		#page_footer a {
 			color: #FFF;
 		}
 
+		#page_footer span,
 		#page_footer a[href="#"] {
 			color: #666;
 		}
@@ -225,6 +256,8 @@
 
 	#reader_view iframe {
 		width: 100%;
+		height: 100%;
+		border-bottom: 1px solid red;
 		display: block;
 	}
 

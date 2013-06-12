@@ -20,8 +20,8 @@
 
 				$response->set('footer_urls', array(
 						array('text' => 'Back',     'class' => 'back', 'href' => url('/articles/:source/', array('source' => $source))),
-						array('text' => 'Previous', 'class' => 'prev', 'href' => url('/articles/:source/', array('source' => $source))),
-						array('text' => 'Next',     'class' => 'next', 'href' => url('/articles/:source/', array('source' => $source))),
+						array('text' => 'Previous', 'class' => 'prev', 'href' => $unit->sibling_url(-1)),
+						array('text' => 'Next',     'class' => 'next', 'href' => $unit->sibling_url(+1)),
 						array('text' => 'Read',     'class' => 'read', 'href' => url('/articles/:source/', array('source' => $source))),
 					));
 

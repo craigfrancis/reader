@@ -60,8 +60,13 @@
 			<footer id="page_footer" role="contentinfo">
 				<?php
 					foreach ($footer_urls as $footer_url) {
-						echo '
-							<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</a>';
+						if ($footer_url['href']) {
+							echo '
+								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</a>';
+						} else {
+							echo '
+								<span class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</span>';
+						}
 					}
 				?>
 			</footer>
