@@ -24,7 +24,7 @@
 
 			$db = db_get();
 
-			$source_id = NULL;
+			$source_id = 10;
 
 			if ($source_id !== NULL) {
 
