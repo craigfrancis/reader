@@ -22,7 +22,153 @@
 
 		public function run() {
 
+			$db = db_get();
 
+			$sql = 'SELECT
+						s.id,
+						s.url_feed
+					FROM
+						' . DB_PREFIX . 'source AS s
+					WHERE
+						s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
+						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
+						s.deleted = "0000-00-00 00:00:00"';
+
+			foreach ($db->fetch_all($sql) as $row) {
+
+				//--------------------------------------------------
+				// Details
+
+					$error = false;
+
+					$source_id = $row['id'];
+					$source_url = $row['url_feed'];
+					$source_articles = array();
+
+				//--------------------------------------------------
+				// Get XML ... don't do directly in simple xml as
+				// FeedBurner has issues
+
+					$headers = array(
+							'User-Agent: RSS Reader',
+						);
+
+					$context = stream_context_create(array(
+							'http' => array(
+									'method' => 'GET',
+									'header' => implode("\r\n", $headers) . "\r\n",
+								)
+						));
+
+					$rss_data = @file_get_contents($source_url, false, $context);
+
+					if (trim($rss_data) == '') {
+						$error = 'Cannot return feed';
+					}
+
+				//--------------------------------------------------
+				// Parse XML
+
+					if (!$error) {
+
+						$rss_xml = @simplexml_load_string($rss_data);
+
+						if ($rss_xml === false) {
+							$error = 'Cannot parse feed';
+						}
+
+					}
+
+				//--------------------------------------------------
+				// Extract articles
+
+					if (!$error) {
+
+						if (isset($rss_xml->channel->item)) { // RSS
+
+							foreach ($rss_xml->channel->item as $item) {
+
+								$source_articles[] = array(
+										'guid'        => strval($item->guid),
+										'title'       => strval($item->title),
+										'link'        => strval($item->link),
+										'description' => strval($item->description),
+										'published'   => date('Y-m-d H:i:s', strtotime(strval($item->pubDate))),
+									);
+
+							}
+
+						} else if (isset($rss_xml->entry)) { // Atom
+
+							foreach ($rss_xml->entry as $entry) {
+
+								if ($entry->content) {
+									$description = strval($entry->content);
+								} else {
+									$description = strval($entry->summary);
+								}
+
+								$source_articles[] = array(
+										'guid'        => strval($entry->id),
+										'title'       => strval($entry->title),
+										'link'        => strval($entry->link['href']),
+										'description' => $description,
+										'published'   => date('Y-m-d H:i:s', strtotime(strval($entry->published))),
+									);
+
+							}
+
+						} else {
+
+							$error = 'Unknown feed format';
+
+						}
+
+						if (!$error && count($source_articles) == 0) {
+
+							$error = 'No articles found';
+
+						}
+
+					}
+
+				//--------------------------------------------------
+				// Add articles
+
+					foreach ($source_articles as $article) {
+
+						$values_update = $article;
+						$values_update['source_id'] = $source_id;
+						$values_update['updated'] = date('Y-m-d H:i:s');
+
+						$values_insert = $values_update;
+						$values_insert['created'] = date('Y-m-d H:i:s');
+
+						$db->insert(DB_PREFIX . 'source_article', $values_insert, $values_update);
+
+					}
+
+				//--------------------------------------------------
+				// Record as updated
+
+					if ($error) {
+						$values = array(
+								'error_text' => $error,
+								'error_date' => date('Y-m-d H:i:s'),
+							);
+					} else {
+						$values = array(
+								'updated' => date('Y-m-d H:i:s'),
+							);
+					}
+
+					$where_sql = '
+						id = "' . $db->escape($source_id) . '" AND
+						deleted = "0000-00-00 00:00:00"';
+
+					$db->update(DB_PREFIX . 'source', $values, $where_sql);
+
+			}
 
 		}
 
