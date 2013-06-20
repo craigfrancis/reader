@@ -126,7 +126,7 @@
 			-webkit-flex: 1;          /* NEW, Chrome 21+ */
 			flex: 1;                  /* NEW: Opera 12.1, Firefox 22+ */
 
-			position: relative;
+			position: relative; /* iOS does not make the footer links active */
 
 			-webkit-overflow-scrolling: touch;
 			overflow: auto;
