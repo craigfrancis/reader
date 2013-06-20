@@ -79,9 +79,7 @@
 
 	@media only screen and (max-device-width: 480px) {
 		#article_wrapper {
--webkit-hyphens: auto;
-   -moz-hyphens: auto;
-        hyphens: auto;
+
 		}
 		#article_wrapper blockquote {
 			overflow: auto;
