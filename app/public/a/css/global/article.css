@@ -52,6 +52,10 @@
 		padding: 5px;
 	}
 
+	body.inline #article_wrapper {
+		padding: 10px 0 0 0;
+	}
+
 	#article_wrapper p.img_title {
 		margin: 5px 0;
 		background: #ffffd8;
@@ -64,6 +68,10 @@
 	#article_wrapper p.published {
 		color: #BBB;
 		font-style: italic;
+	}
+
+	body.inline #article_wrapper h1 {
+		display: none;
 	}
 
 /*--------------------------------------------------*/
@@ -80,6 +88,13 @@
 
 	#article_wrapper.webmaster-help table td {
 		vertical-align: top;
+	}
+
+/*--------------------------------------------------*/
+/* A list apart                                     */
+
+	#article_wrapper.a-list-apart div > a:first-child {
+		display: none;
 	}
 
 /*--------------------------------------------------*/

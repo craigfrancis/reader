@@ -57,28 +57,28 @@ return;
 			viewer_back_node.classList.add('back');
 			viewer_back_node.setAttribute('href', '#');
 			viewer_back_node.textContent = 'Back';
-			viewer_back_node.onclick = back_link_click;
+			viewer_back_node.addEventListener('click', back_link_click, false);
 
 			var viewer_prev_node = document.createElement('a');
 			viewer_prev_node.classList.add('prev');
 			viewer_prev_node.style.display = 'none';
 			viewer_prev_node.setAttribute('href', '#');
 			viewer_prev_node.textContent = 'Previous';
-			viewer_prev_node.onclick = view_article_click;
+			viewer_prev_node.addEventListener('click', view_article_click, false);
 
 			var viewer_next_node = document.createElement('a');
 			viewer_next_node.classList.add('next');
 			viewer_next_node.style.display = 'none';
 			viewer_next_node.setAttribute('href', '#');
 			viewer_next_node.textContent = 'Next';
-			viewer_next_node.onclick = view_article_click;
+			viewer_next_node.addEventListener('click', view_article_click, false);
 
 			var viewer_read_node = document.createElement('a');
 			viewer_read_node.classList.add('read');
 			viewer_read_node.style.display = 'none';
 			viewer_read_node.setAttribute('href', '#');
 			viewer_read_node.textContent = 'Read';
-			viewer_read_node.onclick = read_article_click;
+			viewer_read_node.addEventListener('click', read_article_click, false);
 
 			reader_footer_node.appendChild(viewer_back_node);
 			reader_footer_node.appendChild(document.createTextNode(' '));
@@ -110,15 +110,15 @@ return;
 					link_node.textContent = source_data[k].name;
 					link_node.setAttribute('data-source', k);
 					link_node.setAttribute('href', source_data[k].url);
-					link_node.onclick = view_source_click;
+					link_node.addEventListener('click', view_source_click, false);
 					item_node.appendChild(link_node);
 					item_node.appendChild(count_node);
 					reader_index_node.appendChild(item_node);
 				}
 			}
 
-view_source('garfield');
-view_article(1);
+// view_source('garfield');
+// view_article(1);
 
 		}
 
@@ -178,16 +178,36 @@ view_article(1);
 				    reader_list_node.removeChild(reader_list_node.lastChild);
 				}
 
+var inline = true; // Use media match query?
+
 				var source_articles = source_data[source]['articles'];
 				for (var k = 0; k < source_articles.length; k++) {
+
 					var item_node = document.createElement('li');
 					var link_node = document.createElement('a');
 					link_node.textContent = source_articles[k].title;
-					link_node.onclick = view_article_click;
-					link_node.setAttribute('href', source_articles[k].url);
-					link_node.setAttribute('data-article-ref', k);
-					item_node.appendChild(link_node);
+
+					if (inline) {
+
+						link_node.setAttribute('href', source_articles[k].link);
+						link_node.setAttribute('target', '_blank');
+						item_node.appendChild(link_node);
+
+						var link_iframe = document.createElement('iframe');
+						link_iframe.setAttribute('src', '/a/api/article/?id=' + encodeURIComponent(source_articles[k].id) + '&inline=true');
+						item_node.appendChild(link_iframe);
+
+					} else {
+
+						link_node.addEventListener('click', view_article_click, false);
+						link_node.setAttribute('href', source_articles[k].url);
+						link_node.setAttribute('data-article-ref', k);
+						item_node.appendChild(link_node);
+
+					}
+
 					reader_list_node.appendChild(item_node);
+
 				}
 
 				reader_index_node.style.display = 'none';
@@ -207,8 +227,10 @@ view_article(1);
 
 		}
 
-		function view_source_click() {
-			return !view_source(this.getAttribute('data-source'));
+		function view_source_click(e) {
+			if (view_source(this.getAttribute('data-source'))) {
+				e.preventDefault();
+			}
 		}
 
 	//--------------------------------------------------
@@ -268,8 +290,10 @@ view_article(1);
 
 		}
 
-		function view_article_click() {
-			return !view_article(this.getAttribute('data-article-ref'));
+		function view_article_click(e) {
+			if (view_article(this.getAttribute('data-article-ref'))) {
+				e.preventDefault();
+			}
 		}
 
 	//--------------------------------------------------
@@ -295,19 +319,24 @@ view_article(1);
 
 		}
 
-		function read_article_click() {
-			return !read_article(this.getAttribute('data-article-ref'));
+		function read_article_click(e) {
+			if (read_article(this.getAttribute('data-article-ref'))) {
+				e.preventDefault();
+			}
 		}
 
 	//--------------------------------------------------
 	// Back link
-	
-		function back_link_click() {
+
+		function back_link_click(e) {
 			// if (current_source !== null && current_article !== null) {
-			// 	return !view_source(current_source);
+			// 	var success = view_source(current_source);
 			// } else {
-				return !view_index();
+				var success = view_index();
 			// }
+			if (success) {
+				e.preventDefault();
+			}
 		}
 
 })(window, document);

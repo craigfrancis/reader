@@ -105,6 +105,15 @@
 	}
 
 //--------------------------------------------------
+// Body class
+
+	$body_class = $article_source;
+
+	if (request('inline') == 'true') {
+		$body_class .= ' inline';
+	}
+
+//--------------------------------------------------
 // Output
 
 ?>
@@ -122,14 +131,17 @@
 	<base target="_blank" />
 
 </head>
-<body id="p_articles">
+<body id="p_articles" class="<?= html($body_class) ?>">
 
 	<div id="article_wrapper" class="<?= html($article_source) ?>">
 		<h1><a href="<?= html($article_link) ?>"><?= html($article_title) ?></a></h1>
 		<div>
 			<?= $article_html . "\n" ?>
 		</div>
-		<p class="published"><?= html(date('l jS F Y, g:ia', strtotime($article_published))) ?></p>
+		<p class="article_info">
+			<a href="<?= html($article_link) ?>">View</a> |
+			<span><?= html(date('l jS F Y, g:ia', strtotime($article_published))) ?></span>
+		</p>
 	</div>
 
 </body>
