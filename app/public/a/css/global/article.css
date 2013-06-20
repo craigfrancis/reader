@@ -78,6 +78,9 @@
 	}
 
 	@media only screen and (max-device-width: 480px) {
+		#article_wrapper {
+			word-break: hyphenate;
+		}
 		#article_wrapper blockquote {
 			overflow: auto;
 			width: 310px;
