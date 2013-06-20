@@ -128,6 +128,9 @@
 
 			position: relative;
 
+			-webkit-overflow-scrolling: touch;
+			overflow: auto;
+
 		}
 
 		@media only screen and (min-width: 35em) {
@@ -145,8 +148,6 @@
 			padding: 15px 5px;
 			text-align: center;
 			overflow: auto;
-
-position: relative;
 
 			-webkit-touch-callout: none;
 			-webkit-user-select: none;
@@ -280,12 +281,9 @@ position: relative;
 /* View                                             */
 
 	#reader_view {
-		position: absolute;
+		position: absolute; /* Required for iOS (crashes without it?) */
 		height: 100%;
 		width: 100%;
-
--webkit-overflow-scrolling: touch;
-overflow: auto;
 	}
 
 	#reader_view iframe {
