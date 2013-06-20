@@ -77,7 +77,7 @@
 		font-style: italic;
 	}
 
-	@media only screen and (max-device-width: 10480px) {
+	@media only screen and (max-device-width: 480px) {
 		#article_wrapper blockquote {
 			overflow: auto;
 			width: 310px;
@@ -132,7 +132,7 @@
 /*--------------------------------------------------*/
 /* Daily WTF                                        */
 
-	#article_wrapper.the-daily-wtf > div > div {
+	#article_wrapper.the-daily-wtf > div > div:nth-last-child(3) {
 		display: none;
 	}
 
