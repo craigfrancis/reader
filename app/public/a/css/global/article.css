@@ -84,7 +84,8 @@
 		}
 		#article_wrapper blockquote,
 		#article_wrapper pre,
-		#article_wrapper span.image_wrapper {
+		#article_wrapper span.image_wrapper,
+		#article_wrapper div#player {
 			overflow: auto;
 			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
 		}
