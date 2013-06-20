@@ -145,7 +145,7 @@
 
 			background: #000;
 			color: #FFF;
-			padding: 15px 5px;
+			padding: 20px 5px;
 			text-align: center;
 			overflow: auto;
 
@@ -173,7 +173,8 @@
 			width: 5em;
 		}
 
-		#page_footer a.nextX {
+		#page_footer a.next {
+			padding-left: 10px;
 		}
 
 		#page_footer a.nextX:after {
