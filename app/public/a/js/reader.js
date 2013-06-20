@@ -197,6 +197,10 @@ var inline = true; // Use media match query?
 						link_iframe.setAttribute('src', '/a/api/article/?id=' + encodeURIComponent(source_articles[k].id) + '&inline=true');
 						item_node.appendChild(link_iframe);
 
+// iFrames.load(function() {
+// 	this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+// });
+
 					} else {
 
 						link_node.addEventListener('click', view_article_click, false);
