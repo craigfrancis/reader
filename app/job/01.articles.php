@@ -104,9 +104,9 @@
 
 							foreach ($rss_xml->channel->item as $item) {
 
-								$description = strval($item->description);
+								$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
 								if ($description == '') {
-									$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
+									$description = strval($item->description);
 								}
 
 								$published = strval($item->pubDate);
