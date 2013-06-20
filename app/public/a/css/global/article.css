@@ -58,6 +58,7 @@
 
 	body.inline #article_wrapper h1 {
 		display: none;
+		position: relative;
 	}
 
 	#article_wrapper span.image_wrapper em {
