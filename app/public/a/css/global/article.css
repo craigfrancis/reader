@@ -82,7 +82,8 @@
 		#article_wrapper {
 			word-break: break-word; /* Works in iOS, other solutions are very buggy (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
 		}
-		#article_wrapper blockquote {
+		#article_wrapper blockquote,
+		#article_wrapper pre {
 			overflow: auto;
 			width: 310px;
 		}
