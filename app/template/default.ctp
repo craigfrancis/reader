@@ -62,10 +62,10 @@
 					foreach ($footer_urls as $footer_url) {
 						if ($footer_url['href']) {
 							echo '
-								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</a>';
+								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"><span>' . html($footer_url['text']) . '</span></a>';
 						} else {
 							echo '
-								<span class="' . html($footer_url['class']) . '">' . html($footer_url['text']) . '</span>';
+								<span class="' . html($footer_url['class']) . '"><span>' . html($footer_url['text']) . '</span></span>';
 						}
 					}
 				?>
