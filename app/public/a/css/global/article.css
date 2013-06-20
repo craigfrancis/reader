@@ -56,15 +56,8 @@
 		padding: 10px 0 0 0;
 	}
 
-	@media only screen and (max-width: 320px) {
-		#article_wrapper span.image_wrapper {
-			display: block;
-			overflow: auto;
-			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
-		}
-		#article_wrapper span.image_wrapper img {
-			display: block;
-		}
+	body.inline #article_wrapper h1 {
+		display: none;
 	}
 
 	#article_wrapper span.image_wrapper em {
@@ -84,8 +77,19 @@
 		font-style: italic;
 	}
 
-	body.inline #article_wrapper h1 {
-		display: none;
+	@media only screen and (max-device-width: 10480px) {
+		#article_wrapper blockquote {
+			overflow: auto;
+			width: 310px;
+		}
+		#article_wrapper span.image_wrapper {
+			display: block;
+			overflow: auto;
+			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
+		}
+		#article_wrapper span.image_wrapper img {
+			display: block;
+		}
 	}
 
 /*--------------------------------------------------*/
@@ -122,5 +126,12 @@
 /* What if?                                         */
 
 	#article_wrapper.what-if article.entry h1 {
+		display: none;
+	}
+	
+/*--------------------------------------------------*/
+/* Daily WTF                                        */
+
+	#article_wrapper.the-daily-wtf .feedflare {
 		display: none;
 	}
