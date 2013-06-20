@@ -22,6 +22,7 @@
 				' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
 			WHERE
 				s.deleted = "0000-00-00 00:00:00" AND
+				sa.id IS NOT NULL AND
 				sar.article_id IS NULL
 			ORDER BY
 				s.sort,
@@ -29,9 +30,9 @@
 
 	foreach ($db->fetch_all($sql) as $row) {
 
-		if (!isset($return[$row['id']])) {
+		if (!isset($return[$row['ref']])) { // Use ref to force object and order of nodes
 
-			$return[$row['id']] = array(
+			$return[$row['ref']] = array(
 					'url' => strval(url('/articles/:source/', array('source' => $row['ref']))),
 					'name' => $row['title'],
 					'articles' => array(),
@@ -39,7 +40,7 @@
 
 		}
 
-		$return[$row['id']]['articles'][] = array(
+		$return[$row['ref']]['articles'][] = array(
 				'title' => $row['article_title'],
 				'id' => $row['article_id'],
 				'url' => strval(url('/articles/:source/', array('source' => $row['ref'], 'id' => $row['article_id']))),
