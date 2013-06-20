@@ -60,8 +60,7 @@
 				//--------------------------------------------------
 				// Set
 
-					$response->title_folder_set(1, $source);
-					$response->title_folder_set(2, $unit->title_get());
+					$response->title_full_set($unit->get('source_title') . ' | ' . $unit->get('article_title'));
 
 					$response->set('footer_urls', $footer_urls);
 
@@ -75,7 +74,7 @@
 						$unit = unit_add('article_list_read', array(
 							));
 
-						$response->title_folder_set(1, 'Read articles');
+						$response->title_full_set('Read articles');
 
 					} else {
 
@@ -87,7 +86,7 @@
 						// 	redirect(url('/articles/'));
 						// }
 
-						$response->title_folder_set(1, $source);
+						$response->title_full_set($unit->get('source_title'));
 
 					}
 
@@ -114,6 +113,8 @@
 
 				//--------------------------------------------------
 				// Footer URLs
+
+					$response->title_full_set('Reader');
 
 					$response->set('footer_urls', array(
 							array('text' => 'Back', 'class' => 'back', 'href' => url('/')),

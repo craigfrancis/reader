@@ -3,7 +3,6 @@
 	class article_view_unit extends unit {
 
 		private $article_id = NULL;
-		private $article_title = NULL;
 		private $article_source_id = NULL;
 		private $article_published = NULL;
 		private $article_read = NULL;
@@ -25,7 +24,8 @@
 				$db = db_get();
 
 				$sql = 'SELECT
-							s.id
+							s.id,
+							s.title
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
@@ -34,6 +34,7 @@
 
 				if ($row = $db->fetch($sql)) {
 					$source_id = $row['id'];
+					$source_title = $row['title'];
 					$source_ref = $config['source'];
 				} else {
 					error_send('page-not-found');
@@ -95,18 +96,14 @@
 			// Variables
 
 				$this->article_id = $article_id;
-				$this->article_title = $article_title;
 				$this->article_source_id = $source_id;
 				$this->article_published = $article_published;
 				$this->article_read = $article_read;
 
+				$this->set('source_title', $source_title);
 				$this->set('article_title', $article_title);
 				$this->set('article_url', $article_url);
 
-		}
-
-		public function title_get() {
-			return $this->article_title;
 		}
 
 		public function read_get() {

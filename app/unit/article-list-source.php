@@ -18,7 +18,8 @@
 				$db = db_get();
 
 				$sql = 'SELECT
-							s.id
+							s.id,
+							s.title
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
@@ -27,6 +28,7 @@
 
 				if ($row = $db->fetch($sql)) {
 					$source_id = $row['id'];
+					$source_title = $row['title'];
 					$source_ref = $config['source'];
 				} else {
 					error_send('page-not-found');
@@ -80,6 +82,7 @@
 			//--------------------------------------------------
 			// Variables
 
+				$this->set('source_title', $source_title);
 				$this->set('articles', $articles);
 
 		}
