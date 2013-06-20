@@ -56,13 +56,27 @@
 		padding: 10px 0 0 0;
 	}
 
-	#article_wrapper p.img_title {
+	@media only screen and (max-width: 320px) {
+		#article_wrapper span.image_wrapper {
+			display: block;
+			overflow: auto;
+			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
+		}
+		#article_wrapper span.image_wrapper img {
+			display: block;
+		}
+	}
+
+	#article_wrapper span.image_wrapper em {
+		display: block;
 		margin: 5px 0;
-		background: #ffffd8;
+		color: #000;
+		background: #FFFFD8;
 		padding: 5px;
 		border: 1px solid #ffcc00;
 		clear: both;
 		max-width: 50em;
+		font-style: normal;
 	}
 
 	#article_wrapper p.published {

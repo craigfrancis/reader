@@ -77,18 +77,24 @@
 
 		$images = $article_dom->getElementsByTagName('img');
 		foreach ($images as $image) {
+
+			$wrapper_node = $article_dom->createElement('span');
+			$wrapper_node->setAttribute('class', 'image_wrapper');
+
+			$image->parentNode->replaceChild($wrapper_node, $image);
+
+			$wrapper_node->appendChild($image);
+
 			$title = $image->getAttribute('title');
 			if (!$title) {
 				$title = $image->getAttribute('alt');
 			}
+
 			if ($title) {
-
-				$title_node = $article_dom->createElement('p', $title);
-				$title_node->setAttribute('class', 'img_title');
-
-				$image->parentNode->insertBefore($title_node, $image->nextSibling);
-
+				$title_node = $article_dom->createElement('em', $title);
+				$wrapper_node->appendChild($title_node);
 			}
+
 		}
 
 		// $article_html = $article_dom->saveXML();
@@ -123,12 +129,12 @@
 
 	<meta charset="UTF-8" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
 	<title>Article</title>
 
 	<link rel="shortcut icon" type="image/x-icon" href="/a/img/global/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?= html(version_path('/a/css/global/article.css')) ?>" media="all" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 	<base target="_blank" />
 
