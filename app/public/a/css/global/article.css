@@ -132,6 +132,10 @@
 /*--------------------------------------------------*/
 /* Daily WTF                                        */
 
+	#article_wrapper.the-daily-wtf > div > div {
+		display: none;
+	}
+
 	#article_wrapper.the-daily-wtf .feedflare {
 		display: none;
 	}
