@@ -248,6 +248,7 @@
 		float: right;
 		padding: 5px;
 		font-style: normal;
+		position: relative; /* iOS forgets to show */
 	}
 
 /*--------------------------------------------------*/
