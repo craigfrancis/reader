@@ -2,6 +2,15 @@
 	<VirtualHost *:80>
 
 		ServerName reader.craigfrancis.co.uk
+
+		RewriteEngine on
+		RewriteRule ^(.*)  https://reader.craigfrancis.co.uk$1  [R=302,L]
+
+	</VirtualHost>
+
+	<VirtualHost 85.13.244.130:443>
+
+		ServerName reader.craigfrancis.co.uk
 		DocumentRoot /www/live/craig.reader/app/public/
 
 		CustomLog /www/live/craig.reader/logs/access_log combined
@@ -11,15 +20,17 @@
 			php_value newrelic.appname "Craig: Reader"
 		</IfModule>
 
+		SSLEngine On
+		SSLCertificateFile /etc/apache2/ssl/reader.craigfrancis.co.uk.crt
+		SSLCertificateKeyFile /etc/apache2/ssl/reader.craigfrancis.co.uk.key
+		#SSLCertificateChainFile /etc/apache2/ssl/godaddy.com.crt
+
+		<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+			SSLOptions +StdEnvVars
+		</Files>
+
+		SetEnvIf User-Agent ".*MSIE.*" \
+		  nokeepalive ssl-unclean-shutdown \
+		  downgrade-1.0 force-response-1.0
+
 	</VirtualHost>
-
-	<Directory "/www/live/craig.reader/app/public/">
-
-		AllowOverride All
-
-		AuthType Basic
-		AuthName "Reader"
-		AuthUserFile /www/live/craig.reader/httpd/htpasswd.live
-		Require valid-user
-
-	</Directory>
