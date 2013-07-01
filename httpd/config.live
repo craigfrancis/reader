@@ -34,3 +34,15 @@
 		  downgrade-1.0 force-response-1.0
 
 	</VirtualHost>
+
+	<Directory "/www/live/odyssey.store/">
+
+		AllowOverride None
+
+		RewriteEngine On
+		RewriteCond %{REQUEST_FILENAME} !^/a/files/
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteRule ^(.*)$ /www/live/craig.reader/app/public/index.php [L]
+
+	</Directory>
