@@ -47,7 +47,7 @@
 					}
 
 					$footer_urls = array();
-					$footer_urls[] = array('text' => 'Back',     'class' => 'back', 'href' => url('/articles/:source/', array('source' => $source)));
+					$footer_urls[] = array('text' => 'Back',     'class' => 'back', 'href' => url('/articles/'));
 					$footer_urls[] = array('text' => 'Previous', 'class' => 'prev', 'href' => $sibling_prev_url);
 					$footer_urls[] = array('text' => 'Next',     'class' => 'next', 'href' => $sibling_next_url);
 
