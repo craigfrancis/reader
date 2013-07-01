@@ -12,6 +12,7 @@
 				$this->setup();
 
 				$this->session->length_set(60*60*24*14);
+				$this->session->allow_concurrent_set(true);
 
 			}
 
