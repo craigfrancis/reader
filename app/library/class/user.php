@@ -3,21 +3,14 @@
 	class user extends user_base {
 
 		//--------------------------------------------------
-		// Variables
+		// Setup
 
-			protected $identification_type = 'username';
+			public function __construct() {
 
-		//--------------------------------------------------
-		// Support functions
+				$this->identification_type = 'username';
 
-			public function require_login() {
-				if ($this->user_id == 0) {
-					$this->login_redirect(url('/'));
-				}
-			}
+				$this->setup();
 
-			public function login_redirect($url) {
-				save_request_redirect($url, $this->last_login_get());
 			}
 
 	}

@@ -2,6 +2,17 @@
 
 	class articles_controller extends controller {
 
+		public function route() {
+
+			//--------------------------------------------------
+			// Require login
+
+				if (!USER_LOGGED_IN) {
+					redirect(url('/'));
+				}
+
+		}
+
 		public function action_index($source = NULL) {
 
 			$response = response_get();

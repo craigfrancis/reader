@@ -6,6 +6,13 @@
 	$article_id = request('id');
 
 //--------------------------------------------------
+// Require login
+
+	if (!USER_LOGGED_IN) {
+		redirect(url('/'));
+	}
+
+//--------------------------------------------------
 // Details
 
 	$db = db_get();

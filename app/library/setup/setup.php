@@ -11,10 +11,6 @@
 
 	if (USER_LOGGED_IN) {
 
-		if (request_folder_get(0) === NULL) {
-			redirect(url('/articles/'));
-		}
-
 		$user_details = $user->values_get(array('username'));
 
 		define('USER_NAME', $user_details['username']);
@@ -22,10 +18,6 @@
 		config::array_set('debug.values', 'User', USER_NAME . ' (' . USER_ID . ')');
 
 	} else {
-
-		if (request_folder_get(0) !== NULL) {
-			redirect(url('/'));
-		}
 
 		define('USER_NAME', NULL);
 
