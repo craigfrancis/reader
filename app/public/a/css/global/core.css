@@ -210,7 +210,8 @@
 		}
 
 		#page_footer a.read,
-		#page_footer a.unread {
+		#page_footer a.unread,
+		#page_footer a.logout {
 			float: right;
 			text-align: right;
 			width: 5em;
@@ -323,3 +324,58 @@
 	#debug_wrapper {
 		display: none;
 	}
+
+/*--------------------------------------------------*/
+/* Basic Form                                       */
+
+	.basic_form fieldset {
+		margin: 0 10px 1em 0;
+	}
+
+	.basic_form .error_list {
+		color: red;
+		background: inherit;
+		font-weight: bold;
+		margin: 0 0 0 2em;
+		padding: 1em 0;
+	}
+
+	.basic_form .row {
+		padding: 5px 0 0 0;
+		clear: both;
+	}
+
+		@media only screen and (min-width: 40em) {
+			.basic_form .row {
+				padding-left: 11.5em;
+			}
+		}
+
+	.basic_form .row .label {
+		display: block;
+		font-weight: normal;
+	}
+
+	.basic_form .row .label abbr.required {
+		border: 0;
+	}
+
+	.basic_form .row.info .input,
+	.basic_form .row.radio .input,
+	.basic_form .row.check .input {
+		display: block;
+		padding: 4px 0 1em 1.5em;
+	}
+
+		@media only screen and (min-width: 40em) {
+			.basic_form .row .label {
+				float: left;
+				width: 11em;
+				margin: 4px 0 0 -11.5em;
+				text-align: right;
+			}
+			.basic_form .info .input {
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+		}
