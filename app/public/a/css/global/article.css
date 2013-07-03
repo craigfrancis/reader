@@ -148,10 +148,10 @@
 /*--------------------------------------------------*/
 /* DZone                                            */
 
-	#article_wrapper.p_articles > div > img {
+	#article_wrapper.p_articles > div img {
 		float: none !important;
 	}
 
-	#article_wrapper.p_articles > div > p {
+	#article_wrapper.p_articles > div p {
 		margin-left: 0 !important;
 	}
