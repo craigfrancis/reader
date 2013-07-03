@@ -152,6 +152,6 @@
 		float: none !important;
 	}
 
-	#article_wrapper.dzone > div p {
-		margin-left: 0 !important;
+	#article_wrapper.dzone > div > p {
+		margin: 1em 0 0 0 !important;
 	}
