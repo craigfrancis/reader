@@ -333,7 +333,7 @@
 	}
 
 	.basic_form .error_list {
-		color: red;
+		color: #A00;
 		background: inherit;
 		font-weight: bold;
 		margin: 0 0 0 2em;
