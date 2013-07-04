@@ -6,6 +6,13 @@
 	$article_id = request('id');
 
 //--------------------------------------------------
+// Disable NewRelic
+
+	if (extension_loaded('newrelic')) {
+		newrelic_disable_autorum();
+	}
+
+//--------------------------------------------------
 // Require login
 
 	if (!USER_LOGGED_IN) {
