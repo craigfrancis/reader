@@ -113,9 +113,18 @@
 
 		$scripts = $article_dom->getElementsByTagName('script');
 		foreach ($scripts as $script) {
+			
+			$src = $script->getAttribute('src');
 
-			$replacement_node = $article_dom->createElement('span', '<script>');
+			if ($src) {
+				$replacement_node = $article_dom->createElement('a', '<script>');
+				$replacement_node->setAttribute('href', $src);
+			} else {
+				$replacement_node = $article_dom->createElement('span', '<script>');
+			}
+
 			$replacement_node->setAttribute('class', 'script_tag');
+			$replacement_node->setAttribute('title', $src);
 
 			$script->parentNode->replaceChild($replacement_node, $script);
 
