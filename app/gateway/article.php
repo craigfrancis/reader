@@ -117,7 +117,7 @@
 			$replacement_node = $article_dom->createElement('span', '<script>');
 			$replacement_node->setAttribute('class', 'script_tag');
 
-			$script->parentNode->replaceChild(replacement_node, $script);
+			$script->parentNode->replaceChild($replacement_node, $script);
 
 		}
 
