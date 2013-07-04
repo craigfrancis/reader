@@ -118,7 +118,7 @@
 		$body = $article_dom->documentElement->firstChild;
 		if ($body->hasChildNodes()) {
 			foreach ($body->childNodes as $node) {
-				$article_html .= $article_dom->saveXML($node);
+				$article_html .= $article_dom->saveHTML($node); // Not saveXML due to <script> tag - see article 1310
 			}
 		}
 
