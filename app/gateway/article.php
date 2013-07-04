@@ -113,7 +113,7 @@
 
 		$scripts = $article_dom->getElementsByTagName('script');
 		foreach ($scripts as $script) {
-			
+
 			$src = $script->getAttribute('src');
 
 			if ($src) {
