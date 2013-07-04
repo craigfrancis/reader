@@ -111,6 +111,16 @@
 
 		}
 
+		$scripts = $article_dom->getElementsByTagName('script');
+		foreach ($scripts as $script) {
+
+			$replacement_node = $article_dom->createElement('span', '<script>');
+			$replacement_node->setAttribute('class', 'script_tag');
+
+			$script->parentNode->replaceChild(replacement_node, $script);
+
+		}
+
 		// $article_html = $article_dom->saveXML();
 
 		$article_html = '';
@@ -118,7 +128,7 @@
 		$body = $article_dom->documentElement->firstChild;
 		if ($body->hasChildNodes()) {
 			foreach ($body->childNodes as $node) {
-				$article_html .= $node->saveHTML(); // Not saveXML due to <script> tag - see article 1310
+				$article_html .= $article_dom->saveXML($node); // Not saveXML due to <script> tag - see article 1310
 			}
 		}
 
