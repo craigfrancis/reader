@@ -174,6 +174,8 @@
 						//--------------------------------------------------
 						// Insert and update values
 
+							$article['title'] = html_decode($article['title']);
+
 							$values_update = $article;
 							$values_update['source_id'] = $source_id;
 							$values_update['updated'] = date('Y-m-d H:i:s');
