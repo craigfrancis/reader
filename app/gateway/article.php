@@ -114,7 +114,16 @@
 		$scripts = $article_dom->getElementsByTagName('script');
 debug(count($scripts));
 		foreach ($scripts as $script) {
-debug($script->saveXML());
+
+$innerHTML = "";
+foreach ($script->childNodes as $child) {
+	$tmp_dom = new DOMDocument();
+	$tmp_dom->appendChild($tmp_dom->importNode($child, true));
+	$innerHTML.=trim($tmp_dom->saveHTML());
+}
+debug($innerHTML);
+
+
 			$src = $script->getAttribute('src');
 
 			if ($src) {
