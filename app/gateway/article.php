@@ -115,14 +115,10 @@
 debug(count($scripts));
 		foreach ($scripts as $script) {
 
-$innerHTML = "";
-foreach ($script->childNodes as $child) {
-	$tmp_dom = new DOMDocument();
-	$tmp_dom->appendChild($tmp_dom->importNode($child, true));
-	$innerHTML.=trim($tmp_dom->saveHTML());
-}
-debug($script->attributes);
-debug($innerHTML);
+$tmp_dom = new DOMDocument();
+$tmp_dom->appendChild($tmp_dom->importNode($script, true));
+debug($tmp_dom->saveHTML());
+
 echo "\n\n";
 
 
