@@ -114,7 +114,7 @@
 		$scripts = $article_dom->getElementsByTagName('script');
 debug(count($scripts));
 		foreach ($scripts as $script) {
-
+debug($script->saveXML());
 			$src = $script->getAttribute('src');
 
 			if ($src) {
