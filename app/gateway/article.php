@@ -112,7 +112,7 @@
 		}
 
 		$scripts = $article_dom->getElementsByTagName('script');
-debug($scripts);
+debug(count($scripts));
 		foreach ($scripts as $script) {
 
 			$src = $script->getAttribute('src');
