@@ -121,27 +121,29 @@ echo '--------------------------------------------------' . "\n\n";
 
 		}
 
-		$scripts = $article_dom->getElementsByTagName('script');
-		foreach ($scripts as $script) {
+		foreach (array('', '') as $tag) 
+			$nodes = $article_dom->getElementsByTagName($tag);
+			foreach ($nodes as $node) {
 
 $tmp_dom = new DOMDocument();
-$tmp_dom->appendChild($tmp_dom->importNode($script, true));
+$tmp_dom->appendChild($tmp_dom->importNode($node, true));
 echo $tmp_dom->saveHTML() . "\n\n";
 
-			$src = $script->getAttribute('src');
+				$src = $node->getAttribute('src');
 
-			if ($src) {
-				$replacement_node = $article_dom->createElement('a', '<script>');
-				$replacement_node->setAttribute('href', $src);
-			} else {
-				$replacement_node = $article_dom->createElement('span', '<script>');
+				if ($src) {
+					$replacement_node = $article_dom->createElement('a', '<' . $tag . '>');
+					$replacement_node->setAttribute('href', $src);
+				} else {
+					$replacement_node = $article_dom->createElement('span', '<' . $tag . '>');
+				}
+
+				$replacement_node->setAttribute('class', $tag . '_tag');
+				$replacement_node->setAttribute('title', $src);
+
+				$node->parentNode->replaceChild($replacement_node, $node);
+
 			}
-
-			$replacement_node->setAttribute('class', 'script_tag');
-			$replacement_node->setAttribute('title', $src);
-
-			$script->parentNode->replaceChild($replacement_node, $script);
-
 		}
 
 		// $article_html = $article_dom->saveXML();
