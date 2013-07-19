@@ -121,7 +121,9 @@ foreach ($script->childNodes as $child) {
 	$tmp_dom->appendChild($tmp_dom->importNode($child, true));
 	$innerHTML.=trim($tmp_dom->saveHTML());
 }
+debug($script->attributes);
 debug($innerHTML);
+echo "\n\n";
 
 
 			$src = $script->getAttribute('src');
