@@ -83,6 +83,7 @@
 	$article_html = trim($article_html);
 
 echo $article_html . "\n\n";
+echo '--------------------------------------------------' . "\n\n";
 
 	if ($article_html != '') {
 
