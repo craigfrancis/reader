@@ -82,6 +82,13 @@
 
 	$article_html = trim($article_html);
 
+$article_html = '<p>SQL injection <span onclick="cornify_add();return false;" title="click me!">protection
+</span><script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>. </p> <!-- I was going -->
+<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+<script src="http://img.thedailywtf.com/images/remy/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<p>Hello</p>';
+
 echo $article_html . "\n\n";
 echo '--------------------------------------------------' . "\n\n";
 
@@ -137,8 +144,6 @@ echo $tmp_dom->saveHTML() . "\n\n";
 
 		}
 
-exit();
-
 		// $article_html = $article_dom->saveXML();
 
 		$article_html = '';
@@ -151,6 +156,9 @@ exit();
 		}
 
 	}
+
+echo '--------------------------------------------------' . "\n\n";
+exit($article_html);
 
 //--------------------------------------------------
 // Body class
