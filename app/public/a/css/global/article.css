@@ -62,7 +62,9 @@
 	}
 
 	#article_wrapper a.script_tag,
-	#article_wrapper span.script_tag {
+	#article_wrapper a.link_tag,
+	#article_wrapper span.script_tag,
+	#article_wrapper span.link_tag {
 		text-decoration: none;
 		color: #D00;
 	}
