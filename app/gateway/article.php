@@ -82,6 +82,8 @@
 
 	$article_html = trim($article_html);
 
+echo $article_html . "\n\n";
+
 	if ($article_html != '') {
 
 		libxml_use_internal_errors(true);
@@ -133,6 +135,8 @@ echo $tmp_dom->saveHTML() . "\n\n";
 			$script->parentNode->replaceChild($replacement_node, $script);
 
 		}
+
+exit();
 
 		// $article_html = $article_dom->saveXML();
 
