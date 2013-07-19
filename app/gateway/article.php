@@ -121,7 +121,7 @@ echo '--------------------------------------------------' . "\n\n";
 
 		}
 
-		foreach (array('', '') as $tag) 
+		foreach (array('script', 'link') as $tag) {
 			$nodes = $article_dom->getElementsByTagName($tag);
 			foreach ($nodes as $node) {
 
