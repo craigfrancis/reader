@@ -112,15 +112,11 @@
 		}
 
 		$scripts = $article_dom->getElementsByTagName('script');
-debug(count($scripts));
 		foreach ($scripts as $script) {
 
 $tmp_dom = new DOMDocument();
 $tmp_dom->appendChild($tmp_dom->importNode($script, true));
-debug($tmp_dom->saveHTML());
-
-echo "\n\n";
-
+echo $tmp_dom->saveHTML() . "\n\n";
 
 			$src = $script->getAttribute('src');
 
