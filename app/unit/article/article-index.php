@@ -39,22 +39,18 @@
 
 				foreach ($db->fetch_all($sql) as $row) {
 
-					if ($row['unread_count'] > 0) {
-
-						if ($row['unread_count'] == 1) {
-							$url = url('/articles/:source/', array('source' => $row['ref'], 'id' => $row['article_id']));
-						} else {
-							$url = url('/articles/:source/', array('source' => $row['ref']));
-						}
-
-						$sources[] = array(
-								'url' => $url,
-								'ref' => $row['ref'],
-								'name' => $row['title'],
-								'count' => $row['unread_count'],
-							);
-
+					if ($row['unread_count'] == 1) {
+						$url = url('/articles/:source/', array('source' => $row['ref'], 'id' => $row['article_id']));
+					} else {
+						$url = url('/articles/:source/', array('source' => $row['ref']));
 					}
+
+					$sources[] = array(
+							'url' => $url,
+							'ref' => $row['ref'],
+							'name' => $row['title'],
+							'count' => $row['unread_count'],
+						);
 
 				}
 
