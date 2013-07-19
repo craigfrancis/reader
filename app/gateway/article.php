@@ -82,16 +82,6 @@
 
 	$article_html = trim($article_html);
 
-$article_html = '<p>SQL injection <span onclick="cornify_add();return false;" title="click me!">protection
-</span><script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>. </p> <!-- I was going -->
-<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
-<script src="http://img.thedailywtf.com/images/remy/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<p>Hello</p>';
-
-echo $article_html . "\n\n";
-echo '--------------------------------------------------' . "\n\n";
-
 	if ($article_html != '') {
 
 		libxml_use_internal_errors(true);
@@ -122,14 +112,17 @@ echo '--------------------------------------------------' . "\n\n";
 		}
 
 		foreach (array('script', 'link') as $tag) {
-			$nodes = $article_dom->getElementsByTagName($tag);
-			foreach ($nodes as $node) {
 
-$tmp_dom = new DOMDocument();
-$tmp_dom->appendChild($tmp_dom->importNode($node, true));
-echo $tmp_dom->saveHTML() . "\n\n";
+			$nodes = $article_dom->getElementsByTagName($tag);
+
+			for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+				$node = $nodes->item($k);
 
 				$src = $node->getAttribute('src');
+				if (!$src) {
+					$src = $node->getAttribute('href');
+				}
 
 				if ($src) {
 					$replacement_node = $article_dom->createElement('a', '<' . $tag . '>');
@@ -144,6 +137,7 @@ echo $tmp_dom->saveHTML() . "\n\n";
 				$node->parentNode->replaceChild($replacement_node, $node);
 
 			}
+
 		}
 
 		// $article_html = $article_dom->saveXML();
@@ -158,9 +152,6 @@ echo $tmp_dom->saveHTML() . "\n\n";
 		}
 
 	}
-
-echo '--------------------------------------------------' . "\n\n";
-exit($article_html);
 
 //--------------------------------------------------
 // Body class
