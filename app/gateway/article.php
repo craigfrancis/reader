@@ -111,22 +111,32 @@
 
 		}
 
-		$scripts = $article_dom->getElementsByTagName('script');
-		foreach ($scripts as $script) {
+		foreach (array('script', 'link') as $tag) {
 
-			$src = $script->getAttribute('src');
+			$nodes = $article_dom->getElementsByTagName($tag);
 
-			if ($src) {
-				$replacement_node = $article_dom->createElement('a', '<script>');
-				$replacement_node->setAttribute('href', $src);
-			} else {
-				$replacement_node = $article_dom->createElement('span', '<script>');
+			for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+				$node = $nodes->item($k);
+
+				$src = $node->getAttribute('src');
+				if (!$src) {
+					$src = $node->getAttribute('href');
+				}
+
+				if ($src) {
+					$replacement_node = $article_dom->createElement('a', '<' . $tag . '>');
+					$replacement_node->setAttribute('href', $src);
+				} else {
+					$replacement_node = $article_dom->createElement('span', '<' . $tag . '>');
+				}
+
+				$replacement_node->setAttribute('class', $tag . '_tag');
+				$replacement_node->setAttribute('title', $src);
+
+				$node->parentNode->replaceChild($replacement_node, $node);
+
 			}
-
-			$replacement_node->setAttribute('class', 'script_tag');
-			$replacement_node->setAttribute('title', $src);
-
-			$script->parentNode->replaceChild($replacement_node, $script);
 
 		}
 

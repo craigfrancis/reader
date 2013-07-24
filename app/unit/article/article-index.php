@@ -21,8 +21,8 @@
 				$sql = 'SELECT
 							s.ref,
 							s.title,
-							COUNT(sa.id) AS article_total,
-							COUNT(sar.article_id) AS article_read
+							COUNT(sa.id) AS unread_count,
+							sa.id AS article_id
 						FROM
 							' . DB_PREFIX . 'source AS s
 						LEFT JOIN
@@ -30,7 +30,8 @@
 						LEFT JOIN
 							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
 						WHERE
-							s.deleted = "0000-00-00 00:00:00"
+							s.deleted = "0000-00-00 00:00:00" AND
+							sar.article_id IS NULL
 						GROUP BY
 							s.id
 						ORDER BY
@@ -38,18 +39,18 @@
 
 				foreach ($db->fetch_all($sql) as $row) {
 
-					$unread_count = ($row['article_total'] - $row['article_read']);
-
-					if ($unread_count > 0) {
-
-						$sources[] = array(
-								'url' => url('/articles/:source/', array('source' => $row['ref'])),
-								'ref' => $row['ref'],
-								'name' => $row['title'],
-								'count' => $unread_count,
-							);
-
+					if ($row['unread_count'] == 1) {
+						$url = url('/articles/:source/', array('source' => $row['ref'], 'id' => $row['article_id']));
+					} else {
+						$url = url('/articles/:source/', array('source' => $row['ref']));
 					}
+
+					$sources[] = array(
+							'url' => $url,
+							'ref' => $row['ref'],
+							'name' => $row['title'],
+							'count' => $row['unread_count'],
+						);
 
 				}
 
