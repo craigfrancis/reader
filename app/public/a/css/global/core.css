@@ -321,7 +321,7 @@
 /*--------------------------------------------------*/
 /* Debug                                            */
 
-	#debug_wrapper {
+	#debug_output {
 		display: none;
 	}
 
