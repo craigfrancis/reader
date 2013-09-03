@@ -8,7 +8,25 @@
 			// Require login
 
 				if (!USER_LOGGED_IN) {
-					redirect(url('/'));
+
+					$debug = array();
+
+					if (isset($_SESSION)) {
+						$debug['session'] = count($_SESSION);
+					}
+
+					$cookies = array();
+					$prefix = config::get('cookie.prefix');
+					$prefix_len = strlen($prefix);
+					foreach ($_COOKIE as $name => $value) {
+						if (substr($name, 0, $prefix_len) == $prefix) {
+							$cookies[] = substr($name, $prefix_len) . '=' . $value;
+						}
+					}
+					$debug['cookies'] = implode('|', $cookies);
+
+					redirect(url('/', $debug));
+
 				}
 
 		}
