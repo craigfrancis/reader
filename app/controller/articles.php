@@ -10,6 +10,7 @@
 				if (!USER_LOGGED_IN) {
 
 					$debug = array();
+					$debug['error'] = 'logged_out';
 
 					if (isset($_SESSION)) {
 						$debug['session'] = count($_SESSION);

@@ -128,8 +128,19 @@
 						)
 					)';
 
+					// [2013-09-13 07:43:34] ... id=5650 ... (2013-09-11 15:54:32)
+					// [XXXX-XX-XX XX:XX:XX] ... id=5649 ... (2013-09-11 15:54:32)
+					// [2013-09-13 07:43:36] ... id=5648 ... (2013-09-11 15:54:34)
+					// [2013-09-13 07:43:37] ... id=5647 ... (2013-09-11 15:54:36)
+					//
+					// Published date the same for 5650 and 5649, the sub condition
+					// for matching published dates is correct (sa.id > X), but the
+					// order was wrong, 5649 should have been seen first (was not
+					// specified at the time).
+
 				$order_sql = '
-					sa.published ASC';
+					sa.published ASC,
+					sa.id ASC';
 
 			} else {
 
@@ -143,7 +154,8 @@
 					)';
 
 				$order_sql = '
-					sa.published DESC';
+					sa.published DESC,
+					sa.id DESC';
 
 			}
 
