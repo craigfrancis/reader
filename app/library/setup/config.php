@@ -68,6 +68,12 @@
 			$config['email.testing'] = 'craig@craigfrancis.co.uk';
 			$config['email.error'] = 'craig@craigfrancis.co.uk';
 
+		//--------------------------------------------------
+		// General
+
+			$config['output.protocols'] = array('https');
+			$config['output.domain'] = 'reader.craigfrancis.co.uk';
+
 	}
 
 //--------------------------------------------------
