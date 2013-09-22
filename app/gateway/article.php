@@ -140,6 +140,20 @@
 
 		}
 
+		foreach (array('iframe') as $tag) {
+
+			$nodes = $article_dom->getElementsByTagName($tag);
+
+			for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+				$node = $nodes->item($k);
+
+				$node->appendChild($article_dom->createTextNode('')); // Convert <tag /> to <tag></tag>
+
+			}
+
+		}
+
 		// $article_html = $article_dom->saveXML();
 
 		$article_html = '';
