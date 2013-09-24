@@ -138,6 +138,7 @@
 
 	#article_wrapper.webmaster-help table {
 		background: red;
+		width: 100%;
 	}
 
 	#article_wrapper.webmaster-help table td:first-child img {
