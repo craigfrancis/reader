@@ -45,6 +45,27 @@
 		margin: 0 0 1em 0;
 	}
 
+	ul,
+	ol {
+		margin: 0 0 1em 2em;
+	}
+
+	hr {
+		margin: 1em 0 1em 0;
+		border: 0;
+		border-bottom: 1px solid #000;
+	}
+
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	table th,
+	table td {
+		vertical-align: top;
+	}
+
 /*--------------------------------------------------*/
 /* Article                                          */
 
