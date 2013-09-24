@@ -140,6 +140,11 @@
 		width: 100px;
 	}
 
+	#article_wrapper.webmaster-help table table,
+	#article_wrapper.webmaster-help table td {
+		display: block;
+	}
+
 	#article_wrapper.webmaster-help table td:last-child,
 	#article_wrapper.webmaster-help table td:nth-child(2) div:first-child {
 		display: none;
