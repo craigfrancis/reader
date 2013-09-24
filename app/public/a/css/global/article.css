@@ -140,18 +140,19 @@
 		width: auto !important;
 	}
 
-	#article_wrapper.webmaster-help table table,
+	#article_wrapper.webmaster-help table table {
+		display: block;
+	}
+
 	#article_wrapper.webmaster-help table td {
 		display: block;
+		vertical-align: top;
+		padding: 0 0 1em 0;
 	}
 
 	#article_wrapper.webmaster-help table td:last-child,
 	#article_wrapper.webmaster-help table td:nth-child(2) div:first-child {
 		display: none;
-	}
-
-	#article_wrapper.webmaster-help table td {
-		vertical-align: top;
 	}
 
 	#article_wrapper.webmaster-help table td:first-child img {
