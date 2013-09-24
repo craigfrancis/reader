@@ -297,15 +297,11 @@
 /* View                                             */
 
 	#reader_view {
-		position: absolute; /* Required for iOS (crashes without it?) */
-		height: 100%;
-		width: 100%;
+
 	}
 
 	#reader_view iframe {
-		display: block;
-		width: 100%;
-		height: 100%;
+
 	}
 
 /*--------------------------------------------------*/
