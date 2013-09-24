@@ -136,13 +136,8 @@
 /*--------------------------------------------------*/
 /* Webmaster help                                   */
 
-	#article_wrapper.webmaster-help table {
-		background: red;
-		width: 100%;
-	}
-
-	#article_wrapper.webmaster-help table td:first-child img {
-		width: 100px;
+	#article_wrapper.webmaster-help > div > div {
+		width: auto !important;
 	}
 
 	#article_wrapper.webmaster-help table table,
@@ -157,6 +152,10 @@
 
 	#article_wrapper.webmaster-help table td {
 		vertical-align: top;
+	}
+
+	#article_wrapper.webmaster-help table td:first-child img {
+		width: 100px;
 	}
 
 /*--------------------------------------------------*/
