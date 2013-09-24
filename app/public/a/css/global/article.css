@@ -136,6 +136,10 @@
 /*--------------------------------------------------*/
 /* Webmaster help                                   */
 
+	#article_wrapper.webmaster-help table {
+		background: red;
+	}
+
 	#article_wrapper.webmaster-help table td:first-child img {
 		width: 100px;
 	}
