@@ -156,8 +156,7 @@
 
 		$xpath = new DOMXPath($article_dom);
 		foreach ($xpath->query('//*[@style]') as $element) {
-			// $element->removeAttributeNode('style');
-			debug($element->nodeName);
+			$element->removeAttributeNode('style');
 		}
 
 		// $article_html = $article_dom->saveXML();
