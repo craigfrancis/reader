@@ -191,7 +191,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="/a/img/global/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?= html(version_path('/a/css/global/article.css')) ?>" media="all" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
+	<meta name="viewport" content="initial-scale=1" />
 
 	<base target="_blank" />
 
