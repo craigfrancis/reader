@@ -32,7 +32,7 @@
 							s.ref = "' . $db->escape($config['source']) . '" AND
 							s.deleted = "0000-00-00 00:00:00"';
 
-				if ($row = $db->fetch($sql)) {
+				if ($row = $db->fetch_row($sql)) {
 					$source_id = $row['id'];
 					$source_title = $row['title'];
 					$source_ref = $config['source'];
@@ -58,7 +58,7 @@
 						GROUP BY
 							sa.id';
 
-				if ($row = $db->fetch($sql)) {
+				if ($row = $db->fetch_row($sql)) {
 
 					$article_id = $row['id'];
 					$article_title = $row['title'];
@@ -170,7 +170,7 @@
 					LIMIT
 						1';
 
-			if ($row = $db->fetch($sql)) {
+			if ($row = $db->fetch_row($sql)) {
 				return $row['id'];
 			} else {
 				return NULL;

@@ -38,7 +38,7 @@
 				sa.id = "' . $db->escape($article_id) . '" AND
 				s.deleted = "0000-00-00 00:00:00"';
 
-	if ($row = $db->fetch($sql)) {
+	if ($row = $db->fetch_row($sql)) {
 
 		$article_title = $row['title'];
 		$article_link = $row['link'];
