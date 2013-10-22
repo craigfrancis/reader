@@ -29,7 +29,8 @@
 				sa.link,
 				sa.published,
 				sa.description,
-				s.ref AS source_ref
+				s.ref AS source_ref,
+				s.url_http AS source_url
 			FROM
 				' . DB_PREFIX . 'source_article AS sa
 			LEFT JOIN
@@ -44,7 +45,8 @@
 		$article_link = $row['link'];
 		$article_published = $row['published'];
 		$article_html = $row['description'];
-		$article_source = $row['source_ref'];
+		$article_source_ref = $row['source_ref'];
+		$article_source_url = $row['source_url'];
 
 	} else {
 
@@ -90,7 +92,9 @@
 		$article_dom->loadHTML('<?xml encoding="UTF-8">' . $article_html);
 
 		$images = $article_dom->getElementsByTagName('img');
-		foreach ($images as $image) {
+		for ($k = ($images->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+			$image = $images->item($k);
 
 			$wrapper_node = $article_dom->createElement('span');
 			$wrapper_node->setAttribute('class', 'image_wrapper');
@@ -102,6 +106,11 @@
 			$title = $image->getAttribute('title');
 			if (!$title) {
 				$title = $image->getAttribute('alt');
+			}
+
+			$src = $image->getAttribute('src');
+			if ($src && substr($src, 0, 1) == '/') { // what-if.xkcd.com
+				$image->setAttribute('src', $article_source_url . $src);
 			}
 
 			if ($title) {
@@ -175,7 +184,7 @@
 //--------------------------------------------------
 // Body class
 
-	$body_class = $article_source;
+	$body_class = $article_source_ref;
 
 	if (request('inline') == 'true') {
 		$body_class .= ' inline';
@@ -203,7 +212,7 @@
 </head>
 <body id="p_articles" class="<?= html($body_class) ?>">
 
-	<div id="article_wrapper" class="<?= html($article_source) ?>">
+	<div id="article_wrapper" class="<?= html($article_source_ref) ?>">
 		<h1><a href="<?= html($article_link) ?>"><?= html($article_title) ?></a></h1>
 		<div>
 			<?= $article_html . "\n" ?>
