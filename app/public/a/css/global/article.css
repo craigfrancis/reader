@@ -179,6 +179,12 @@
 	#article_wrapper.what-if article.entry h1 {
 		display: none;
 	}
+	
+	#article_wrapper.what-if article.entry .refbody {
+		background: #CCC;
+		margin: 0 0 0 3px;
+		padding: 0 1px;
+	}
 
 /*--------------------------------------------------*/
 /* Daily WTF                                        */
