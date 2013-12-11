@@ -81,4 +81,14 @@
 
 	$config['output.site_name'] = 'Reader';
 
+
+//--------------------------------------------------
+// Upload
+
+	$config['upload.demo.source'] = 'svn';
+	$config['upload.demo.location'] = 'fey:/www/demo/craig.reader';
+
+	$config['upload.live.source'] = 'demo';
+	$config['upload.live.location'] = 'fey:/www/live/craig.reader';
+
 ?>
