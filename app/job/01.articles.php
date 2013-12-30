@@ -28,24 +28,6 @@
 				$db = db_get();
 
 			//--------------------------------------------------
-			// Delete old articles
-
-				// $db->query('DELETE sa FROM
-				// 				' . DB_PREFIX . 'source_article AS sa
-				// 			LEFT JOIN
-				// 				' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
-				// 			WHERE
-				// 				sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 month'))) . '" AND
-				// 				sar.read_date IS NOT NULL');
-
-				// $db->query('DELETE sar FROM
-				// 				' . DB_PREFIX . 'source_article_read AS sar
-				// 			LEFT JOIN
-				// 				' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
-				// 			WHERE
-				// 				sa.id IS NULL');
-
-			//--------------------------------------------------
 			// New articles
 
 				$source_id = NULL;
@@ -83,6 +65,33 @@
 						$source_id = $row['id'];
 						$source_url = $row['url_feed'];
 						$source_articles = array();
+
+					//--------------------------------------------------
+					// Delete old articles
+
+						$db->query('DELETE FROM
+										' . DB_PREFIX . 'source_article
+									WHERE
+										id IN (
+												SELECT
+													*
+												FROM (
+														SELECT
+															sa.id
+														FROM
+															' . DB_PREFIX . 'source_article AS sa
+														LEFT JOIN
+															' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
+														WHERE
+															sa.source_id = "' . $db->escape($source_id) . '" AND
+															sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-2 weeks'))) . '" AND
+															sar.read_date IS NOT NULL
+														ORDER BY
+															sa.published DESC
+														LIMIT
+															30, 100000
+													) AS x
+											)'); // Extra sub query required due to lack of support for "LIMIT" with "IN" (feature to be added to MySQL later)
 
 					//--------------------------------------------------
 					// Get XML ... don't do directly in simple xml as
@@ -253,6 +262,16 @@
 						$db->update(DB_PREFIX . 'source', $values, $where_sql);
 
 				}
+
+			//--------------------------------------------------
+			// Cleanup
+
+				$db->query('DELETE sar FROM
+								' . DB_PREFIX . 'source_article_read AS sar
+							LEFT JOIN
+								' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
+							WHERE
+								sa.id IS NULL');
 
 		}
 
