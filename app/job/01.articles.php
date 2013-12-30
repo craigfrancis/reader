@@ -30,20 +30,20 @@
 			//--------------------------------------------------
 			// Delete old articles
 
-				$db->query('DELETE sa FROM
-								' . DB_PREFIX . 'source_article AS sa
-							LEFT JOIN
-								' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
-							WHERE
-								sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 month'))) . '" AND
-								sar.read_date IS NOT NULL');
+				// $db->query('DELETE sa FROM
+				// 				' . DB_PREFIX . 'source_article AS sa
+				// 			LEFT JOIN
+				// 				' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
+				// 			WHERE
+				// 				sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 month'))) . '" AND
+				// 				sar.read_date IS NOT NULL');
 
-				$db->query('DELETE sar FROM
-								' . DB_PREFIX . 'source_article_read AS sar
-							LEFT JOIN
-								' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
-							WHERE
-								sa.id IS NULL');
+				// $db->query('DELETE sar FROM
+				// 				' . DB_PREFIX . 'source_article_read AS sar
+				// 			LEFT JOIN
+				// 				' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
+				// 			WHERE
+				// 				sa.id IS NULL');
 
 			//--------------------------------------------------
 			// New articles
