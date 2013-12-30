@@ -22,213 +22,237 @@
 
 		public function run() {
 
-			$db = db_get();
+			//--------------------------------------------------
+			// Setup
 
-			$source_id = NULL;
+				$db = db_get();
 
-			if ($source_id !== NULL) {
+			//--------------------------------------------------
+			// Delete old articles
 
-				$where_sql = '
-					s.id = "' . $db->escape($source_id) . '" AND
-					s.deleted = "0000-00-00 00:00:00"';
+				$db->query('DELETE sa FROM
+								' . DB_PREFIX . 'source_article AS sa
+							LEFT JOIN
+								' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
+							WHERE
+								sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 month'))) . '" AND
+								sar.read_date IS NOT NULL');
 
-			} else {
+				$db->query('DELETE sar FROM
+								' . DB_PREFIX . 'source_article_read AS sar
+							LEFT JOIN
+								' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
+							WHERE
+								sa.id IS NULL');
 
-				$where_sql = '
-					s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
-					s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
-					s.deleted = "0000-00-00 00:00:00"';
+			//--------------------------------------------------
+			// New articles
 
-			}
+				$source_id = NULL;
 
-			$sql = 'SELECT
-						s.id,
-						s.url_feed
-					FROM
-						' . DB_PREFIX . 'source AS s
-					WHERE
-						' . $where_sql;
+				if ($source_id !== NULL) {
 
-			foreach ($db->fetch_all($sql) as $row) {
+					$where_sql = '
+						s.id = "' . $db->escape($source_id) . '" AND
+						s.deleted = "0000-00-00 00:00:00"';
 
-				//--------------------------------------------------
-				// Details
+				} else {
 
-					$error = false;
+					$where_sql = '
+						s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
+						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
+						s.deleted = "0000-00-00 00:00:00"';
 
-					$source_id = $row['id'];
-					$source_url = $row['url_feed'];
-					$source_articles = array();
+				}
 
-				//--------------------------------------------------
-				// Get XML ... don't do directly in simple xml as
-				// FeedBurner has issues
+				$sql = 'SELECT
+							s.id,
+							s.url_feed
+						FROM
+							' . DB_PREFIX . 'source AS s
+						WHERE
+							' . $where_sql;
 
-					$headers = array(
-							'User-Agent: RSS Reader',
-							'Accept: application/rss+xml',
-						);
+				foreach ($db->fetch_all($sql) as $row) {
 
-					$context = stream_context_create(array(
-							'http' => array(
-									'method' => 'GET',
-									'header' => implode("\r\n", $headers) . "\r\n",
-								)
-						));
+					//--------------------------------------------------
+					// Details
 
-					$rss_data = @file_get_contents($source_url, false, $context);
+						$error = false;
 
-					if (trim($rss_data) == '') {
-						$error = 'Cannot return feed';
-					}
+						$source_id = $row['id'];
+						$source_url = $row['url_feed'];
+						$source_articles = array();
 
-				//--------------------------------------------------
-				// Parse XML
+					//--------------------------------------------------
+					// Get XML ... don't do directly in simple xml as
+					// FeedBurner has issues
 
-					if (!$error) {
+						$headers = array(
+								'User-Agent: RSS Reader',
+								'Accept: application/rss+xml',
+							);
 
-						$rss_xml = @simplexml_load_string($rss_data);
+						$context = stream_context_create(array(
+								'http' => array(
+										'method' => 'GET',
+										'header' => implode("\r\n", $headers) . "\r\n",
+									)
+							));
 
-						if ($rss_xml === false) {
-							$error = 'Cannot parse feed';
+						$rss_data = @file_get_contents($source_url, false, $context);
+
+						if (trim($rss_data) == '') {
+							$error = 'Cannot return feed';
 						}
 
-					}
+					//--------------------------------------------------
+					// Parse XML
 
-				//--------------------------------------------------
-				// Extract articles
+						if (!$error) {
 
-					if (!$error) {
+							$rss_xml = @simplexml_load_string($rss_data);
 
-						if (isset($rss_xml->channel->item)) { // RSS
+							if ($rss_xml === false) {
+								$error = 'Cannot parse feed';
+							}
 
-							foreach ($rss_xml->channel->item as $item) {
+						}
 
-								$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
-								if ($description == '') {
-									$description = strval($item->description);
-								}
+					//--------------------------------------------------
+					// Extract articles
 
-								$published = strval($item->pubDate);
-								if ($published == '') {
-									$dc_node = $item->children('dc', true);
-									if ($dc_node) {
-										$published = strval($dc_node->date); // Namespaced <dc:date> tag
+						if (!$error) {
+
+							if (isset($rss_xml->channel->item)) { // RSS
+
+								foreach ($rss_xml->channel->item as $item) {
+
+									$description = strval($item->children('content', true)); // Namespaced <content:encoded> tag
+									if ($description == '') {
+										$description = strval($item->description);
 									}
+
+									$published = strval($item->pubDate);
+									if ($published == '') {
+										$dc_node = $item->children('dc', true);
+										if ($dc_node) {
+											$published = strval($dc_node->date); // Namespaced <dc:date> tag
+										}
+									}
+
+									$source_articles[] = array(
+											'guid'        => strval($item->guid),
+											'title'       => strval($item->title),
+											'link'        => strval($item->link),
+											'description' => $description,
+											'published'   => $published,
+										);
+
 								}
 
-								$source_articles[] = array(
-										'guid'        => strval($item->guid),
-										'title'       => strval($item->title),
-										'link'        => strval($item->link),
-										'description' => $description,
-										'published'   => $published,
-									);
+							} else if (isset($rss_xml->entry)) { // Atom
 
-							}
+								foreach ($rss_xml->entry as $entry) {
 
-						} else if (isset($rss_xml->entry)) { // Atom
+									if ($entry->content) {
+										$description = strval($entry->content);
+									} else {
+										$description = strval($entry->summary);
+									}
 
-							foreach ($rss_xml->entry as $entry) {
+									$published = strval($entry->published);
+									if ($published == '') {
+										$published = strval($entry->updated);
+									}
 
-								if ($entry->content) {
-									$description = strval($entry->content);
-								} else {
-									$description = strval($entry->summary);
+									$source_articles[] = array(
+											'guid'        => strval($entry->id),
+											'title'       => strval($entry->title),
+											'link'        => strval($entry->link['href']),
+											'description' => $description,
+											'published'   => $published,
+										);
+
 								}
-
-								$published = strval($entry->published);
-								if ($published == '') {
-									$published = strval($entry->updated);
-								}
-
-								$source_articles[] = array(
-										'guid'        => strval($entry->id),
-										'title'       => strval($entry->title),
-										'link'        => strval($entry->link['href']),
-										'description' => $description,
-										'published'   => $published,
-									);
-
-							}
-
-						} else {
-
-							$error = 'Unknown feed format';
-
-						}
-
-						if (!$error && count($source_articles) == 0) {
-
-							$error = 'No articles found';
-
-						}
-
-					}
-
-				//--------------------------------------------------
-				// Add articles
-
-					foreach ($source_articles as $article) {
-
-						//--------------------------------------------------
-						// Insert and update values
-
-							$article['title'] = html_decode($article['title']);
-
-							$values_update = $article;
-							$values_update['source_id'] = $source_id;
-							$values_update['updated'] = date('Y-m-d H:i:s');
-
-							$values_insert = $values_update;
-							$values_insert['created'] = date('Y-m-d H:i:s');
-
-						//--------------------------------------------------
-						// Published date
-
-							$published = strtotime($article['published']);
-
-							if ($published === false) {
-
-								$values_insert['published'] = date('Y-m-d H:i:s');
-
-								unset($values_update['published']);
 
 							} else {
 
-								$values_insert['published'] = date('Y-m-d H:i:s', $published);
-								$values_update['published'] = date('Y-m-d H:i:s', $published);
+								$error = 'Unknown feed format';
 
 							}
 
-						//--------------------------------------------------
-						// Store
+							if (!$error && count($source_articles) == 0) {
 
-							$db->insert(DB_PREFIX . 'source_article', $values_insert, $values_update);
+								$error = 'No articles found';
 
-					}
+							}
 
-				//--------------------------------------------------
-				// Record as updated
+						}
 
-					if ($error) {
-						$values = array(
-								'error_text' => $error,
-								'error_date' => date('Y-m-d H:i:s'),
-							);
-					} else {
-						$values = array(
-								'updated' => date('Y-m-d H:i:s'),
-							);
-					}
+					//--------------------------------------------------
+					// Add articles
 
-					$where_sql = '
-						id = "' . $db->escape($source_id) . '" AND
-						deleted = "0000-00-00 00:00:00"';
+						foreach ($source_articles as $article) {
 
-					$db->update(DB_PREFIX . 'source', $values, $where_sql);
+							//--------------------------------------------------
+							// Insert and update values
 
-			}
+								$article['title'] = html_decode($article['title']);
+
+								$values_update = $article;
+								$values_update['source_id'] = $source_id;
+								$values_update['updated'] = date('Y-m-d H:i:s');
+
+								$values_insert = $values_update;
+								$values_insert['created'] = date('Y-m-d H:i:s');
+
+							//--------------------------------------------------
+							// Published date
+
+								$published = strtotime($article['published']);
+
+								if ($published === false) {
+
+									$values_insert['published'] = date('Y-m-d H:i:s');
+
+									unset($values_update['published']);
+
+								} else {
+
+									$values_insert['published'] = date('Y-m-d H:i:s', $published);
+									$values_update['published'] = date('Y-m-d H:i:s', $published);
+
+								}
+
+							//--------------------------------------------------
+							// Store
+
+								$db->insert(DB_PREFIX . 'source_article', $values_insert, $values_update);
+
+						}
+
+					//--------------------------------------------------
+					// Record as updated
+
+						if ($error) {
+							$values = array(
+									'error_text' => $error,
+									'error_date' => date('Y-m-d H:i:s'),
+								);
+						} else {
+							$values = array(
+									'updated' => date('Y-m-d H:i:s'),
+								);
+						}
+
+						$where_sql = '
+							id = "' . $db->escape($source_id) . '" AND
+							deleted = "0000-00-00 00:00:00"';
+
+						$db->update(DB_PREFIX . 'source', $values, $where_sql);
+
+				}
 
 		}
 
