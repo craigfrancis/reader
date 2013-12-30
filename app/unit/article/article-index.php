@@ -31,7 +31,8 @@
 							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
 						WHERE
 							s.deleted = "0000-00-00 00:00:00" AND
-							unread_count > 0
+							sa.id IS NOT NULL AND
+							sar.article_id IS NULL
 						GROUP BY
 							s.id
 						ORDER BY
