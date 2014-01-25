@@ -5,6 +5,7 @@
 		private $article_id = NULL;
 		private $article_source_id = NULL;
 		private $article_published = NULL;
+		private $article_html = NULL;
 		private $article_read = NULL;
 
 		public function setup($config = array()) {
@@ -41,12 +42,14 @@
 				}
 
 			//--------------------------------------------------
-			// Articles
+			// Article
 
 				$sql = 'SELECT
 							sa.id,
 							sa.title,
+							sa.link,
 							sa.published,
+							sa.description,
 							IF(sar.article_id IS NOT NULL, 1, 0) AS article_read
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
@@ -62,8 +65,10 @@
 
 					$article_id = $row['id'];
 					$article_title = $row['title'];
-					$article_read = ($row['article_read'] == 1);
+					$article_link = $row['link'];
 					$article_published = $row['published'];
+					$article_html = $row['description'];
+					$article_read = ($row['article_read'] == 1);
 
 					$article_url = gateway_url('article', array('id' => $article_id));
 
@@ -76,19 +81,35 @@
 			//--------------------------------------------------
 			// Article read
 
-				if ($config['read'] !== NULL) {
+				if (($config['read'] === true) || ($config['read'] === NULL && $article_read === false)) {
 
-					if ($config['read'] !== $article_read) {
-						$article_url->param_set('read', ($config['read'] ? 'true' : 'false'));
+					if (!$article_read) {
+
+						$values = array(
+								'article_id' => $article_id,
+								'user_id' => USER_ID,
+								'read_date' => date('Y-m-d H:i:s'),
+							);
+
+						$db->insert(DB_PREFIX . 'source_article_read', $values, $values);
+
 					}
 
-					$article_read = $config['read'];
-
-				} else if (!$article_read) {
-
-					$article_url->param_set('read', 'true');
-
 					$article_read = true;
+
+				} else if ($config['read'] === false) {
+
+					if ($article_read) {
+
+						$db->query('DELETE FROM
+										' . DB_PREFIX . 'source_article_read
+									WHERE
+										article_id = "' . $db->escape($article_id) . '" AND
+										user_id = "' . $db->escape(USER_ID) . '"');
+
+					}
+
+					$article_read = false;
 
 				}
 
@@ -98,11 +119,18 @@
 				$this->article_id = $article_id;
 				$this->article_source_id = $source_id;
 				$this->article_published = $article_published;
+				$this->article_html = $article_html;
 				$this->article_read = $article_read;
 
 				$this->set('source_title', $source_title);
 				$this->set('article_title', $article_title);
 				$this->set('article_url', $article_url);
+
+		}
+
+		public function html_get() {
+
+			// TODO: Return "clean" HTML
 
 		}
 

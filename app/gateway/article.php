@@ -55,31 +55,6 @@
 	}
 
 //--------------------------------------------------
-// Read or unread
-
-	$article_read = request('read');
-
-	if ($article_read == 'true') {
-
-		$values = array(
-				'article_id' => $article_id,
-				'user_id' => USER_ID,
-				'read_date' => date('Y-m-d H:i:s'),
-			);
-
-		$db->insert(DB_PREFIX . 'source_article_read', $values, $values);
-
-	} else if ($article_read == 'false') {
-
-		$db->query('DELETE FROM
-						' . DB_PREFIX . 'source_article_read
-					WHERE
-						article_id = "' . $db->escape($article_id) . '" AND
-						user_id = "' . $db->escape(USER_ID) . '"');
-
-	}
-
-//--------------------------------------------------
 // Expose image title attributes as paragraphs
 
 	$article_html = trim($article_html);
