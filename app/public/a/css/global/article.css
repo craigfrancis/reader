@@ -73,15 +73,6 @@
 		padding: 5px;
 	}
 
-	body.inline #article_wrapper {
-		padding: 10px 0 0 0;
-	}
-
-	body.inline #article_wrapper h1 {
-		display: none;
-		position: relative;
-	}
-
 	#article_wrapper blockquote {
 		margin: 1em 0;
 		padding: 0 0 0 5px;
@@ -179,7 +170,7 @@
 	#article_wrapper.what-if article.entry h1 {
 		display: none;
 	}
-	
+
 	#article_wrapper.what-if article.entry .refbody {
 		background: #CCC;
 		margin: 0 0 0 3px;

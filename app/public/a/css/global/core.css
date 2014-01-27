@@ -133,6 +133,34 @@
 		}
 
 	/*--------------------------------------------------*/
+	/* Page aside                                       */
+
+		#page_aside {
+
+			/* -webkit-touch-callout: none; */
+
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+
+		}
+
+		#page_aside .article_link {
+			margin: 0;
+		}
+
+		#page_aside .article_link a {
+			display: block;
+			padding: 15px;
+			margin: 0;
+			background: #00E;
+			color: #FFF;
+			text-align: center;
+		}
+
+	/*--------------------------------------------------*/
 	/* Page footer                                      */
 
 		#page_footer {
@@ -144,6 +172,7 @@
 			overflow: hidden;
 
 			-webkit-touch-callout: none;
+
 			-webkit-user-select: none;
 			-khtml-user-select: none;
 			-moz-user-select: none;

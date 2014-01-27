@@ -57,6 +57,14 @@
 
 		</main>
 
+		<?php if (isset($aside_html)) { ?>
+
+			<aside id="page_aside">
+				<?= $aside_html ?>
+			</aside>
+
+		<?php } ?>
+
 		<?php if (isset($footer_urls)) { ?>
 
 			<footer id="page_footer" role="contentinfo">

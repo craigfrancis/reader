@@ -60,6 +60,11 @@
 						));
 
 				//--------------------------------------------------
+				// Aside link
+
+					$response->set('aside_html', $unit->aside_get_html());
+
+				//--------------------------------------------------
 				// Footer URLs
 
 					$sibling_prev_id = $unit->sibling_id_get(-1);

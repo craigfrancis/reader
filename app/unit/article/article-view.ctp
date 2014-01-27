@@ -1,4 +1,4 @@
 
 	<div id="reader_view">
-		<iframe src="<?= html($article_url) ?>" seamless="seamless" sandbox="allow-popups"></iframe>
+		<iframe srcdoc="<?= html($article_html) ?>" sandbox="allow-popups allow-same-origin" seamless="seamless"></iframe>
 	</div>

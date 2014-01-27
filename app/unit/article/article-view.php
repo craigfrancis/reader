@@ -5,7 +5,7 @@
 		private $article_id = NULL;
 		private $article_source_id = NULL;
 		private $article_published = NULL;
-		private $article_html = NULL;
+		private $article_link = NULL;
 		private $article_read = NULL;
 
 		public function setup($config = array()) {
@@ -70,8 +70,6 @@
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
 
-					$article_url = gateway_url('article', array('id' => $article_id));
-
 				} else {
 
 					exit_with_error('Cannot find article "' . $config['article'] . '"');
@@ -114,28 +112,182 @@
 				}
 
 			//--------------------------------------------------
+			// Article HTML
+
+				$article_html = trim($article_html);
+
+				if ($article_html != '') {
+
+					//--------------------------------------------------
+					// Parse
+
+						libxml_use_internal_errors(true);
+
+						$article_dom = new DomDocument();
+						$article_dom->loadHTML('<?xml encoding="UTF-8">' . $article_html);
+
+					//--------------------------------------------------
+					// Images
+
+						$images = $article_dom->getElementsByTagName('img');
+						for ($k = ($images->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+							$image = $images->item($k);
+
+							$wrapper_node = $article_dom->createElement('span');
+							$wrapper_node->setAttribute('class', 'image_wrapper');
+
+							$image->parentNode->replaceChild($wrapper_node, $image);
+
+							$wrapper_node->appendChild($image);
+
+							$title = $image->getAttribute('title');
+							if (!$title) {
+								$title = $image->getAttribute('alt');
+							}
+
+							$src = $image->getAttribute('src');
+							if ($src && substr($src, 0, 1) == '/') { // what-if.xkcd.com
+								$image->setAttribute('src', $article_source_url . $src);
+							}
+
+							if ($title) {
+								$title_node = $article_dom->createElement('em', $title);
+								$wrapper_node->appendChild($title_node);
+							}
+
+						}
+
+					//--------------------------------------------------
+					// Remove bad tags
+
+						foreach (array('script', 'link') as $tag) {
+
+							$nodes = $article_dom->getElementsByTagName($tag);
+
+							for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+								$node = $nodes->item($k);
+
+								$src = $node->getAttribute('src');
+								if (!$src) {
+									$src = $node->getAttribute('href');
+								}
+
+								if ($src) {
+									$replacement_node = $article_dom->createElement('a', '<' . $tag . '>');
+									$replacement_node->setAttribute('href', $src);
+								} else {
+									$replacement_node = $article_dom->createElement('span', '<' . $tag . '>');
+								}
+
+								$replacement_node->setAttribute('class', $tag . '_tag');
+								$replacement_node->setAttribute('title', $src);
+
+								$node->parentNode->replaceChild($replacement_node, $node);
+
+							}
+
+						}
+
+					//--------------------------------------------------
+					// Remove bad attributes
+
+						$xpath = new DOMXPath($article_dom);
+
+						foreach (array('style', 'onclick') as $attribute) {
+							foreach ($xpath->query('//*[@' . $attribute . ']') as $element) {
+								$element->removeAttributeNode($element->getAttributeNode($attribute));
+							}
+						}
+
+					//--------------------------------------------------
+					// Convert <tag /> to <tag></tag>
+
+						foreach (array('iframe') as $tag) {
+
+							$nodes = $article_dom->getElementsByTagName($tag);
+
+							for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+								$node = $nodes->item($k);
+
+								$node->appendChild($article_dom->createTextNode('')); //
+
+							}
+
+						}
+
+					//--------------------------------------------------
+					// Back to a string
+
+						// $article_html = $article_dom->saveXML();
+
+						$article_html = '';
+
+						$body = $article_dom->documentElement->firstChild;
+						if ($body->hasChildNodes()) {
+							foreach ($body->childNodes as $node) {
+								$article_html .= $article_dom->saveXML($node); // Not saveXML due to <script> tag - see article 1310
+							}
+						}
+
+				}
+
+				$article_html = '<!DOCTYPE html>
+					<html lang="en-GB" xml:lang="en-GB" xmlns="http://www.w3.org/1999/xhtml">
+					<head>
+
+						<meta charset="UTF-8" />
+
+						<title>Article</title>
+
+						<link rel="shortcut icon" type="image/x-icon" href="/a/img/global/favicon.ico" />
+						<link rel="stylesheet" type="text/css" href="' . html(version_path('/a/css/global/article.css')) . '" media="all" />
+
+						<meta name="viewport" content="initial-scale=1" />
+
+						<base target="_blank" />
+
+					</head>
+					<body id="p_articles" class="' . html($source_ref) . '">
+
+						<div id="article_wrapper" class="' . html($source_ref) . '">
+							<h1>' . html($article_title) . '</h1>
+							<div>
+								' . $article_html . "\n" . '
+							</div>
+							<p class="article_info">
+								' . html(date('l jS F Y, g:ia', strtotime($article_published))) . '
+							</p>
+						</div>
+
+					</body>
+					</html>';
+
+				$this->set('article_html', $article_html);
+
+			//--------------------------------------------------
 			// Variables
 
 				$this->article_id = $article_id;
 				$this->article_source_id = $source_id;
 				$this->article_published = $article_published;
-				$this->article_html = $article_html;
+				$this->article_link = $article_link;
 				$this->article_read = $article_read;
 
 				$this->set('source_title', $source_title);
 				$this->set('article_title', $article_title);
-				$this->set('article_url', $article_url);
-
-		}
-
-		public function html_get() {
-
-			// TODO: Return "clean" HTML
 
 		}
 
 		public function read_get() {
 			return $this->article_read;
+		}
+
+		public function aside_get_html() {
+			return '
+				<p class="article_link"><a href="' . html($this->article_link) . '">View article</a></p>';
 		}
 
 		public function sibling_id_get($rel) {

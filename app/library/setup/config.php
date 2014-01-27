@@ -82,6 +82,27 @@
 	$config['output.site_name'] = 'Reader';
 
 //--------------------------------------------------
+// Content security policy
+
+	$config['output.csp_enabled'] = true;
+	$config['output.csp_enforced'] = true;
+
+	$config['output.csp_directives'] = array(
+			'default-src' => array(
+					"'none'",
+				),
+			'img-src' => array(
+					"*",
+				),
+			'script-src' => array(
+					"'self'",
+				),
+			'style-src' => array(
+					"'self'",
+				),
+		);
+
+//--------------------------------------------------
 // Upload
 
 	$config['upload.demo.source'] = 'git';
