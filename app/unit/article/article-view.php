@@ -279,6 +279,12 @@
 				$this->set('source_title', $source_title);
 				$this->set('article_title', $article_title);
 
+			//--------------------------------------------------
+			// JavaScript
+
+				// $response = response_get();
+				// $response->js_add('/a/js/article.js');
+
 		}
 
 		public function read_get() {

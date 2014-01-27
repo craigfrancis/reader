@@ -60,6 +60,11 @@
 						));
 
 				//--------------------------------------------------
+				// Page title
+
+					$response->title_full_set($unit->get('source_title') . ' | ' . $unit->get('article_title'));
+
+				//--------------------------------------------------
 				// Aside link
 
 					$response->set('aside_html', $unit->aside_get_html());
@@ -91,11 +96,6 @@
 					} else {
 						$footer_urls[] = array('text' => 'Unread', 'class' => 'unread', 'href' => url('/articles/:source/', array('source' => $source, 'id' => $article_id, 'read' => 'true')));
 					}
-
-				//--------------------------------------------------
-				// Set
-
-					$response->title_full_set($unit->get('source_title') . ' | ' . $unit->get('article_title'));
 
 					$response->set('footer_urls', $footer_urls);
 
