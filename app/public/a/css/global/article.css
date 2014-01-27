@@ -119,7 +119,7 @@
 		#article_wrapper span.image_wrapper,
 		#article_wrapper figure.code {
 			overflow: auto;
-			max-width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
+			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work?  */
 		}
 		#article_wrapper span.image_wrapper {
 			display: block;
