@@ -193,6 +193,14 @@
 	}
 
 /*--------------------------------------------------*/
+/* Mac rumours                                      */
+
+	#article_wrapper.macrumors .mf-viral,
+	#article_wrapper.macrumors .feedflare {
+		display: none;
+	}
+
+/*--------------------------------------------------*/
 /* DZone                                            */
 
 	#article_wrapper.dzone > div img {
