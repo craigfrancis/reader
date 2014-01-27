@@ -99,7 +99,7 @@
 		font-style: normal;
 	}
 
-	#article_wrapper p.published {
+	#article_wrapper .article_info span.published {
 		color: #BBB;
 		font-style: italic;
 	}

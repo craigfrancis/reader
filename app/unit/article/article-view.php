@@ -258,7 +258,7 @@
 								' . $article_html . "\n" . '
 							</div>
 							<p class="article_info">
-								' . html(date('l jS F Y, g:ia', strtotime($article_published))) . '
+								<span class="published">' . html(date('l jS F Y, g:ia', strtotime($article_published))) . '</span>
 							</p>
 						</div>
 
@@ -287,7 +287,7 @@
 
 		public function aside_get_html() {
 			return '
-				<p class="article_link"><a href="' . html($this->article_link) . '">View article</a></p>';
+				<p class="article_link"><a href="' . html($this->article_link) . '" target="_blank">View article</a></p>';
 		}
 
 		public function sibling_id_get($rel) {
