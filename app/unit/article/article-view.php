@@ -26,7 +26,8 @@
 
 				$sql = 'SELECT
 							s.id,
-							s.title
+							s.title,
+							s.url_http
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
@@ -36,6 +37,7 @@
 				if ($row = $db->fetch_row($sql)) {
 					$source_id = $row['id'];
 					$source_title = $row['title'];
+					$source_url = $row['url_http'];
 					$source_ref = $config['source'];
 				} else {
 					error_send('page-not-found');
@@ -148,7 +150,7 @@
 
 							$src = $image->getAttribute('src');
 							if ($src && substr($src, 0, 1) == '/') { // what-if.xkcd.com
-								$image->setAttribute('src', $article_source_url . $src);
+								$image->setAttribute('src', $source_url . $src);
 							}
 
 							if ($title) {
