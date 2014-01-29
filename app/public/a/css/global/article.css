@@ -73,6 +73,15 @@
 		padding: 5px;
 	}
 
+	@media only screen and (max-device-width: 480px) {
+		#article_wrapper {
+			word-break: break-word; /* Works in iOS, other solutions are very buggy (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
+		}
+		#article_wrapper > * {
+			max-width: 310px; /* Avoid horizontal scroll, page width gets messed up (re-collocation of page width), can cause many crash scenarios */
+		}
+	}
+
 	#article_wrapper blockquote {
 		margin: 1em 0;
 		padding: 0 0 0 5px;
@@ -108,28 +117,12 @@
 		font-style: italic;
 	}
 
-	@media only screen and (max-device-width: 480px) {
-		#article_wrapper {
-			word-break: break-word; /* Works in iOS, other solutions are very buggy (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
-		}
-		#article_wrapper blockquote,
-		#article_wrapper iframe,
-		#article_wrapper center,
-		#article_wrapper pre,
-		#article_wrapper span.image_wrapper,
-		#article_wrapper figure.code {
-			overflow: auto;
-			max-width: 310px;
-		}
-		#article_wrapper blockquote {
-			max-width: 305px;
-		}
-		#article_wrapper span.image_wrapper {
-			display: block;
-		}
-		#article_wrapper span.image_wrapper img {
-			display: block;
-		}
+	#article_wrapper span.image_wrapper {
+		display: block;
+		/* overflow: auto; - Causes iOS to crash */
+	}
+	#article_wrapper span.image_wrapper img {
+		display: block;
 	}
 
 /*--------------------------------------------------*/
