@@ -2,7 +2,7 @@
 /* General Setup                                    */
 
 	html, body, div, span, applet, object, iframe,
-	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre, figure,
 	a, abbr, acronym, address, big, cite, code,
 	del, dfn, em, font, img, ins, kbd, q, s, samp,
 	small, strike, strong, sub, sup, tt, var,
@@ -25,7 +25,7 @@
 	body {
 		font-family: verdana, arial, helvetica, sans-serif;
 		font-size: 0.8em;
-		line-height: 1.2em;
+		line-height: 1.3em;
 		color: #000;
 		background-color: #FFF;
 	}
@@ -64,6 +64,32 @@
 	table th,
 	table td {
 		vertical-align: top;
+	}
+
+/*--------------------------------------------------*/
+/* Avoid auto zoom on input field selection         */
+
+	@media only screen and (max-device-width: 480px) {
+
+		select,
+		textarea,
+		input[type="text"],
+		input[type="password"],
+		input[type="datetime"],
+		input[type="datetime-local"],
+		input[type="date"],
+		input[type="month"],
+		input[type="time"],
+		input[type="week"],
+		input[type="number"],
+		input[type="email"],
+		input[type="url"],
+		input[type="search"],
+		input[type="tel"],
+		input[type="color"] {
+			font-size: 16px;
+		}
+
 	}
 
 /*--------------------------------------------------*/
@@ -133,34 +159,6 @@
 		}
 
 	/*--------------------------------------------------*/
-	/* Page aside                                       */
-
-		#page_aside {
-
-			/* -webkit-touch-callout: none; */
-
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-
-		}
-
-		#page_aside .article_link {
-			margin: 0;
-		}
-
-		#page_aside .article_link a {
-			display: block;
-			padding: 15px;
-			margin: 0;
-			background: #006;
-			color: #FFF;
-			text-align: center;
-		}
-
-	/*--------------------------------------------------*/
 	/* Page footer                                      */
 
 		#page_footer {
@@ -170,8 +168,6 @@
 			padding: 20px 5px;
 			text-align: center;
 			overflow: hidden;
-
-			-webkit-touch-callout: none;
 
 			-webkit-user-select: none;
 			-khtml-user-select: none;
@@ -185,6 +181,15 @@
 			color: #FFF;
 		}
 
+		#page_footer a.back,
+		#page_footer a.prev,
+		#page_footer a.next,
+		#page_footer a.read,
+		#page_footer a.unread,
+		#page_footer a.logout {
+			-webkit-touch-callout: none;
+		}
+
 		#page_footer > span,
 		#page_footer a[href="#"] {
 			color: #666;
@@ -196,7 +201,8 @@
 			width: 5em;
 		}
 
-		#page_footer .next {
+		#page_footer .next,
+		#page_footer .view {
 			margin-left: 30px;
 		}
 

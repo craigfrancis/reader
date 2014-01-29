@@ -25,7 +25,7 @@
 	body {
 		font-family: verdana, arial, helvetica, sans-serif;
 		font-size: 0.8em;
-		line-height: 1.2em;
+		line-height: 1.3em;
 		color: #000;
 		background-color: #FFF;
 	}
@@ -119,10 +119,10 @@
 		#article_wrapper span.image_wrapper,
 		#article_wrapper figure.code {
 			overflow: auto;
-			width: 310px; /* iOS scales content up (large text) if there is a big inline image followed by text, also 100vw does not seem to work? */
+			max-width: 310px;
 		}
 		#article_wrapper blockquote {
-			width: 305px; /* Slightly smaller, due to left padding */
+			max-width: 305px;
 		}
 		#article_wrapper span.image_wrapper {
 			display: block;

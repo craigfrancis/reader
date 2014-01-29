@@ -80,6 +80,7 @@
 // Output
 
 	$config['output.site_name'] = 'Reader';
+	$config['output.tracking'] = false; // Disable NewRelic
 
 //--------------------------------------------------
 // Content security policy

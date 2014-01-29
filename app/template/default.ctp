@@ -57,14 +57,6 @@
 
 		</main>
 
-		<?php if (isset($aside_html)) { ?>
-
-			<aside id="page_aside">
-				<?= $aside_html ?>
-			</aside>
-
-		<?php } ?>
-
 		<?php if (isset($footer_urls)) { ?>
 
 			<footer id="page_footer" role="contentinfo">
@@ -72,7 +64,7 @@
 					foreach ($footer_urls as $footer_url) {
 						if ($footer_url['href']) {
 							echo '
-								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"><span>' . html($footer_url['text']) . '</span></a>';
+								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"' . (isset($footer_url['target']) ? ' target="' . html($footer_url['target']) . '"' : '') . '><span>' . html($footer_url['text']) . '</span></a>';
 						} else {
 							echo '
 								<span class="' . html($footer_url['class']) . '"><span>' . html($footer_url['text']) . '</span></span>';

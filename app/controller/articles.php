@@ -65,11 +65,6 @@
 					$response->title_full_set($unit->get('source_title') . ' | ' . $unit->get('article_title'));
 
 				//--------------------------------------------------
-				// Aside link
-
-					$response->set('aside_html', $unit->aside_get_html());
-
-				//--------------------------------------------------
 				// Footer URLs
 
 					$sibling_prev_id = $unit->sibling_id_get(-1);
@@ -89,6 +84,7 @@
 					$footer_urls = array();
 					$footer_urls[] = array('text' => 'Back',     'class' => 'back', 'href' => url('/articles/'));
 					$footer_urls[] = array('text' => 'Previous', 'class' => 'prev', 'href' => $sibling_prev_url);
+					$footer_urls[] = array('text' => 'View',     'class' => 'view', 'href' => $unit->article_link_get(), 'target' => '_blank');
 					$footer_urls[] = array('text' => 'Next',     'class' => 'next', 'href' => $sibling_next_url);
 
 					if ($unit->read_get()) {

@@ -241,13 +241,12 @@
 					<head>
 
 						<meta charset="UTF-8" />
+						<meta name="viewport" content="initial-scale=1" />
 
 						<title>Article</title>
 
 						<link rel="shortcut icon" type="image/x-icon" href="/a/img/global/favicon.ico" />
 						<link rel="stylesheet" type="text/css" href="' . html(version_path('/a/css/global/article.css')) . '" media="all" />
-
-						<meta name="viewport" content="initial-scale=1" />
 
 						<base target="_blank" />
 
@@ -293,9 +292,8 @@
 			return $this->article_read;
 		}
 
-		public function aside_get_html() {
-			return '
-				<p class="article_link"><a href="' . html($this->article_link) . '" target="_blank">View article</a></p>';
+		public function article_link_get() {
+			return $this->article_link;
 		}
 
 		public function sibling_id_get($rel) {
