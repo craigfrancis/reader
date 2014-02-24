@@ -36,7 +36,7 @@
 					$field_password = $form->field_get('password');
 
 				//--------------------------------------------------
-				// Form processing
+				// Form submitted
 
 					if ($form->submitted()) {
 
@@ -56,12 +56,14 @@
 
 						}
 
-					} else {
+					}
 
-						//--------------------------------------------------
-						// Defaults
+				//--------------------------------------------------
+				// Form defaults
 
-							$config['helper']->populate_login();
+					if ($form->initial()) {
+
+						$config['helper']->populate_login();
 
 					}
 
