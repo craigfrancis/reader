@@ -6,7 +6,7 @@
 				'read_url' => NULL,
 			);
 
-		public function setup($config = array()) {
+		protected function setup($config) {
 
 			//--------------------------------------------------
 			// Sources

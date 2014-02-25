@@ -7,7 +7,7 @@
 				'read' => false,
 			);
 
-		public function setup($config = array()) {
+		protected function setup($config) {
 
 			//--------------------------------------------------
 			// Source

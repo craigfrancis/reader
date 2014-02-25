@@ -14,7 +14,7 @@
 		private $article_link = NULL;
 		private $article_read = NULL;
 
-		public function setup($config = array()) {
+		protected function setup($config) {
 
 			//--------------------------------------------------
 			// Source

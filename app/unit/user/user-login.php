@@ -7,7 +7,7 @@
 				'dest_url' => NULL,
 			);
 
-		public function setup($config = array()) {
+		protected function setup($config) {
 
 			//--------------------------------------------------
 			// Already logged in
