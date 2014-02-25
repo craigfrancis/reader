@@ -2,14 +2,11 @@
 
 	class article_index_unit extends unit {
 
+		protected $config = array(
+				'read_url' => NULL,
+			);
+
 		public function setup($config = array()) {
-
-			//--------------------------------------------------
-			// Config
-
-				$config = array_merge(array(
-						'read_url' => NULL,
-					), $config);
 
 			//--------------------------------------------------
 			// Sources

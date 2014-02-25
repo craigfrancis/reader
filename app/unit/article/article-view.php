@@ -2,6 +2,12 @@
 
 	class article_view_unit extends unit {
 
+		protected $config = array(
+				'source' => NULL,
+				'article' => NULL,
+				'read' => NULL,
+			);
+
 		private $article_id = NULL;
 		private $article_source_id = NULL;
 		private $article_published = NULL;
@@ -9,15 +15,6 @@
 		private $article_read = NULL;
 
 		public function setup($config = array()) {
-
-			//--------------------------------------------------
-			// Config
-
-				$config = array_merge(array(
-						'source' => NULL,
-						'article' => NULL,
-						'read' => NULL,
-					), $config);
 
 			//--------------------------------------------------
 			// Source

@@ -2,15 +2,12 @@
 
 	class user_login_unit extends unit {
 
+		protected $config = array(
+				'helper' => NULL,
+				'dest_url' => NULL,
+			);
+
 		public function setup($config = array()) {
-
-			//--------------------------------------------------
-			// Config
-
-				$config = array_merge(array(
-						'helper' => NULL,
-						'dest_url' => NULL,
-					), $config);
 
 			//--------------------------------------------------
 			// Already logged in

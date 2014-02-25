@@ -2,15 +2,12 @@
 
 	class article_list_read_unit extends unit {
 
+		protected $config = array(
+				'source' => NULL,
+				'read' => false,
+			);
+
 		public function setup($config = array()) {
-
-			//--------------------------------------------------
-			// Config
-
-				$config = array_merge(array(
-						'source' => NULL,
-						'read' => false,
-					), $config);
 
 			//--------------------------------------------------
 			// Articles
