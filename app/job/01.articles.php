@@ -150,8 +150,13 @@
 										}
 									}
 
+									$guid = strval($item->guid);
+									if ($guid == '') {
+										$guid = strval($item->link);
+									}
+
 									$source_articles[] = array(
-											'guid'        => strval($item->guid),
+											'guid'        => $guid,
 											'title'       => strval($item->title),
 											'link'        => strval($item->link),
 											'description' => $description,
