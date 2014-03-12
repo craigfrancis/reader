@@ -148,6 +148,7 @@
 					$response->title_full_set('Reader');
 
 					$response->set('footer_urls', array(
+							array('text' => 'Sources', 'class' => 'sources', 'href' => url('/sources/')),
 							array('text' => 'Logout', 'class' => 'logout', 'href' => url('/logout/')),
 						));
 

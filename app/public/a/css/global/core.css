@@ -186,6 +186,7 @@
 		#page_footer a.next,
 		#page_footer a.read,
 		#page_footer a.unread,
+		#page_footer a.sources,
 		#page_footer a.logout {
 			-webkit-touch-callout: none;
 		}
@@ -195,7 +196,8 @@
 			color: #666;
 		}
 
-		#page_footer a.back {
+		#page_footer a.back,
+		#page_footer a.sources {
 			float: left;
 			text-align: left;
 			width: 5em;
@@ -385,6 +387,17 @@
 		border: 0;
 	}
 
+	.basic_form .row.text .input input,
+	.basic_form .row.password .input input,
+	.basic_form .row.url .input input {
+		width: 90%;
+		max-width: 40em;
+	}
+
+	.basic_form .row.number.sort .input input {
+		width: 5em;
+	}
+
 	.basic_form .row.info .input,
 	.basic_form .row.radio .input,
 	.basic_form .row.check .input {
@@ -399,8 +412,32 @@
 				margin: 4px 0 0 -11.5em;
 				text-align: right;
 			}
-			.basic_form .info .input {
-				margin-bottom: 0;
-				margin-left: 0;
+			.basic_form .row.info .input {
+				padding-bottom: 0;
+				padding-left: 0;
 			}
 		}
+
+/*--------------------------------------------------*/
+/* Login page                                       */
+
+	#p_home #page_content {
+		padding: 5px;
+	}
+
+/*--------------------------------------------------*/
+/* Source index                                     */
+
+	#p_sources #page_content,
+	#p_sources_edit #page_content,
+	#p_sources_delete #page_content {
+		padding: 5px;
+	}
+
+	#p_sources #page_content ol {
+		margin: 0 0 5px 2.5em;
+	}
+
+	#p_sources #page_content ol abbr.error {
+		color: #A00;
+	}
