@@ -39,7 +39,7 @@
 					$sources[] = array(
 							'url' => $config['edit_url']->get(array('id' => $row['id'])),
 							'title' => $row['title'],
-							'error' => ($row['error_date'] != '0000-00-00 00:00:00' && strtotime($row['error_date']) > strtotime('-2 days')),
+							'error' => ($row['error_date'] != '0000-00-00 00:00:00' && strtotime($row['error_date']) > strtotime('-1 day')),
 						);
 
 				}
