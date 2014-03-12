@@ -152,7 +152,7 @@
 
 									$guid = strval($item->guid);
 									if ($guid == '') {
-										$guid = strval($item->link);
+										$guid = md5($item->link);
 									}
 
 									$source_articles[] = array(
