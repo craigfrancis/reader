@@ -180,20 +180,21 @@
 										$published = strval($entry->updated);
 									}
 
+									$url = '';
 									if (count($entry->link) > 1) { // ref "Chromium Blog"
 										foreach ($entry->link as $link) {
 											if (!isset($link['type']) || $link['type'] != 'application/atom+xml') {
-												$link = strval($link['href']);
+												$url = strval($link['href']);
 											}
 										}
 									} else {
-										$link = strval($entry->link['href']);
+										$url = strval($entry->link['href']);
 									}
 
 									$source_articles[] = array(
 											'guid'        => strval($entry->id),
 											'title'       => strval($entry->title),
-											'link'        => $link,
+											'link'        => $url,
 											'description' => $description,
 											'published'   => $published,
 										);
