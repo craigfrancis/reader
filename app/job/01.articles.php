@@ -183,7 +183,7 @@
 									$url = '';
 									if (count($entry->link) > 1) { // ref "Chromium Blog"
 										foreach ($entry->link as $link) {
-											if (!isset($link['type']) || $link['type'] != 'application/atom+xml') {
+											if ((!isset($link['type']) || $link['type'] != 'application/atom+xml') && (!isset($link['rel']) || $link['rel'] != 'replies')) {
 												$url = strval($link['href']);
 											}
 										}
