@@ -55,7 +55,7 @@
 
 						if ($row['error_date'] != '0000-00-00 00:00:00') {
 							$source_error = strtotime($row['error_date']);
-							if ($source_error > strtotime('-2 days')) {
+							if ($source_error >= strtotime($row['updated'])) {
 								$source_error = $row['error_text'] . ' (' . date('D, g:ia', $source_error) . ')';
 							} else {
 								$source_error = NULL;
