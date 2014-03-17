@@ -48,7 +48,7 @@
 						$source_update_url = gateway_url('update', array('source' => $source_id, 'dest' => url()));
 
 						if ($row['updated'] != '0000-00-00 00:00:00') {
-							$source_updated = date('D jS M Y, g:ia', strtotime($row['updated']));
+							$source_updated = date('D jS M Y, g:i:sa', strtotime($row['updated']));
 						} else {
 							$source_updated = 'N/A';
 						}
