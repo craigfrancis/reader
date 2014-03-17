@@ -27,6 +27,7 @@
 				$table_sql = DB_PREFIX . 'source';
 				$where_sql = NULL;
 
+				$source_update_url = NULL;
 				$source_updated = NULL;
 				$source_error = NULL;
 
@@ -44,6 +45,7 @@
 
 						$source_title = $row['title'];
 						$source_sort = $row['sort'];
+						$source_update_url = gateway_url('update', array('source' => $source_id, 'dest' => url()));
 
 						if ($row['updated'] != '0000-00-00 00:00:00') {
 							$source_updated = date('D jS M Y, g:ia', strtotime($row['updated']));
@@ -112,7 +114,7 @@
 
 				if ($source_updated) {
 					$field_updated = new form_field_info($form, 'Updated');
-					$field_updated->value_set($source_updated);
+					$field_updated->value_set_html(html($source_updated) . ' (<a href="' . html($source_update_url) . '">update</a>)');
 				}
 
 				if ($source_error) {
