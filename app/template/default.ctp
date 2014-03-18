@@ -14,7 +14,7 @@
 
 	<?= $response->head_get_html(); ?>
 
-	<meta name="viewport" content="width=device-width, minimal-ui">
+	<meta name="viewport" content="initial-scale=1" />
 
 	<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
