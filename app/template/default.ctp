@@ -25,7 +25,7 @@
 
 	<div id="page_wrapper">
 
-		<header id="page_title" role="banner">
+		<header id="page_header" role="banner">
 			<h1><a href="/">Reader</a></h1>
 		</header>
 
@@ -40,6 +40,14 @@
 
 
 <!-- END OF PAGE TOP -->
+
+	<?php if (isset($title_html)) { ?>
+
+		<div id="page_title">
+			<?= $title_html . "\n" ?>
+		</div>
+
+	<?php } ?>
 
 	<?= $response->message_get_html(); ?>
 
