@@ -20,10 +20,10 @@
 			php_value newrelic.appname "Craig: Reader"
 		</IfModule>
 
-		SSLEngine On
-		SSLCertificateFile /etc/apache2/ssl/reader.craigfrancis.co.uk.crt
-		SSLCertificateKeyFile /etc/apache2/ssl/reader.craigfrancis.co.uk.key
-		#SSLCertificateChainFile /etc/apache2/ssl/godaddy.com.crt
+		SSLEngine on
+		SSLCertificateFile /etc/apache2/ssl/www.craigfrancis.co.uk.crt
+		SSLCertificateKeyFile /etc/apache2/ssl/www.craigfrancis.co.uk.key
+		SSLCertificateChainFile /etc/apache2/ssl/www.craigfrancis.co.uk.chn
 
 		<Files ~ "\.(cgi|shtml|phtml|php3?)$">
 			SSLOptions +StdEnvVars
