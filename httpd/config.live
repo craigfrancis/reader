@@ -23,7 +23,7 @@
 		SSLEngine on
 		SSLCertificateFile /etc/apache2/ssl/reader.craigfrancis.co.uk.crt
 		SSLCertificateKeyFile /etc/apache2/ssl/reader.craigfrancis.co.uk.key
-		SSLCertificateChainFile /etc/apache2/ssl/reader.craigfrancis.co.uk.chn
+		#SSLCertificateChainFile /etc/apache2/ssl/reader.craigfrancis.co.uk.chn
 
 		<Files ~ "\.(cgi|shtml|phtml|php3?)$">
 			SSLOptions +StdEnvVars
