@@ -27,7 +27,7 @@
 
 					$where_sql = '
 						s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
-						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . '" AND
+						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 hour'))) . '" AND
 						s.deleted = "0000-00-00 00:00:00"';
 
 				}
