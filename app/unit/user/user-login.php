@@ -27,7 +27,7 @@
 					$form = $config['helper']->form_get();
 					$form->form_button_set('Login');
 					$form->form_class_set('basic_form');
-					$form->field_autofocus_set(true);
+					$form->autofocus_set(true);
 
 					$field_username = $form->field_get('identification');
 					$field_password = $form->field_get('password');
