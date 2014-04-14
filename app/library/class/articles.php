@@ -75,11 +75,15 @@
 															sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-2 weeks'))) . '" AND
 															sar.read_date IS NOT NULL
 														ORDER BY
-															sa.published DESC
+															sar.read_date DESC
 														LIMIT
 															30, 100000
 													) AS x
-											)'); // Extra sub query required due to lack of support for "LIMIT" with "IN" (feature to be added to MySQL later)
+											)');
+
+							// Extra sub query required due to lack of support for "LIMIT" with "IN" (feature to be added to MySQL later).
+
+							// Delete by "sar.read_date" (not "sa.published"), as websites like Coding Horror like to change their GUID.
 
 					//--------------------------------------------------
 					// Get XML ... don't do directly in simple xml as
