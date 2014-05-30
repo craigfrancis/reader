@@ -100,15 +100,17 @@
 
 				$field_website = new form_field_url($form, 'Website URL');
 				$field_website->db_field_set('url_http');
+				$field_website->scheme_default_set('http');
+				$field_website->scheme_allowed_set('The website URL has an invalid scheme.', array('http', 'https'));
 				$field_website->format_error_set('The website URL does not appear to be correct.');
-				$field_website->allowed_schemes_set('The website URL has an invalid scheme.', array('http', 'https'));
 				$field_website->min_length_set('The website URL is required.');
 				$field_website->max_length_set('The website URL cannot be longer than XXX characters.');
 
 				$field_feed = new form_field_url($form, 'Feed URL');
 				$field_feed->db_field_set('url_feed');
+				$field_feed->scheme_default_set('http');
+				$field_feed->scheme_allowed_set('The feed URL has an invalid scheme.', array('http', 'https'));
 				$field_feed->format_error_set('The feed URL does not appear to be correct.');
-				$field_feed->allowed_schemes_set('The feed URL has an invalid scheme.', array('http', 'https'));
 				$field_feed->min_length_set('The feed URL is required.');
 				$field_feed->max_length_set('The feed URL cannot be longer than XXX characters.');
 
