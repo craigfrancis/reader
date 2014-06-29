@@ -112,6 +112,8 @@
 
 						if (!$error) {
 
+							$rss_data = str_replace(' & ', ' &amp; ', $rss_data); // Try to cleanup bad XML (e.g. ampersand in <title>)
+
 							$rss_xml = @simplexml_load_string($rss_data);
 
 							if ($rss_xml === false) {
