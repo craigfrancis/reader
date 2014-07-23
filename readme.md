@@ -11,3 +11,11 @@ There are of course much better alternatives (which I did not get along with):
 * [http://theoldreader.com/](http://theoldreader.com/)
 * [http://netnewswireapp.com/](http://netnewswireapp.com/)
 * [http://feedly.com/](http://feedly.com/)
+
+## Screenshots
+
+![Index](https://raw.githubusercontent.com/craigfrancis/reader/master/resources/screenshots/photo-1-index.png)
+
+![Articles](https://raw.githubusercontent.com/craigfrancis/reader/master/resources/screenshots/photo-2-articles.png)
+
+![Index](https://raw.githubusercontent.com/craigfrancis/reader/master/resources/screenshots/photo-3-view.png)
