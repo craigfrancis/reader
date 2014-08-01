@@ -13,7 +13,7 @@
 		ServerName reader.craigfrancis.co.uk
 		DocumentRoot /www/live/craig.reader/app/public/
 
-		CustomLog /www/live/craig.reader/logs/access_log combined
+		CustomLog /www/live/craig.reader/logs/access_log inc_info
 		ErrorLog /www/live/craig.reader/logs/error_log
 
 		<IfModule php5_module>
