@@ -46,3 +46,9 @@
 		RewriteRule ^(.*)$ /www/live/craig.reader/app/public/index.php [L]
 
 	</Directory>
+
+	<Directory "/www/live/craig.reader/files/">
+
+		php_admin_flag engine off
+
+	</Directory>
