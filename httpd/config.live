@@ -39,6 +39,8 @@
 
 		AllowOverride None
 
+		Options -Indexes
+
 		RewriteEngine On
 		RewriteCond %{REQUEST_FILENAME} !^/a/files/
 		RewriteCond %{REQUEST_FILENAME} !-d
