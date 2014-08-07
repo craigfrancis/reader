@@ -77,6 +77,10 @@
 		padding: 5px;
 	}
 
+	#article_wrapper :first-child {
+		margin-top: 0;
+	}
+
 	@media only screen and (max-device-width: 480px) {
 		#article_wrapper {
 			word-break: break-word; /* Works in iOS, other solutions are very buggy (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
