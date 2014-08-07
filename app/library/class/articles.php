@@ -37,7 +37,8 @@
 
 				$sql = 'SELECT
 							s.id,
-							s.url_feed
+							s.url_feed,
+							s.article_count
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
@@ -53,6 +54,12 @@
 						$source_id = $row['id'];
 						$source_url = $row['url_feed'];
 						$source_articles = array();
+
+						$article_count = intval($row['article_count']);
+						if ($article_count < 30) {
+							$article_count = 30;
+						}
+						$article_count += 10; // Bit of tolerance
 
 					//--------------------------------------------------
 					// Delete old articles
@@ -77,7 +84,7 @@
 														ORDER BY
 															sar.read_date DESC
 														LIMIT
-															30, 100000
+															' . intval($article_count) . ', 100000
 													) AS x
 											)');
 
