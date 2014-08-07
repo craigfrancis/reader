@@ -1,13 +1,26 @@
 <?php
 
-	if (defined('PRIVATE_ROOT') && defined('SERVER') && SERVER == 'live') {
-		if (is_file(PRIVATE_ROOT . '/database.txt')) {
+	if (defined('SERVER') && SERVER == 'live') {
 
-			$database_password = file_get_contents(PRIVATE_ROOT . '/database.txt');
+		$values_path = PRIVATE_ROOT . '/config.ini';
+		$config_path = APP_ROOT . '/library/setup/config.php';
 
-			echo 'Private: ' . $database_password . "\n";
+		if (is_file($values_path)) {
+
+			$config_contents = file_get_contents($config_path);
+
+			foreach (parse_ini_file($values_path) as $key => $value) {
+				$config_contents = str_replace('[[' . $key . ']]', $value, $config_contents);
+			}
+
+			file_put_contents($config_path, $config_contents);
+
+		} else {
+
+			echo 'Cannot find config ini file: ' . $values_path . "";
 
 		}
+
 	}
 
 ?>
