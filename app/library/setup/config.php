@@ -54,25 +54,25 @@
 		//--------------------------------------------------
 		// Database
 
-			$config['db.host'] = '[[db.host]]'; // Hide from source control
-			$config['db.user'] = '[[db.user]]';
-			$config['db.pass'] = '[[db.pass]]';
-			$config['db.name'] = '[[db.name]]';
+			$config['db.host'] = 'PRIVATE'; // Hide from source control
+			$config['db.user'] = 'PRIVATE';
+			$config['db.pass'] = 'PRIVATE';
+			$config['db.name'] = 'PRIVATE';
 
 			$config['db.prefix'] = 'rdr_';
 
 		//--------------------------------------------------
 		// Email
 
-			$config['email.from_email'] = '[[email.default]]';
-			$config['email.testing'] = '[[email.default]]';
-			$config['email.error'] = '[[email.default]]';
+			$config['email.from_email'] = 'PRIVATE';
+			$config['email.testing'] = 'PRIVATE';
+			$config['email.error'] = 'PRIVATE';
 
 		//--------------------------------------------------
 		// General
 
 			$config['output.protocols'] = array('https');
-			$config['output.domain'] = '[[output.domain]]';
+			$config['output.domain'] = 'PRIVATE';
 
 	}
 
