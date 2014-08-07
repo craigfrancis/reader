@@ -61,6 +61,16 @@
                 "options": null,
                 "definition": "tinytext NOT NULL"
             },
+            "article_count": {
+                "type": "int",
+                "length": "11",
+                "collation": null,
+                "null": false,
+                "default": null,
+                "extra": "",
+                "options": null,
+                "definition": "int(11) NOT NULL"
+            },
             "updated": {
                 "type": "datetime",
                 "length": 19,

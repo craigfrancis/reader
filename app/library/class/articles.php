@@ -261,6 +261,7 @@
 								);
 						} else {
 							$values = array(
+									'article_count' => count($source_articles),
 									'updated' => date('Y-m-d H:i:s'),
 								);
 						}
