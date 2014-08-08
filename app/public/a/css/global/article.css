@@ -210,6 +210,9 @@
 
 	#article_wrapper.dzone > div img {
 		float: none !important;
+	}
+
+	#article_wrapper.dzone > div:first-child img {
 		width: 120px;
 		height: 90px;
 	}
