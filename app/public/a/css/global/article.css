@@ -90,7 +90,7 @@
 		}
 	}
 
-	#article_wrapper > div img:focus {
+	#article_wrapper > div img:hover {
 		max-width: 100%;
 		height: auto;
 	}
