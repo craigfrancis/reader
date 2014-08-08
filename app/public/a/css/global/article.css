@@ -210,6 +210,8 @@
 
 	#article_wrapper.dzone > div img {
 		float: none !important;
+		width: 120px;
+		height: 90px;
 	}
 
 	#article_wrapper.dzone > div > p {
