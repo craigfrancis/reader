@@ -90,10 +90,12 @@
 		}
 	}
 
+	/*
 	#article_wrapper > div img:focus {
 		max-width: 100%;
 		height: auto;
 	}
+	*/
 
 	#article_wrapper blockquote {
 		margin: 1em 0;
