@@ -90,6 +90,10 @@
 		}
 	}
 
+	#article_wrapper > div img:active {
+		max-width: 100%;
+	}
+
 	#article_wrapper blockquote {
 		margin: 1em 0;
 		padding: 0 0 0 5px;
