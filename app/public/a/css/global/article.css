@@ -92,6 +92,7 @@
 
 	#article_wrapper > div img:active {
 		max-width: 100%;
+		height: auto;
 	}
 
 	#article_wrapper blockquote {
