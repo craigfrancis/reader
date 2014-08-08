@@ -212,7 +212,7 @@
 		float: none !important;
 	}
 
-	#article_wrapper.dzone > h1 + div img {
+	#article_wrapper.dzone > div a:first-child img {
 		width: 120px;
 		height: 90px;
 	}
