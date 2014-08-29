@@ -109,8 +109,14 @@
 
 					} else {
 
+						$state = request('state');
+						if ($state !== 'all' && $state !== 'read') {
+							$state = 'unread';
+						}
+
 						$unit = unit_add('article_list_source', array(
 								'source' => $source,
+								'state' => $state,
 							));
 
 						// if (count($unit->get('articles')) == 0) {

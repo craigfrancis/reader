@@ -49,6 +49,7 @@
 					'id' => $id,
 					'index_url' => url('/sources/'),
 					'delete_url' => url('/sources/delete/'),
+					'articles_url' => url('/articles/:source/'),
 				));
 
 		}

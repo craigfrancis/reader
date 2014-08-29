@@ -4,7 +4,7 @@
 
 		protected $config = array(
 				'source' => NULL,
-				'read' => false,
+				'state' => 'unread',
 			);
 
 		protected function setup($config) {
@@ -37,15 +37,19 @@
 				$where_sql = '
 					sa.source_id = "' . $db->escape($source_id) . '"';
 
-				if ($config['read'] === true) {
+				if ($config['state'] === 'read') {
 
 					$where_sql .= ' AND
 						sar.article_id IS NOT NULL';
 
-				} else if ($config['read'] === false) {
+				} else if ($config['state'] === 'unread') {
 
 					$where_sql .= ' AND
 						sar.article_id IS NULL';
+
+				} else if ($config['state'] !== 'all') {
+
+					exit_with_error('Unknown article state "' . $config['state'] . '"');
 
 				}
 
@@ -53,7 +57,8 @@
 
 				$sql = 'SELECT
 							sa.id,
-							sa.title
+							sa.title,
+							sar.article_id
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
 						LEFT JOIN
@@ -63,7 +68,7 @@
 						GROUP BY
 							sa.id
 						ORDER BY
-							sa.published ASC
+							sa.published ' . ($config['state'] === 'unread' ? 'ASC' : 'DESC') . '
 						LIMIT
 							50';
 
@@ -71,7 +76,8 @@
 
 					$articles[] = array(
 							'url' => url('/articles/:source/', array('source' => $source_ref, 'id' => $row['id'])),
-							'name' => $row['title'],
+							'title' => $row['title'],
+							'new' => ($config['state'] === 'all' && $row['article_id'] == 0),
 						);
 
 				}

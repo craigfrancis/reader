@@ -2,7 +2,7 @@
 	<ul id="reader_list">
 		<?php foreach ($articles as $article) { ?>
 
-			<li><a href="<?= html($article['url']) ?>"><?= html($article['name']) ?></a></li>
+			<li><?= ($article['new'] ? 'New: ' : '') ?><a href="<?= html($article['url']) ?>"><?= html($article['title']) ?></a></li>
 
 		<?php } ?>
 		<?php if (count($articles) == 0) { ?>

@@ -3,9 +3,10 @@
 	class sources_edit_unit extends unit {
 
 		protected $config = array(
-				'id'         => array('type' => 'int'),
-				'index_url'  => array('type' => 'url'),
-				'delete_url' => array('type' => 'url'),
+				'id'           => array('type' => 'int'),
+				'index_url'    => array('type' => 'url'),
+				'delete_url'   => array('type' => 'url'),
+				'articles_url' => array('type' => 'url'),
 			);
 
 		// protected function authenticate($config) {
@@ -39,10 +40,11 @@
 						id = "' . $db->escape($source_id) . '" AND
 						deleted = "0000-00-00 00:00:00"';
 
-					$db->select($table_sql, array('title', 'sort', 'updated', 'error_date', 'error_text'), $where_sql);
+					$db->select($table_sql, array('ref', 'title', 'sort', 'updated', 'error_date', 'error_text'), $where_sql);
 
 					if ($row = $db->fetch_row()) {
 
+						$source_ref = $row['ref'];
 						$source_title = $row['title'];
 						$source_sort = $row['sort'];
 						$source_update_url = gateway_url('update', array('source' => $source_id, 'dest' => url()));
@@ -71,6 +73,13 @@
 					}
 
 				}
+
+			//--------------------------------------------------
+			// Urls
+
+				$article_unread_url = $config['articles_url']->get(array('source' => $source_ref));
+				$article_read_url = $config['articles_url']->get(array('source' => $source_ref, 'state' => 'read'));
+				$article_all_url = $config['articles_url']->get(array('source' => $source_ref, 'state' => 'all'));
 
 			//--------------------------------------------------
 			// Form setup
@@ -113,6 +122,14 @@
 				$field_feed->format_error_set('The feed URL does not appear to be correct.');
 				$field_feed->min_length_set('The feed URL is required.');
 				$field_feed->max_length_set('The feed URL cannot be longer than XXX characters.');
+
+				if ($action_edit) {
+					$field_articles = new form_field_info($form, 'Articles');
+					$field_articles->value_set_html('
+						<a href="' . html($article_unread_url) . '">Unread</a> |
+						<a href="' . html($article_read_url) . '">Read</a> |
+						<a href="' . html($article_all_url) . '">All</a>');
+				}
 
 				if ($source_updated) {
 					$field_updated = new form_field_info($form, 'Updated');
