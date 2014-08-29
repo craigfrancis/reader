@@ -30,6 +30,11 @@
 		background-color: #FFF;
 	}
 
+	sup {
+		vertical-align: super;
+		font-size: smaller;
+	}
+
 	a {
 		color: #00E;
 	}
