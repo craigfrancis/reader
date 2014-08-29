@@ -33,6 +33,7 @@
 	sup {
 		vertical-align: super;
 		font-size: smaller;
+		margin: 0 0.1em;
 	}
 
 	a {
