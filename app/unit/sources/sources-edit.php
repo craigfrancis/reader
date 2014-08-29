@@ -77,9 +77,9 @@
 			//--------------------------------------------------
 			// Urls
 
-				$article_unread_url = $config['articles_url']->get(array('source' => $source_ref));
-				$article_read_url = $config['articles_url']->get(array('source' => $source_ref, 'state' => 'read'));
-				$article_all_url = $config['articles_url']->get(array('source' => $source_ref, 'state' => 'all'));
+				$article_unread_url = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source'));
+				$article_read_url   = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'read'));
+				$article_all_url    = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'all'));
 
 			//--------------------------------------------------
 			// Form setup

@@ -98,6 +98,11 @@
 			} else if ($source !== NULL) {
 
 				//--------------------------------------------------
+				// Config
+
+					$back_url = url('/articles/');
+
+				//--------------------------------------------------
 				// Listing unit
 
 					if ($source === 'read') {
@@ -119,6 +124,10 @@
 								'state' => $state,
 							));
 
+						if (request('back') == 'source') {
+							$back_url = url('/sources/edit/', array('id' => $unit->get('source_id')));
+						}
+
 						// if (count($unit->get('articles')) == 0) {
 						// 	redirect(url('/articles/'));
 						// }
@@ -131,7 +140,7 @@
 				// Footer URLs
 
 					$response->set('footer_urls', array(
-							array('text' => 'Back', 'class' => 'back', 'href' => url('/articles/')),
+							array('text' => 'Back', 'class' => 'back', 'href' => $back_url),
 						));
 
 			} else {

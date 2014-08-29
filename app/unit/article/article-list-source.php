@@ -85,6 +85,7 @@
 			//--------------------------------------------------
 			// Variables
 
+				$this->set('source_id', $source_id);
 				$this->set('source_title', $source_title);
 				$this->set('articles', $articles);
 
