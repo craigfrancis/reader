@@ -208,6 +208,8 @@
 			display: inline-block;
 			text-decoration: none;
 			width: 5em;
+			line-height: 0.5em;
+			font-size: 1.5em;
 		}
 
 		#page_footer .next,
