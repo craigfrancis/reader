@@ -12,9 +12,9 @@
 <html lang="<?= html($response->lang_get()) ?>" xml:lang="<?= html($response->lang_get()) ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-	<meta name="viewport" content="initial-scale=1" />
-
 	<?= $response->head_get_html(); ?>
+
+	<meta name="viewport" content="initial-scale=1" />
 
 </head>
 <body id="<?= html($response->page_id_get()) ?>">
