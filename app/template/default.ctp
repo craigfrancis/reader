@@ -12,13 +12,9 @@
 <html lang="<?= html($response->lang_get()) ?>" xml:lang="<?= html($response->lang_get()) ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-	<?= $response->head_get_html(); ?>
-
 	<meta name="viewport" content="initial-scale=1" />
 
-	<!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<?= $response->head_get_html(); ?>
 
 </head>
 <body id="<?= html($response->page_id_get()) ?>">
