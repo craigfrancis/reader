@@ -187,6 +187,7 @@
 		#page_footer a.read,
 		#page_footer a.unread,
 		#page_footer a.sources,
+		#page_footer a.reload,
 		#page_footer a.logout {
 			-webkit-touch-callout: none;
 		}
@@ -200,6 +201,12 @@
 		#page_footer a.sources {
 			float: left;
 			text-align: left;
+			width: 5em;
+		}
+
+		#page_footer a.reload {
+			display: inline-block;
+			text-decoration: none;
 			width: 5em;
 		}
 
