@@ -209,8 +209,8 @@
 			display: inline-block;
 			text-decoration: none;
 			width: 5em;
-			margin: -1em 0;
-			font-size: 1.6em;
+			line-height: 0.6em;
+			font-size: 1.5em;
 		}
 
 		#page_footer .next,
