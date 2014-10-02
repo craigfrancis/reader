@@ -101,6 +101,9 @@
 			'style-src' => array(
 					"'self'",
 				),
+			'connect-src' => array(
+					'www.devcf.com', // For to-do list
+				),
 		);
 
 //--------------------------------------------------
