@@ -97,7 +97,6 @@
 				),
 			'script-src' => array(
 					"'self'",
-					'www.devcf.com', // For to-do list
 				),
 			'style-src' => array(
 					"'self'",
