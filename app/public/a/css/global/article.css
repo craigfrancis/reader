@@ -31,10 +31,9 @@
 	}
 
 	sup {
-		vertical-align: top;
-		font-size: 0.5em;
-		margin-bottom: 0.2em; /* Small separating gap */
-		margin-left: 0.2em; /* Small separating gap */
+		vertical-align: text-top;
+		font-size: 0.6em;
+		margin-left: 0.25em; /* Small separating gap */
 	}
 
 	a {
