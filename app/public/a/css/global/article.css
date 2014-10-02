@@ -31,7 +31,7 @@
 	}
 
 	sup {
-		vertical-align: super;
+		vertical-align: text-top;
 		font-size: 0.5em;
 		margin: 0 0 0 0.2em; /* Small separating gap */
 	}
