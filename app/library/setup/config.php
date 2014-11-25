@@ -80,6 +80,9 @@
 // Output
 
 	$config['output.site_name'] = 'Reader';
+	$config['output.js_min'] = (SERVER != 'stage');
+	$config['output.css_min'] = (SERVER != 'stage');
+	$config['output.timestamp_url'] = true;
 	$config['output.tracking'] = false; // Disable NewRelic
 
 //--------------------------------------------------

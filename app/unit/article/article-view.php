@@ -243,7 +243,7 @@
 						<title>Article</title>
 
 						<link rel="shortcut icon" type="image/x-icon" href="/a/img/global/favicon.ico" />
-						<link rel="stylesheet" type="text/css" href="' . html(version_path('/a/css/global/article.css')) . '" media="all" />
+						<link rel="stylesheet" type="text/css" href="' . html(timestamp_url('/a/css/global/article.css')) . '" media="all" />
 
 						<base target="_blank" />
 
