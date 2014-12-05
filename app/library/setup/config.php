@@ -86,25 +86,21 @@
 	$config['output.tracking'] = false; // Disable NewRelic
 
 //--------------------------------------------------
-// Content security policy
+// Security
+
+	$config['output.framing'] = 'DENY'; // or SAMEORIGIN
+	$config['output.xss_reflected'] = 'block';
 
 	$config['output.csp_enabled'] = true;
 	$config['output.csp_enforced'] = true;
-
 	$config['output.csp_directives'] = array(
-			'default-src' => array(
-					"'none'",
-				),
-			'img-src' => array(
-					"*",
-				),
-			'script-src' => array(
-					"'self'",
-				),
-			'style-src' => array(
-					"'self'",
-				),
-			'connect-src' => array(
+			'default-src'  => array("'none'"),
+			'plugin-types' => array(),
+			'form-action'  => array("'self'"),
+			'style-src'    => array("'self'"),
+			'img-src'      => array("*"),
+			'script-src'   => array("'self'", 'https://www.google-analytics.com'),
+			'connect-src'  => array(
 					'www.devcf.com', // For to-do list
 				),
 		);
