@@ -8,7 +8,7 @@
 			// Require login
 
 				if (!USER_LOGGED_IN) {
-					redirect(url('/', $debug));
+					redirect(url('/'));
 				}
 
 			//--------------------------------------------------
