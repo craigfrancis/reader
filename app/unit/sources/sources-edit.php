@@ -75,13 +75,6 @@
 				}
 
 			//--------------------------------------------------
-			// Urls
-
-				$article_unread_url = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source'));
-				$article_read_url   = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'read'));
-				$article_all_url    = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'all'));
-
-			//--------------------------------------------------
 			// Form setup
 
 				$form = new form();
@@ -124,11 +117,17 @@
 				$field_feed->max_length_set('The feed URL cannot be longer than XXX characters.');
 
 				if ($action_edit) {
+
+					$article_unread_url = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source'));
+					$article_read_url   = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'read'));
+					$article_all_url    = $config['articles_url']->get(array('source' => $source_ref, 'back' => 'source', 'state' => 'all'));
+
 					$field_articles = new form_field_info($form, 'Articles');
 					$field_articles->value_set_html('
 						<a href="' . html($article_unread_url) . '">Unread</a> |
 						<a href="' . html($article_read_url) . '">Read</a> |
 						<a href="' . html($article_all_url) . '">All</a>');
+
 				}
 
 				if ($source_updated) {
