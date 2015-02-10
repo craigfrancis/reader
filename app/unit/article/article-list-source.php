@@ -68,7 +68,8 @@
 						GROUP BY
 							sa.id
 						ORDER BY
-							sa.published ' . ($config['state'] === 'unread' ? 'ASC' : 'DESC') . '
+							sa.published ' . ($config['state'] === 'unread' ? 'ASC' : 'DESC') . ',
+							sa.id ASC
 						LIMIT
 							50';
 
