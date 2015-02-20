@@ -204,6 +204,19 @@
 			width: 5em;
 		}
 
+		#page_footer a.sources {
+			text-decoration: none;
+		}
+
+		#page_footer a.sources span span {
+			text-decoration: underline;
+		}
+
+		#page_footer a.sources span abbr.error {
+			padding-left: 0.2em;
+			color: #C00;
+		}
+
 		#page_footer a.reload {
 			display: inline-block;
 			text-decoration: none;
@@ -452,5 +465,5 @@
 	}
 
 	#p_sources #page_content ol abbr.error {
-		color: #A00;
+		color: #C00;
 	}

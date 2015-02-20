@@ -66,13 +66,21 @@
 			<footer id="page_footer" role="contentinfo">
 				<?php
 					foreach ($footer_urls as $footer_url) {
+
+						if (isset($footer_url['text'])) {
+							$label_html = html($footer_url['text']);
+						} else {
+							$label_html = $footer_url['html'];
+						}
+
 						if ($footer_url['href']) {
 							echo '
-								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"' . (isset($footer_url['target']) ? ' target="' . html($footer_url['target']) . '"' : '') . '><span>' . html($footer_url['text']) . '</span></a>';
+								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"' . (isset($footer_url['target']) ? ' target="' . html($footer_url['target']) . '"' : '') . '><span>' . $label_html . '</span></a>';
 						} else {
 							echo '
-								<span class="' . html($footer_url['class']) . '"><span>' . html($footer_url['text']) . '</span></span>';
+								<span class="' . html($footer_url['class']) . '"><span>' . $label_html . '</span></span>';
 						}
+
 					}
 				?>
 			</footer>

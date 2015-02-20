@@ -148,9 +148,11 @@
 				//--------------------------------------------------
 				// Index unit
 
-					unit_add('article_index', array(
+					$unit = unit_add('article_index', array(
 							'read_url' => url('/articles/:source/', array('source' => 'read')),
 						));
+
+					$source_html = '<span>Sources</span>' . ($unit->get('source_error') ? '<abbr class="error">*</abbr>' : '');
 
 				//--------------------------------------------------
 				// JavaScript
@@ -163,9 +165,9 @@
 					$response->title_full_set('Reader');
 
 					$response->set('footer_urls', array(
-							array('text' => 'Sources', 'class' => 'sources', 'href' => url('/sources/')),
-							array('text' => '↻',       'class' => 'reload', 'href' => url('/articles/')),
-							array('text' => 'Logout',  'class' => 'logout', 'href' => url('/logout/')),
+							array('html' => $source_html, 'class' => 'sources', 'href' => url('/sources/')),
+							array('text' => '↻',          'class' => 'reload',  'href' => url('/articles/')),
+							array('text' => 'Logout',     'class' => 'logout',  'href' => url('/logout/')),
 						));
 
 			}
