@@ -168,16 +168,19 @@
 
 								$node = $nodes->item($k);
 
-								$src = $node->getAttribute('src');
-								if (!$src) {
-									$src = $node->getAttribute('href');
+								$src = trim($node->getAttribute('src'));
+								if ($src) {
+									$text = '<' . $tag . ' src="' . $src . '">';
+								} else {
+									$src = trim($node->getAttribute('href'));
+									$text = '<' . $tag . ' href="' . $src . '">';
 								}
 
 								if ($src) {
-									$replacement_node = $article_dom->createElement('a', '<' . $tag . '>');
+									$replacement_node = $article_dom->createElement('a', $text);
 									$replacement_node->setAttribute('href', $src);
 								} else {
-									$replacement_node = $article_dom->createElement('span', '<' . $tag . '>');
+									$replacement_node = $article_dom->createElement('span', $text);
 								}
 
 								$replacement_node->setAttribute('class', $tag . '_tag');
