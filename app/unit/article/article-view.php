@@ -160,7 +160,7 @@
 					//--------------------------------------------------
 					// Remove bad tags
 
-						foreach (array('script', 'link') as $tag) {
+						foreach (array('script', 'link', 'iframe') as $tag) {
 
 							$nodes = $article_dom->getElementsByTagName($tag);
 
@@ -203,19 +203,19 @@
 					//--------------------------------------------------
 					// Convert <tag /> to <tag></tag>
 
-						foreach (array('iframe') as $tag) {
-
-							$nodes = $article_dom->getElementsByTagName($tag);
-
-							for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
-
-								$node = $nodes->item($k);
-
-								$node->appendChild($article_dom->createTextNode('')); //
-
-							}
-
-						}
+						// foreach (array('iframe') as $tag) {
+						//
+						// 	$nodes = $article_dom->getElementsByTagName($tag);
+						//
+						// 	for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+						//
+						// 		$node = $nodes->item($k);
+						//
+						// 		$node->appendChild($article_dom->createTextNode(''));
+						//
+						// 	}
+						//
+						// }
 
 					//--------------------------------------------------
 					// Back to a string
