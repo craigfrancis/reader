@@ -54,7 +54,7 @@
 		//--------------------------------------------------
 		// Database
 
-			$config['db.host'] = 'PRIVATE'; // Hide from source control
+			$config['db.host'] = 'PRIVATE'; // Hide from source control, see /private/config/live.ini
 			$config['db.user'] = 'PRIVATE';
 			$config['db.pass'] = 'PRIVATE';
 			$config['db.name'] = 'PRIVATE';

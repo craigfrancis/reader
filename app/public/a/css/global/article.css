@@ -111,10 +111,13 @@
 
 	#article_wrapper a.script_tag,
 	#article_wrapper a.link_tag,
+	#article_wrapper a.iframe_tag,
 	#article_wrapper span.script_tag,
-	#article_wrapper span.link_tag {
+	#article_wrapper span.link_tag,
+	#article_wrapper span.iframe_tag {
 		text-decoration: none;
 		color: #D00;
+		word-wrap: break-word;
 	}
 
 	#article_wrapper span.image_wrapper em {
@@ -142,8 +145,18 @@
 		display: block;
 		/* overflow: auto; - Causes iOS to crash */
 	}
+
 	#article_wrapper span.image_wrapper img {
 		display: block;
+		max-width: 100%;
+		height: auto;
+		margin: 0 auto;
+	}
+
+	#article_wrapper.dilbert span.image_wrapper img,
+	#article_wrapper.garfield span.image_wrapper img,
+	#article_wrapper.xkcd span.image_wrapper img {
+		max-width: none;
 	}
 
 /*--------------------------------------------------*/
