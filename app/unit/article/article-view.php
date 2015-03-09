@@ -159,6 +159,24 @@
 						}
 
 					//--------------------------------------------------
+					// Remove odd anchor links
+
+						if ($source_ref == 'the-daily-wtf') {
+
+							$links = $article_dom->getElementsByTagName('a');
+							for ($k = ($links->length - 1); $k >= 0; $k--) { // For each will skip nodes
+
+								$link = $links->item($k);
+
+								if (substr($link->getAttribute('href'), 0, 1) == '#') {
+									$link->removeAttribute('href');
+								}
+
+							}
+
+						}
+
+					//--------------------------------------------------
 					// Remove bad tags
 
 						foreach (array('script', 'link', 'iframe') as $tag) {
