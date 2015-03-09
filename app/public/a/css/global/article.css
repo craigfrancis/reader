@@ -234,6 +234,10 @@
 /*--------------------------------------------------*/
 /* DZone                                            */
 
+	#article_wrapper.dzone span.image_wrapper img {
+		margin: 0;
+	}
+
 	#article_wrapper.dzone > div img {
 		float: none !important;
 	}
