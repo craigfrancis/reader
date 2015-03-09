@@ -35,6 +35,7 @@
 					$source_id = $row['id'];
 					$source_title = $row['title'];
 					$source_url = $row['url_http'];
+					$source_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $source_url);
 					$source_ref = $config['source'];
 				} else {
 					error_send('page-not-found');
@@ -147,7 +148,7 @@
 
 							$src = $image->getAttribute('src');
 							if ($src && substr($src, 0, 1) == '/' && substr($src, 0, 2) != '//') { // what-if.xkcd.com
-								$image->setAttribute('src', $source_url . $src);
+								$image->setAttribute('src', $source_domain . $src);
 							}
 
 							if ($title) {
