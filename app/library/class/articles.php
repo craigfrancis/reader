@@ -9,6 +9,8 @@
 
 				$db = db_get();
 
+				libxml_use_internal_errors(true);
+
 			//--------------------------------------------------
 			// Condition
 
@@ -121,10 +123,19 @@
 
 							$rss_data = str_replace(' & ', ' &amp; ', $rss_data); // Try to cleanup bad XML (e.g. ampersand in <title>)
 
-							$rss_xml = @simplexml_load_string($rss_data);
+							$rss_xml = simplexml_load_string($rss_data);
 
 							if ($rss_xml === false) {
+
 								$error = 'Cannot parse feed';
+
+								$xml_errors = libxml_get_errors();
+								if (($xml_error = array_shift($xml_errors)) !== NULL) {
+									$error .= ' - L' . $xml_error->line . '/C' . $xml_error->column . ': ' . trim($xml_error->message);
+								}
+
+								libxml_clear_errors();
+
 							}
 
 						}
