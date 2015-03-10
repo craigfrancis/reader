@@ -147,8 +147,12 @@
 							}
 
 							$src = $image->getAttribute('src');
-							if ($src && substr($src, 0, 1) == '/' && substr($src, 0, 2) != '//') { // what-if.xkcd.com
-								$image->setAttribute('src', $source_domain . $src);
+							if ($src) {
+								if (substr($src, 0, 1) == '/' && substr($src, 0, 2) != '//') { // what-if.xkcd.com
+									$image->setAttribute('src', $source_domain . $src);
+								} else if (substr($src, -5) == '.jpg/') { // codinghorror.com
+									$image->setAttribute('src', substr($src, 0, -1));
+								}
 							}
 
 							if ($title) {
