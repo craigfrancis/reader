@@ -157,8 +157,10 @@
 								$src_local = articles::img_local_url($article_id, $src_remote);
 								if ($src_local !== NULL) {
 									$image->setAttribute('src', $src_local);
+									$image->setAttribute('data-src', $src_old);
 								} else if ($src_old != $src_remote) {
 									$image->setAttribute('src', $src_remote);
+									$image->setAttribute('data-src', $src_old);
 								}
 							}
 
