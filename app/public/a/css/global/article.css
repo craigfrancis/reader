@@ -81,6 +81,7 @@
 
 	#article_wrapper {
 		padding: 5px;
+		max-width: 50em;
 	}
 
 	#article_wrapper :first-child {
@@ -128,7 +129,7 @@
 		padding: 5px;
 		border: 1px solid #ffcc00;
 		clear: both;
-		max-width: 50em;
+		max-width: 40em;
 		font-style: normal;
 	}
 
