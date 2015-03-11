@@ -162,7 +162,7 @@
 							$report .= $article_link_source . "\n";
 							$report .= $article_link_clean . "\n\n";
 							$report .= $browser->request_full_get() . "\n\n";
-							$report .= implode("\n", $browser->response_headers_get());
+							$report .= $browser->response_headers_get();
 
 							report_add($report);
 
