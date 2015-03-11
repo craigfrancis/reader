@@ -160,7 +160,7 @@
 
 							$article_link_clean = '-';
 
-							report_add('Got a ' . $article_link_code . ' response when getting a clean URL for: ' . $article_link_source);
+							report_add('Got a "' . $article_link_code . '" response when getting a clean URL' . "\n" . $article_link_source . "\n" . $article_link_clean);
 
 						} else if ($article_link_clean == '') {
 
