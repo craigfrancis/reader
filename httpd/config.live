@@ -16,7 +16,7 @@
 		RewriteCond %{HTTP_HOST} !^reader\.craigfrancis\.co\.uk$
 		RewriteRule ^(.*) https://reader.craigfrancis.co.uk$1 [R=301,L]
 
-		# RewriteRule ^/a/files/(.*) /www/live/craig.reader/files/$1 [S=1]
+		RewriteRule ^/a/files/(.*) /www/live/craig.reader/files/$1 [S=1]
 		RewriteRule ^(.*)$ %{DOCUMENT_ROOT}$1
 
 		RewriteCond $1/$2 -f
