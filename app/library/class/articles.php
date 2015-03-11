@@ -153,13 +153,20 @@
 
 						$browser->get($article_link_source);
 
+						$article_link_code = $browser->response_code_get();
 						$article_link_clean = trim($browser->url_get());
 
-						if ($article_link_clean == '') {
+						if ($article_link_code != 200) {
 
 							$article_link_clean = $article_link_source;
 
-							report_add('Cannot return clean URL for :' . $article_link_source);
+							report_add('Got a ' . $article_link_code . ' response when getting a clean URL for: ' . $article_link_source);
+
+						} else if ($article_link_clean == '') {
+
+							$article_link_clean = $article_link_source;
+
+							report_add('Cannot return clean URL for: ' . $article_link_source);
 
 						}
 
