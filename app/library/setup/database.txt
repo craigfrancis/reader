@@ -190,7 +190,17 @@
                 "options": null,
                 "definition": "tinytext NOT NULL"
             },
-            "link": {
+            "link_source": {
+                "type": "tinytext",
+                "length": 255,
+                "collation": "utf8_unicode_ci",
+                "null": false,
+                "default": null,
+                "extra": "",
+                "options": null,
+                "definition": "tinytext NOT NULL"
+            },
+            "link_clean": {
                 "type": "tinytext",
                 "length": 255,
                 "collation": "utf8_unicode_ci",

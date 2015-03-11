@@ -35,7 +35,6 @@
 					$source_id = $row['id'];
 					$source_title = $row['title'];
 					$source_url = $row['url_http'];
-					$source_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $source_url);
 					$source_ref = $config['source'];
 				} else {
 					error_send('page-not-found');
@@ -47,7 +46,8 @@
 				$sql = 'SELECT
 							sa.id,
 							sa.title,
-							sa.link,
+							sa.link_source,
+							sa.link_clean,
 							sa.published,
 							sa.description,
 							IF(sar.article_id IS NOT NULL, 1, 0) AS article_read
@@ -65,10 +65,15 @@
 
 					$article_id = $row['id'];
 					$article_title = $row['title'];
-					$article_link = $row['link'];
 					$article_published = $row['published'];
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
+
+					if ($row['link_clean'] != '') {
+						$article_link = $row['link_clean'];
+					} else {
+						$article_link = $row['link_source'];
+					}
 
 				} else {
 
@@ -148,15 +153,12 @@
 
 							$src_old = $image->getAttribute('src');
 							if ($src_old) {
-								$src_new = $src_old;
-								if (substr($src_new, 0, 1) == '/' && substr($src_new, 0, 2) != '//') { // what-if.xkcd.com
-									$src_new = $source_domain . $src_new;
-								}
-								// if (substr($src_new, -1) == '/') { // codinghorror.com "filename.png/"
-								// 	$src_new = substr($src_new, 0, -1);
-								// }
-								if ($src_new != $src_old) {
-									$image->setAttribute('src', $src_new);
+								$src_remote = articles::img_remote_url($source_url, $src_old);
+								$src_local = articles::img_local_url($article_id, $src_remote);
+								if ($src_local !== NULL) {
+									$image->setAttribute('src', $src_local);
+								} else if ($src_old != $src_remote) {
+									$image->setAttribute('src', $src_remote);
 								}
 							}
 

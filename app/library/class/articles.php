@@ -2,6 +2,178 @@
 
 	class articles extends check {
 
+		static function img_local_url($article_id, $img_url) {
+
+			$local_path = self::img_local_path($article_id, $img_url);
+			if ($local_path !== NULL && is_file($local_path)) {
+				return FILE_URL . prefix_replace(FILE_ROOT, $local_path);
+			} else {
+				return NULL;
+			}
+
+		}
+
+		static function img_local_path($article_id, $img_url) {
+
+			if (preg_match('/\.(png|jpg|gif)$/', $img_url, $matches)) {
+				return FILE_ROOT . '/article-images/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
+			} else {
+				return NULL;
+			}
+
+		}
+
+		static function img_remote_url($source_url, $img_url) {
+
+			if (substr($img_url, 0, 2) == '//') {
+
+				$img_url = 'http:' . $img_url;
+
+			} else if (substr($img_url, 0, 1) == '/') { // e.g. what-if.xkcd.com
+
+				$img_url = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $source_url) . $img_url;
+
+			}
+
+			// if (substr($img_url, -1) == '/') { // codinghorror.com "filename.png/"
+			// 	$img_url = substr($img_url, 0, -1);
+			// }
+
+			if (prefix_match('http://feeds.feedburner.com/', $img_url)) {
+
+				$img_url = 'https' . substr($img_url, 4);
+
+			} else if (prefix_match('http://www.dzone.com/links/voteCountImage', $img_url)) {
+
+				$img_url .= '&file=image.gif';
+
+			}
+
+			return $img_url;
+
+		}
+
+		static function local_cache() {
+
+			//--------------------------------------------------
+			// Config
+
+				$db = db_get();
+
+				$browser = new socket_browser();
+				$browser->user_agent_set('Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)');
+
+				libxml_use_internal_errors(true);
+
+			//--------------------------------------------------
+			// Articles
+
+				$sql = 'SELECT
+							sa.id,
+							sa.link_source,
+							sa.description,
+							s.url_http
+						FROM
+							' . DB_PREFIX . 'source_article AS sa
+						LEFT JOIN
+							' . DB_PREFIX . 'source AS s ON s.id = sa.source_id AND s.deleted = s.deleted
+						WHERE
+							sa.link_clean = ""
+						ORDER BY
+							sa.published
+						LIMIT
+							20';
+
+				foreach ($db->fetch_all($sql) as $row) {
+
+					//--------------------------------------------------
+					// Details
+
+						$article_id = $row['id'];
+						$article_link_source = trim($row['link_source']);
+						$article_html = trim($row['description']);
+						$source_url = $row['url_http'];
+
+					//--------------------------------------------------
+					// Images
+
+						if ($article_html != '') {
+
+							$article_dom = new DomDocument();
+							$article_dom->loadHTML('<?xml encoding="UTF-8">' . $article_html);
+
+							$images = $article_dom->getElementsByTagName('img');
+							for ($k = ($images->length - 1); $k >= 0; $k--) {
+
+								$image = $images->item($k);
+
+								$img_url = $image->getAttribute('src');
+								if ($img_url) {
+
+									$remote_url = self::img_remote_url($source_url, $img_url);
+									$local_path = self::img_local_path($article_id, $remote_url);
+
+									if ($local_path !== NULL && !is_file($local_path)) {
+
+										// $remote_data = file_get_contents($remote_url);
+
+										$browser->get($remote_url);
+
+										$remote_code = $browser->response_code_get();
+										$remote_data = $browser->response_data_get();
+
+										if ($remote_code == 200 && $remote_data) {
+
+											$local_dir = dirname($local_path);
+
+											if (!is_dir($local_dir)) {
+												@mkdir($local_dir, 0777, true);
+												if (!is_dir($local_dir)) {
+													exit_with_error('Cannot create folder: ' . $local_dir);
+												} else {
+													@chmod($local_dir, 0777);
+												}
+											}
+
+											file_put_contents($local_path, $remote_data);
+											chmod($local_path, 0666);
+
+										}
+
+									}
+
+								}
+
+							}
+
+						}
+
+					//--------------------------------------------------
+					// Clean link
+
+						$browser->get($article_link_source);
+
+						$article_link_clean = trim($browser->url_get());
+
+						if ($article_link_clean == '') {
+
+							$article_link_clean = $article_link_source;
+
+							report_add('Cannot return clean URL for :' . $article_link_source);
+
+						}
+
+						$db->query('UPDATE
+										' . DB_PREFIX . 'source_article AS sa
+									SET
+										sa.link_clean = "' . $db->escape($article_link_clean) . '"
+									WHERE
+										sa.id = "' . $db->escape($article_id) . '"');
+
+				}
+
+		}
+
 		static function update($condition = NULL) {
 
 			//--------------------------------------------------
@@ -66,33 +238,37 @@
 					//--------------------------------------------------
 					// Delete old articles
 
-						$db->query('DELETE FROM
-										' . DB_PREFIX . 'source_article
-									WHERE
-										id IN (
-												SELECT
-													*
-												FROM (
-														SELECT
-															sa.id
-														FROM
-															' . DB_PREFIX . 'source_article AS sa
-														LEFT JOIN
-															' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
-														WHERE
-															sa.source_id = "' . $db->escape($source_id) . '" AND
-															sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-2 weeks'))) . '" AND
-															sar.read_date IS NOT NULL
-														ORDER BY
-															sar.read_date DESC
-														LIMIT
-															' . intval($article_count) . ', 100000
-													) AS x
-											)');
+							// Delete by "sar.read_date" (not "sa.published"), as websites
+							// like Coding Horror like to change their GUID.
 
-							// Extra sub query required due to lack of support for "LIMIT" with "IN" (feature to be added to MySQL later).
+						$sql = 'SELECT
+									sa.id
+								FROM
+									' . DB_PREFIX . 'source_article AS sa
+								LEFT JOIN
+									' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
+								WHERE
+									sa.source_id = "' . $db->escape($source_id) . '" AND
+									sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-2 weeks'))) . '" AND
+									sar.read_date IS NOT NULL
+								ORDER BY
+									sar.read_date DESC
+								LIMIT
+									' . intval($article_count) . ', 100000';
 
-							// Delete by "sar.read_date" (not "sa.published"), as websites like Coding Horror like to change their GUID.
+						foreach ($db->fetch_all($sql) as $row) {
+
+							$cache_dir = FILE_ROOT . '/article-images/' . intval($row['id']) . '/';
+							if (is_dir($cache_dir)) {
+								rrmdir($cache_dir);
+							}
+
+							$db->query('DELETE FROM
+											' . DB_PREFIX . 'source_article
+										WHERE
+											id = "' . $db->escape($row['id']) . '"');
+
+						}
 
 					//--------------------------------------------------
 					// Get XML ... don't do directly in simple xml as
@@ -170,7 +346,8 @@
 									$source_articles[] = array(
 											'guid'        => $guid,
 											'title'       => strval($item->title),
-											'link'        => strval($item->link),
+											'link_source' => strval($item->link),
+											'link_clean'  => '',
 											'description' => $description,
 											'published'   => $published,
 										);
@@ -206,7 +383,8 @@
 									$source_articles[] = array(
 											'guid'        => strval($entry->id),
 											'title'       => strval($entry->title),
-											'link'        => $url,
+											'link_source' => $url,
+											'link_clean'  => '',
 											'description' => $description,
 											'published'   => $published,
 										);
