@@ -104,6 +104,12 @@
 		color: #777;
 	}
 
+	@media screen and (min-width: 50em) {
+		#article_wrapper pre {
+			overflow: auto;
+		}
+	}
+
 	#article_wrapper a.script_tag,
 	#article_wrapper a.link_tag,
 	#article_wrapper a.iframe_tag,
