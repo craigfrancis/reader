@@ -4,6 +4,10 @@
 
 		static function img_local_url($article_id, $img_url) {
 
+			if (prefix_match('http://da.feedsportal.com/r/', $img_url) || prefix_match('http://pi.feedsportal.com/r/', $img_url) || prefix_match('http://dmp.adform.net/dmp/profile/', $img_url)) {
+				 return '/a/img/global/blank.gif';
+			}
+
 			$local_path = self::img_local_path($article_id, $img_url);
 			if ($local_path !== NULL && is_file($local_path)) {
 				return FILE_URL . prefix_replace(FILE_ROOT, $local_path);
