@@ -152,9 +152,9 @@
 								if (substr($src_new, 0, 1) == '/' && substr($src_new, 0, 2) != '//') { // what-if.xkcd.com
 									$src_new = $source_domain . $src_new;
 								}
-								if (substr($src_new, -1) == '/') { // codinghorror.com "filename.png/"
-									$src_new = substr($src_new, 0, -1);
-								}
+								// if (substr($src_new, -1) == '/') { // codinghorror.com "filename.png/"
+								// 	$src_new = substr($src_new, 0, -1);
+								// }
 								if ($src_new != $src_old) {
 									$image->setAttribute('src', $src_new);
 								}
