@@ -82,7 +82,7 @@
 	#article_wrapper {
 		padding: 5px;
 		margin: 0 auto;
-		max-width: 50em;
+		max-width: 40em;
 	}
 
 	#article_wrapper :first-child {
@@ -97,13 +97,6 @@
 			max-width: 310px; /* Avoid horizontal scroll, page width gets messed up (re-collocation of page width), can cause many crash scenarios */
 		}
 	}
-
-	/*
-	#article_wrapper > div img:focus {
-		max-width: 100%;
-		height: auto;
-	}
-	*/
 
 	#article_wrapper blockquote {
 		margin: 1em 0;
@@ -130,7 +123,7 @@
 		padding: 5px;
 		border: 1px solid #ffcc00;
 		clear: both;
-		max-width: 40em;
+		max-width: 35em;
 		font-style: normal;
 	}
 
