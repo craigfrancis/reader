@@ -155,11 +155,6 @@
 					$source_html = '<span>Sources</span>' . ($unit->get('source_error') ? '<abbr class="error">*</abbr>' : '');
 
 				//--------------------------------------------------
-				// JavaScript
-
-					// $response->js_add('/a/js/reader.js');
-
-				//--------------------------------------------------
 				// Set
 
 					$response->title_full_set('Reader');
