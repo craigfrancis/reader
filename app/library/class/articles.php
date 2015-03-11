@@ -16,7 +16,7 @@
 		static function img_local_path($article_id, $img_url) {
 
 			if (preg_match('/\.(png|jpg|gif)$/', $img_url, $matches)) {
-				return FILE_ROOT . '/article-images/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
+				return FILE_ROOT . '/article-images/original/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
 			} else {
 				return NULL;
 			}
@@ -258,7 +258,7 @@
 
 						foreach ($db->fetch_all($sql) as $row) {
 
-							$cache_dir = FILE_ROOT . '/article-images/' . intval($row['id']) . '/';
+							$cache_dir = FILE_ROOT . '/article-images/original/' . intval($row['id']) . '/';
 							if (is_dir($cache_dir)) {
 								rrmdir($cache_dir);
 							}
