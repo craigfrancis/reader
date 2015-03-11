@@ -53,7 +53,7 @@
 
 		}
 
-		static function local_cache() {
+		static function local_cache($batch_size = 20) {
 
 			//--------------------------------------------------
 			// Config
@@ -82,7 +82,7 @@
 						ORDER BY
 							sa.published
 						LIMIT
-							20';
+							' . intval($batch_size);
 
 				foreach ($db->fetch_all($sql) as $row) {
 
@@ -347,7 +347,6 @@
 											'guid'        => $guid,
 											'title'       => strval($item->title),
 											'link_source' => strval($item->link),
-											'link_clean'  => '',
 											'description' => $description,
 											'published'   => $published,
 										);
@@ -384,7 +383,6 @@
 											'guid'        => strval($entry->id),
 											'title'       => strval($entry->title),
 											'link_source' => $url,
-											'link_clean'  => '',
 											'description' => $description,
 											'published'   => $published,
 										);
