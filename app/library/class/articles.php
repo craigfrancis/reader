@@ -158,7 +158,13 @@
 
 						if ($article_link_code != 200) {
 
-							report_add('Got a "' . $article_link_code . '" response when getting a clean URL' . "\n" . $article_link_source . "\n" . $article_link_clean);
+							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL' . "\n";
+							$report .= $article_link_source . "\n";
+							$report .= $article_link_clean . "\n\n";
+							$report .= $browser->request_full_get() . "\n\n";
+							$report .= implode("\n", $browser->response_headers_get());
+
+							report_add($report);
 
 							$article_link_clean = '-';
 
