@@ -158,7 +158,7 @@
 
 						if ($article_link_code != 200) {
 
-							$article_link_clean = $article_link_source;
+							$article_link_clean = '-';
 
 							report_add('Got a ' . $article_link_code . ' response when getting a clean URL for: ' . $article_link_source);
 

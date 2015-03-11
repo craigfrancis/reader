@@ -69,7 +69,7 @@
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
 
-					if ($row['link_clean'] != '') {
+					if ($row['link_clean'] != '' && $row['link_clean'] != '-') {
 						$article_link = $row['link_clean'];
 					} else {
 						$article_link = $row['link_source'];
