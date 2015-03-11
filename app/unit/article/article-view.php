@@ -146,12 +146,17 @@
 								$title = $image->getAttribute('alt');
 							}
 
-							$src = $image->getAttribute('src');
-							if ($src) {
-								if (substr($src, 0, 1) == '/' && substr($src, 0, 2) != '//') { // what-if.xkcd.com
-									$image->setAttribute('src', $source_domain . $src);
-								} else if (substr($src, -1) == '/') { // codinghorror.com "filename.png/"
-									$image->setAttribute('src', substr($src, 0, -1));
+							$src_old = $image->getAttribute('src');
+							if ($src_old) {
+								$src_new = $src_old;
+								if (substr($src_new, 0, 1) == '/' && substr($src_new, 0, 2) != '//') { // what-if.xkcd.com
+									$src_new = $source_domain . $src_new;
+								}
+								if (substr($src_new, -1) == '/') { // codinghorror.com "filename.png/"
+									$src_new = substr($src_new, 0, -1);
+								}
+								if ($src_new != $src_old) {
+									$image->setAttribute('src', $src_new);
 								}
 							}
 
