@@ -1,5 +1,5 @@
 <?php
 
-	articles::local_cache();
+	articles::local_cache(100);
 
 ?>
