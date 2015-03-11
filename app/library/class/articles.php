@@ -95,6 +95,11 @@
 						$source_url = $row['url_http'];
 
 					//--------------------------------------------------
+					// New browser (drop cookies, referrer, etc)
+
+						$browser->reset();
+
+					//--------------------------------------------------
 					// Images
 
 						if ($article_html != '') {
@@ -158,7 +163,7 @@
 
 						if ($article_link_code != 200) {
 
-							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL' . "\n";
+							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL' . "\n\n";
 							$report .= $article_link_source . "\n";
 							$report .= $article_link_clean . "\n\n";
 							$report .= trim($browser->request_full_get()) . "\n\n";
