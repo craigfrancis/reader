@@ -161,8 +161,8 @@
 							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL' . "\n";
 							$report .= $article_link_source . "\n";
 							$report .= $article_link_clean . "\n\n";
-							$report .= $browser->request_full_get() . "\n\n";
-							$report .= $browser->response_headers_get();
+							$report .= trim($browser->request_full_get()) . "\n\n";
+							$report .= trim($browser->response_headers_get());
 
 							report_add($report);
 
