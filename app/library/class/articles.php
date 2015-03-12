@@ -19,7 +19,7 @@
 
 		static function img_local_path($article_id, $img_url) {
 
-			if (preg_match('/\.(png|jpg|gif)$/', $img_url, $matches)) {
+			if (preg_match('/\.(png|jpg|jpeg|gif)$/', $img_url, $matches)) {
 				return FILE_ROOT . '/article-images/original/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
 			} else {
 				return NULL;
