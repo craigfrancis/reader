@@ -233,8 +233,8 @@
 		display: none;
 	}
 
-	#article_wrapper.macrumors > div > br[clear="all"] ~ br,
-	#article_wrapper.macrumors > div > a[href^="http://da.feedsportal.com/r/"] {
+	#article_wrapper.macrumors br[clear="all"] ~ br,
+	#article_wrapper.macrumors a[href^="http://da.feedsportal.com/r/"] {
 		display: none;
 	}
 
