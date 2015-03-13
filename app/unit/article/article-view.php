@@ -68,6 +68,7 @@
 					$article_published = $row['published'];
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
+					$article_recache_url = gateway_url('recache', array('article' => $article_id, 'dest' => url()));
 
 					if ($row['link_clean'] != '' && $row['link_clean'] != '-') {
 						$article_link = $row['link_clean'];
@@ -291,6 +292,7 @@
 								' . $article_html . "\n" . '
 							</div>
 							<p class="article_info">
+								<span class="recache"><a href="' . html($article_recache_url) . '" title="Refresh">↻</a></span>
 								<span class="published">' . html(date('l jS F Y, g:ia', strtotime($article_published))) . '</span>
 							</p>
 						</div>

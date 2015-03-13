@@ -143,6 +143,12 @@
 		font-style: italic;
 	}
 
+	#article_wrapper p.article_info span.recache a {
+		float: right;
+		color: #BBB;
+		text-decoration: none;
+	}
+
 	#article_wrapper span.image_wrapper {
 		display: block;
 		/* overflow: auto; - Causes iOS to crash */

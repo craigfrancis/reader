@@ -57,7 +57,7 @@
 
 		}
 
-		static function local_cache($batch_size = 20) {
+		static function local_cache($article_id = NULL) {
 
 			//--------------------------------------------------
 			// Config
@@ -72,6 +72,12 @@
 			//--------------------------------------------------
 			// Articles
 
+				if (is_int($article_id)) {
+					$where_sql = 'sa.id = "' . $db->escape($article_id) . '"';
+				} else {
+					$where_sql = 'sa.link_clean = ""';
+				}
+
 				$sql = 'SELECT
 							sa.id,
 							sa.link_source,
@@ -82,11 +88,11 @@
 						LEFT JOIN
 							' . DB_PREFIX . 'source AS s ON s.id = sa.source_id AND s.deleted = s.deleted
 						WHERE
-							sa.link_clean = ""
+							' . $where_sql . '
 						ORDER BY
 							sa.published
 						LIMIT
-							' . intval($batch_size);
+							20';
 
 				foreach ($db->fetch_all($sql) as $row) {
 
