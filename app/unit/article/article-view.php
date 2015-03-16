@@ -205,8 +205,10 @@
 									$src = trim($node->getAttribute('href'));
 									if ($src) {
 										$text = '<' . $tag . ' href="' . $src . '">';
-									} else {
+									} else if ($tag == 'script') {
 										$text = '<' . $tag . '></' . $tag . '>';
+									} else {
+										$text = '<' . $tag . ' />';
 									}
 								}
 
