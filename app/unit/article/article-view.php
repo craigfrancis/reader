@@ -202,7 +202,11 @@
 									$text = '<' . $tag . ' src="' . $src . '">';
 								} else {
 									$src = trim($node->getAttribute('href'));
-									$text = '<' . $tag . ' href="' . $src . '">';
+									if ($src) {
+										$text = '<' . $tag . ' href="' . $src . '">';
+									} else {
+										$text = '<' . $tag . ' />';
+									}
 								}
 
 								if ($src) {
