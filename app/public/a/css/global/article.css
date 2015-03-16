@@ -83,7 +83,7 @@
 		padding: 5px;
 	}
 
-	@media screen and (min-width: 40em) { /* Moves large images to the right in iOS 8.2 */
+	@media screen and (min-device-width: 480px) { /* Moves large images to the right in iOS 8.2, and iframe width is larger than device-width */
 		#article_wrapper {
 			 margin: 0 auto;
 			 max-width: 40em;
