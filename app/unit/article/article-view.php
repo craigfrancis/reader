@@ -121,6 +121,7 @@
 			// Article HTML
 
 				$article_html = trim($article_html);
+				$article_html = str_replace('< ', '&lt; ', $article_html); // Bad HTML encoding, e.g. "<code> if (count < 0) {"
 
 				if ($article_html != '') {
 
