@@ -299,6 +299,16 @@
 						}
 
 					//--------------------------------------------------
+					// Delete 'read' records for removed articles
+
+						$db->query('DELETE sar FROM
+										' . DB_PREFIX . 'source_article_read AS sar
+									LEFT JOIN
+										' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
+									WHERE
+										sa.id IS NULL');
+
+					//--------------------------------------------------
 					// Get XML ... don't do directly in simple xml as
 					// FeedBurner has issues
 

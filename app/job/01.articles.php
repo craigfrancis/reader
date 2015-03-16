@@ -27,17 +27,7 @@
 
 				articles::update();
 
-			//--------------------------------------------------
-			// Cleanup
-
-				$db = db_get();
-
-				$db->query('DELETE sar FROM
-								' . DB_PREFIX . 'source_article_read AS sar
-							LEFT JOIN
-								' . DB_PREFIX . 'source_article AS sa ON sa.id = sar.article_id
-							WHERE
-								sa.id IS NULL');
+				articles::local_cache();
 
 		}
 
