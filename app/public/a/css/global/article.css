@@ -120,6 +120,8 @@
 		text-decoration: none;
 		color: #D00;
 		word-wrap: break-word;
+		display: block;
+		margin: 1em 0;
 	}
 
 	#article_wrapper span.image_wrapper em {
