@@ -175,17 +175,13 @@
 					//--------------------------------------------------
 					// Remove odd anchor links
 
-						if ($source_ref == 'the-daily-wtf') {
+						$links = $article_dom->getElementsByTagName('a');
+						for ($k = ($links->length - 1); $k >= 0; $k--) {
 
-							$links = $article_dom->getElementsByTagName('a');
-							for ($k = ($links->length - 1); $k >= 0; $k--) { // For each will skip nodes
+							$link = $links->item($k);
 
-								$link = $links->item($k);
-
-								if (substr($link->getAttribute('href'), 0, 1) == '#') {
-									$link->removeAttribute('href');
-								}
-
+							if (substr($link->getAttribute('href'), 0, 1) == '#') { // e.g. the-daily-wtf
+								$link->removeAttribute('href');
 							}
 
 						}
@@ -197,7 +193,7 @@
 
 							$nodes = $article_dom->getElementsByTagName($tag);
 
-							for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
+							for ($k = ($nodes->length - 1); $k >= 0; $k--) {
 
 								$node = $nodes->item($k);
 
@@ -239,19 +235,19 @@
 					//--------------------------------------------------
 					// Convert <tag /> to <tag></tag>
 
-						// foreach (array('iframe') as $tag) {
-						//
-						// 	$nodes = $article_dom->getElementsByTagName($tag);
-						//
-						// 	for ($k = ($nodes->length - 1); $k >= 0; $k--) { // For each will skip nodes
-						//
-						// 		$node = $nodes->item($k);
-						//
-						// 		$node->appendChild($article_dom->createTextNode(''));
-						//
-						// 	}
-						//
-						// }
+						foreach (array('a') as $tag) { // Did include iframe, but should also fix "<a name='more'></a>"
+
+							$nodes = $article_dom->getElementsByTagName($tag);
+
+							for ($k = ($nodes->length - 1); $k >= 0; $k--) {
+
+								$node = $nodes->item($k);
+
+								$node->appendChild($article_dom->createTextNode(''));
+
+							}
+
+						}
 
 					//--------------------------------------------------
 					// Back to a string
