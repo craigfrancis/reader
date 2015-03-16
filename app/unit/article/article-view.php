@@ -205,7 +205,7 @@
 									if ($src) {
 										$text = '<' . $tag . ' href="' . $src . '">';
 									} else {
-										$text = '<' . $tag . ' />';
+										$text = '<' . $tag . '></' . $tag . '>';
 									}
 								}
 
