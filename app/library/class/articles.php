@@ -22,12 +22,14 @@
 				// Extention matching does not work with:
 				//  - /image.jpg?imgmax=800
 				//  - /tracker
+debug($img_url);
+			$path = FILE_ROOT . '/article-images/original/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url));
 
-			//if (preg_match('/\.(png|jpg|jpeg|gif)$/', $img_url, $matches)) {
-				return FILE_ROOT . '/article-images/original/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
-			//} else {
-			//	return NULL;
-			//}
+			if (preg_match('/\.(png|jpg|jpeg|gif)($|\?)/', $img_url, $matches)) {
+				$path .= '.' . $matches[1];
+			}
+debug($path);
+			return $path;
 
 		}
 
