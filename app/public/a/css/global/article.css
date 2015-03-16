@@ -81,8 +81,8 @@
 
 	#article_wrapper {
 		padding: 5px;
-		margin: 0 auto;
-		max-width: 40em;
+		/* margin: 0 auto; - Moves large images to the right in iOS 8.2 */
+		/* max-width: 40em; */
 	}
 
 	#article_wrapper :first-child {
