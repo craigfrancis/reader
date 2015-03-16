@@ -19,11 +19,15 @@
 
 		static function img_local_path($article_id, $img_url) {
 
-			if (preg_match('/\.(png|jpg|jpeg|gif)$/', $img_url, $matches)) {
+				// Extention matching does not work with:
+				//  - /image.jpg?imgmax=800
+				//  - /tracker
+
+			//if (preg_match('/\.(png|jpg|jpeg|gif)$/', $img_url, $matches)) {
 				return FILE_ROOT . '/article-images/original/' . intval($article_id) . '/' . safe_file_name(hash('sha256', $img_url)) . $matches[0];
-			} else {
-				return NULL;
-			}
+			//} else {
+			//	return NULL;
+			//}
 
 		}
 
@@ -152,6 +156,11 @@
 
 											file_put_contents($local_path, $remote_data);
 											chmod($local_path, 0666);
+
+											$image_info = @getimagesize($local_path);
+											if ($image_info === false) {
+												unlink($local_path);
+											}
 
 										}
 

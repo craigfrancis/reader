@@ -211,14 +211,14 @@
                 "definition": "tinytext NOT NULL"
             },
             "description": {
-                "type": "text",
-                "length": 65535,
+                "type": "mediumtext",
+                "length": 16777215,
                 "collation": "utf8_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
                 "options": null,
-                "definition": "text NOT NULL"
+                "definition": "mediumtext NOT NULL"
             },
             "published": {
                 "type": "datetime",
