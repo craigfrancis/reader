@@ -319,19 +319,35 @@
 					// Get XML ... don't do directly in simple xml as
 					// FeedBurner has issues
 
-						$headers = array(
-								'User-Agent: RSS Reader',
-								'Accept: application/rss+xml',
-							);
+						$browser = new socket_browser();
+						$browser->header_add('User-Agent', 'RSS Reader');
+						$browser->header_add('Accept', 'application/rss+xml');
+						$browser->encoding_accept_set('gzip', true);
 
-						$context = stream_context_create(array(
-								'http' => array(
-										'method' => 'GET',
-										'header' => implode("\r\n", $headers) . "\r\n",
-									)
-							));
+						$browser->get($source_url);
 
-						$rss_data = @file_get_contents($source_url, false, $context);
+						$rss_data = $browser->data_get();
+
+							//--------------------------------------------------
+							// Disabled as jakearchibald.com cannot return more
+							// than 81701 bytes of data without GZip (nginx issue?).
+							// It also means we can start using GZip though :-)
+							//
+							// $headers = array(
+							// 		'User-Agent: RSS Reader',
+							// 		'Accept: application/rss+xml',
+							// 	);
+							//
+							// $context = stream_context_create(array(
+							// 		'http' => array(
+							// 				'method' => 'GET',
+							// 				'header' => implode("\r\n", $headers) . "\r\n",
+							// 			)
+							// 	));
+							//
+							// $rss_data = @file_get_contents($source_url, false, $context);
+							//
+							//--------------------------------------------------
 
 						if (trim($rss_data) == '') {
 							$error = 'Cannot return feed';
