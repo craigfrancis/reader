@@ -7,6 +7,8 @@
 
 	articles::update($source_id === 'all' ? true : intval($source_id));
 
+	articles::local_cache();
+
 //--------------------------------------------------
 // Redirect
 
