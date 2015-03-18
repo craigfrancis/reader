@@ -118,7 +118,7 @@
 				}
 
 			//--------------------------------------------------
-			// Article HTML
+			// Article HTML (content)
 
 				$article_html = trim($article_html);
 				$article_html = str_replace('< ', '&lt; ', $article_html); // Bad HTML encoding, e.g. "<code> if (count < 0) {"
@@ -271,6 +271,16 @@
 						}
 
 				}
+
+			//--------------------------------------------------
+			// Exceptions
+
+				if ($source_ref == 'macrumors') {
+					$article_link .= '#comments';
+				}
+
+			//--------------------------------------------------
+			// Article HTML (page)
 
 				$article_html = '<!DOCTYPE html>
 					<html lang="en-GB" xml:lang="en-GB" xmlns="http://www.w3.org/1999/xhtml">

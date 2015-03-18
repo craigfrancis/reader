@@ -2,7 +2,7 @@
 
 	class articles extends check {
 
-		private static $browser_user_agent = 'RSS Reader (github.com/craigfrancis/reader)'; // 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)'
+		private static $browser_user_agent = 'RSS Reader (github.com/craigfrancis/reader)';
 
 		static function img_local_url($article_id, $img_url) {
 
@@ -35,25 +35,11 @@
 
 			if (substr($img_url, 0, 2) == '//') {
 
-				$img_url = 'http:' . $img_url;
+				$img_url = 'http:' . $img_url; // Most won't be https
 
 			} else if (substr($img_url, 0, 1) == '/') { // e.g. what-if.xkcd.com
 
 				$img_url = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $source_url) . $img_url;
-
-			}
-
-			// if (substr($img_url, -1) == '/') { // codinghorror.com "filename.png/"
-			// 	$img_url = substr($img_url, 0, -1);
-			// }
-
-			if (prefix_match('http://feeds.feedburner.com/', $img_url)) {
-
-				$img_url = 'https' . substr($img_url, 4);
-
-			} else if (prefix_match('http://www.dzone.com/links/voteCountImage', $img_url)) {
-
-				$img_url .= '&file=image.gif';
 
 			}
 
@@ -322,7 +308,7 @@
 					// FeedBurner has issues
 
 						$browser = new socket_browser();
-						$browser->header_add('User-Agent', self::$browser_user_agent); // Don't want accept, accept-language, cache-control, pragma headers.
+						$browser->header_add('User-Agent', self::$browser_user_agent); // Not user_agent_set(), as we don't want the headers: accept, accept-language, cache-control, pragma.
 						$browser->header_add('Accept', 'application/rss+xml');
 						$browser->encoding_accept_set('gzip', true);
 
