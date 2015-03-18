@@ -308,7 +308,7 @@
 							</div>
 							<p class="article_info">
 								<span class="recache"><a href="' . html($article_recache_url) . '" title="Refresh">↻</a></span>
-								<span class="published">' . html($article_published->format('l jS F Y, g:ia')) . '</span>
+								<span class="published">' . $article_published->html('l jS F Y, g:ia') . '</span>
 							</p>
 						</div>
 
