@@ -3,7 +3,7 @@
 
 A very basic Google Reader alternative, quickly put together before it closed.
 
-It does rely on [PHP Prime website](http://www.phpprime.com/), for the framework.
+It does rely on [PHP Prime](http://www.phpprime.com/), for the framework.
 
 There are of course much better alternatives (which I did not get along with):
 
