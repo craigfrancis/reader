@@ -43,7 +43,7 @@
 					$sources[] = array(
 							'url' => $config['edit_url']->get(array('id' => $row['id'])),
 							'title' => $row['title'],
-							'error' => ($row['error_date'] != '0000-00-00 00:00:00' && $error_timestamp >= $updated_timestamp),
+							'error' => ($error_timestamp->null() === false && $error_timestamp >= $updated_timestamp),
 						);
 
 				}

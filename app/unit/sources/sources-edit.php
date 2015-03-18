@@ -50,17 +50,13 @@
 						$source_title = $row['title'];
 						$source_sort = $row['sort'];
 						$source_update_url = gateway_url('update', array('source' => $source_id, 'dest' => url()));
-
 						$source_updated = new timestamp($row['updated'], 'db');
-						$source_updated = $source_updated->format('D jS M Y, g:i:sa', 'N/A');
+						$source_error = new timestamp($row['error_date'], 'db');
 
-						if ($row['error_date'] != '0000-00-00 00:00:00') {
-							$source_error = new timestamp($row['error_date'], 'db');
-							if ($source_error >= new timestamp($row['updated'], 'db')) {
-								$source_error = $row['error_text'] . ' (' . $source_error->format('D, g:ia') . ')';
-							} else {
-								$source_error = NULL;
-							}
+						if ($source_error->null() === false && $source_error >= $source_updated) {
+							$source_error = $row['error_text'] . ' (' . $source_error->format('D, g:ia') . ')';
+						} else {
+							$source_error = NULL;
 						}
 
 						$this->set('source_title', $source_title);
@@ -130,7 +126,7 @@
 
 				if ($source_updated) {
 					$field_updated = new form_field_info($form, 'Updated');
-					$field_updated->value_set_html(html($source_updated) . ' (<a href="' . html($source_update_url) . '">update</a>)');
+					$field_updated->value_set_html($source_updated->html('D jS M Y, g:i:sa', 'N/A') . ' (<a href="' . html($source_update_url) . '">update</a>)');
 				}
 
 				if ($source_error) {
