@@ -37,13 +37,13 @@
 
 				foreach ($db->fetch_all($sql) as $row) {
 
-					$error_timestamp = new timestamp($row['error_date'], 'db');
-					$updated_timestamp = new timestamp($row['updated'], 'db');
+					$source_updated = new timestamp($row['updated'], 'db');
+					$source_error = new timestamp($row['error_date'], 'db');
 
 					$sources[] = array(
 							'url' => $config['edit_url']->get(array('id' => $row['id'])),
 							'title' => $row['title'],
-							'error' => ($error_timestamp->null() === false && $error_timestamp >= $updated_timestamp),
+							'error' => ($source_error->null() === false && $source_error >= $source_updated),
 						);
 
 				}
