@@ -2,7 +2,7 @@
 
 	class articles extends check {
 
-		private $browser_user_agent = 'RSS Reader (github.com/craigfrancis/reader)'; // 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)'
+		private static $browser_user_agent = 'RSS Reader (github.com/craigfrancis/reader)'; // 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)'
 
 		static function img_local_url($article_id, $img_url) {
 
@@ -69,7 +69,7 @@
 				$db = db_get();
 
 				$browser = new socket_browser();
-				$browser->user_agent_set($this->browser_user_agent);
+				$browser->user_agent_set(self::$browser_user_agent);
 
 				libxml_use_internal_errors(true);
 
@@ -322,7 +322,7 @@
 					// FeedBurner has issues
 
 						$browser = new socket_browser();
-						$browser->header_add('User-Agent', $this->browser_user_agent); // Don't want accept, accept-language, cache-control, pragma headers.
+						$browser->header_add('User-Agent', self::$browser_user_agent); // Don't want accept, accept-language, cache-control, pragma headers.
 						$browser->header_add('Accept', 'application/rss+xml');
 						$browser->encoding_accept_set('gzip', true);
 
