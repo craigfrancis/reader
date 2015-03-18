@@ -2,6 +2,8 @@
 
 	class articles extends check {
 
+		private $browser_user_agent = 'RSS Reader (github.com/craigfrancis/reader)'; // 'Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)'
+
 		static function img_local_url($article_id, $img_url) {
 
 			if (prefix_match('http://da.feedsportal.com/r/', $img_url) || prefix_match('http://pi.feedsportal.com/r/', $img_url) || prefix_match('http://dmp.adform.net/dmp/profile/', $img_url)) {
@@ -67,7 +69,7 @@
 				$db = db_get();
 
 				$browser = new socket_browser();
-				$browser->user_agent_set('Mozilla/4.0 (MSIE 6.0; Windows NT 5.0)');
+				$browser->user_agent_set($this->browser_user_agent);
 
 				libxml_use_internal_errors(true);
 
@@ -320,7 +322,7 @@
 					// FeedBurner has issues
 
 						$browser = new socket_browser();
-						$browser->header_add('User-Agent', 'RSS Reader');
+						$browser->header_add('User-Agent', $this->browser_user_agent); // Don't want accept, accept-language, cache-control, pragma headers.
 						$browser->header_add('Accept', 'application/rss+xml');
 						$browser->encoding_accept_set('gzip', true);
 
