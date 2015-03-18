@@ -24,15 +24,11 @@
 			//--------------------------------------------------
 			// Details
 
-				$table_sql = DB_PREFIX . 'source';
+				$record = record_get(DB_PREFIX . 'source', $source_id, array(
+						'title',
+					));
 
-				$where_sql = '
-					id = "' . $db->escape($source_id) . '" AND
-					deleted = "0000-00-00 00:00:00"';
-
-				$db->select($table_sql, array('title'), $where_sql);
-
-				if ($row = $db->fetch_row()) {
+				if ($row = $record->values_get()) {
 
 					$this->set('source_title', $row['title']);
 
@@ -67,11 +63,7 @@
 							//--------------------------------------------------
 							// Delete
 
-								$values = array(
-										'deleted' => date('Y-m-d H:i:s'),
-									);
-
-								$db->update($table_sql, $values, $where_sql);
+								$record->delete();
 
 							//--------------------------------------------------
 							// Next page

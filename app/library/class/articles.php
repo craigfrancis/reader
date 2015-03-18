@@ -204,6 +204,8 @@
 
 				$db = db_get();
 
+				$now = new timestamp();
+
 				libxml_use_internal_errors(true);
 
 			//--------------------------------------------------
@@ -222,9 +224,12 @@
 
 				} else { // Those not recently updated
 
+					$updated_limit = new timestamp('-10 minutes');
+					$error_limit = new timestamp('-1 hour');
+
 					$where_sql = '
-						s.updated    <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-10 minutes'))) . '" AND
-						s.error_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-1 hour'))) . '" AND
+						s.updated    <= "' . $db->escape($updated_limit) . '" AND
+						s.error_date <= "' . $db->escape($error_limit) . '" AND
 						s.deleted = "0000-00-00 00:00:00"';
 
 				}
@@ -264,6 +269,8 @@
 							// Delete by "sar.read_date" (not "sa.published"), as websites
 							// like Coding Horror like to change their GUID.
 
+						$read_limit = new timestamp('-2 weeks');
+
 						$sql = 'SELECT
 									sa.id
 								FROM
@@ -272,7 +279,7 @@
 									' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id
 								WHERE
 									sa.source_id = "' . $db->escape($source_id) . '" AND
-									sar.read_date <= "' . $db->escape(date('Y-m-d H:i:s', strtotime('-2 weeks'))) . '" AND
+									sar.read_date <= "' . $db->escape($read_limit) . '" AND
 									sar.read_date IS NOT NULL
 								ORDER BY
 									sar.read_date DESC
@@ -464,26 +471,27 @@
 
 								$values_update = $article;
 								$values_update['source_id'] = $source_id;
-								$values_update['updated'] = date('Y-m-d H:i:s');
+								$values_update['updated'] = $now;
 
 								$values_insert = $values_update;
-								$values_insert['created'] = date('Y-m-d H:i:s');
+								$values_insert['created'] = $now;
 
 							//--------------------------------------------------
 							// Published date
 
-								$published = strtotime($article['published']);
+								try {
 
-								if ($published === false) {
+									$published = new timestamp($article['published']); // Not 'db' format, could be anything from RSS
+									$published = $published->format('db');
 
-									$values_insert['published'] = date('Y-m-d H:i:s');
+									$values_insert['published'] = $published;
+									$values_update['published'] = $published;
+
+								} catch (Exception $e) {
+
+									$values_insert['published'] = $now;
 
 									unset($values_update['published']);
-
-								} else {
-
-									$values_insert['published'] = date('Y-m-d H:i:s', $published);
-									$values_update['published'] = date('Y-m-d H:i:s', $published);
 
 								}
 
@@ -500,12 +508,12 @@
 						if ($error) {
 							$values = array(
 									'error_text' => $error,
-									'error_date' => date('Y-m-d H:i:s'),
+									'error_date' => $now,
 								);
 						} else {
 							$values = array(
 									'article_count' => count($source_articles),
-									'updated' => date('Y-m-d H:i:s'),
+									'updated' => $now,
 								);
 						}
 

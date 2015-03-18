@@ -25,40 +25,39 @@
 			//--------------------------------------------------
 			// Details
 
-				$table_sql = DB_PREFIX . 'source';
-				$where_sql = NULL;
-
 				$source_update_url = NULL;
 				$source_updated = NULL;
 				$source_error = NULL;
 
-				$action_edit = ($source_id > 0);
+				$action_edit = ($source_id != 0);
+
+				$record = record_get(DB_PREFIX . 'source', $source_id, array(
+						'ref',
+						'title',
+						'sort',
+						'url_http',
+						'url_feed',
+						'updated',
+						'error_date',
+						'error_text',
+					));
 
 				if ($action_edit) {
 
-					$where_sql = '
-						id = "' . $db->escape($source_id) . '" AND
-						deleted = "0000-00-00 00:00:00"';
-
-					$db->select($table_sql, array('ref', 'title', 'sort', 'updated', 'error_date', 'error_text'), $where_sql);
-
-					if ($row = $db->fetch_row()) {
+					if ($row = $record->values_get()) {
 
 						$source_ref = $row['ref'];
 						$source_title = $row['title'];
 						$source_sort = $row['sort'];
 						$source_update_url = gateway_url('update', array('source' => $source_id, 'dest' => url()));
 
-						if ($row['updated'] != '0000-00-00 00:00:00') {
-							$source_updated = date('D jS M Y, g:i:sa', strtotime($row['updated']));
-						} else {
-							$source_updated = 'N/A';
-						}
+						$source_updated = new timestamp($row['updated'], 'db');
+						$source_updated = $source_updated->format('D jS M Y, g:i:sa', 'N/A');
 
 						if ($row['error_date'] != '0000-00-00 00:00:00') {
-							$source_error = strtotime($row['error_date']);
-							if ($source_error >= strtotime($row['updated'])) {
-								$source_error = $row['error_text'] . ' (' . date('D, g:ia', $source_error) . ')';
+							$source_error = new timestamp($row['error_date'], 'db');
+							if ($source_error >= new timestamp($row['updated'], 'db')) {
+								$source_error = $row['error_text'] . ' (' . $source_error->format('D, g:ia') . ')';
 							} else {
 								$source_error = NULL;
 							}
@@ -79,8 +78,7 @@
 
 				$form = new form();
 				$form->form_class_set('basic_form');
-				$form->db_table_set_sql($table_sql);
-				$form->db_where_set_sql($where_sql);
+				$form->db_record_set($record);
 
 				$field_title = new form_field_text($form, 'Title');
 				$field_title->db_field_set('title');

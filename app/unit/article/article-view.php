@@ -65,7 +65,7 @@
 
 					$article_id = $row['id'];
 					$article_title = $row['title'];
-					$article_published = $row['published'];
+					$article_published = new timestamp($row['published'], 'db');
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
 					$article_recache_url = gateway_url('recache', array('article' => $article_id, 'dest' => url()));
@@ -89,10 +89,12 @@
 
 					if (!$article_read) {
 
+						$now = new timestamp();
+
 						$values = array(
 								'article_id' => $article_id,
 								'user_id' => USER_ID,
-								'read_date' => date('Y-m-d H:i:s'),
+								'read_date' => $now,
 							);
 
 						$db->insert(DB_PREFIX . 'source_article_read', $values, $values);
@@ -306,7 +308,7 @@
 							</div>
 							<p class="article_info">
 								<span class="recache"><a href="' . html($article_recache_url) . '" title="Refresh">↻</a></span>
-								<span class="published">' . html(date('l jS F Y, g:ia', strtotime($article_published))) . '</span>
+								<span class="published">' . html($article_published->format('l jS F Y, g:ia')) . '</span>
 							</p>
 						</div>
 
