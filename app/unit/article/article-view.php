@@ -278,7 +278,13 @@
 			// Exceptions
 
 				if ($source_ref == 'macrumors') {
+
 					$article_link .= '#comments';
+
+				} else if ($source_ref == 'the-daily-wtf') {
+
+					$article_link = preg_replace('/(\/\/thedailywtf.com\/articles)\/([^\/]+$)/', '$1/comments/$2', $article_link);
+
 				}
 
 			//--------------------------------------------------
