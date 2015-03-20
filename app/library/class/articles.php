@@ -112,7 +112,7 @@
 
 								$image = $images->item($k);
 
-								$img_url = $image->getAttribute('src');
+								$img_url = trim($image->getAttribute('src'));
 								if ($img_url) {
 
 									$remote_url = self::img_remote_url($source_url, $img_url);

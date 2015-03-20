@@ -155,7 +155,7 @@
 								$title = $image->getAttribute('alt');
 							}
 
-							$src_old = $image->getAttribute('src');
+							$src_old = trim($image->getAttribute('src'));
 							if ($src_old) {
 								$src_remote = articles::img_remote_url($source_url, $src_old);
 								$src_local = articles::img_local_url($article_id, $src_remote);

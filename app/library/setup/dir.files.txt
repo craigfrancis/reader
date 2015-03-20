@@ -79,6 +79,11 @@ article-images/original/33735
 article-images/original/33736
 article-images/original/33737
 article-images/original/33738
+article-images/original/33739
+article-images/original/33740
+article-images/original/33741
+article-images/original/33742
+article-images/original/33743
 article-images/original/93
 article-images/original/94
 article-images/original/97
