@@ -55,6 +55,7 @@
 				$db = db_get();
 
 				$browser = new socket_browser();
+				$browser->exit_on_error_set(false);
 				$browser->user_agent_set(self::$browser_user_agent);
 
 				libxml_use_internal_errors(true);
@@ -206,6 +207,9 @@
 
 				$now = new timestamp();
 
+				$browser = new socket_browser();
+				$browser->exit_on_error_set(false);
+
 				libxml_use_internal_errors(true);
 
 			//--------------------------------------------------
@@ -314,19 +318,10 @@
 					// Get XML ... don't do directly in simple xml as
 					// FeedBurner has issues
 
-						$browser = new socket_browser();
-						$browser->header_add('User-Agent', self::$browser_user_agent); // Not user_agent_set(), as we don't want the headers: accept, accept-language, cache-control, pragma.
-						$browser->header_add('Accept', 'application/rss+xml');
-						$browser->encoding_accept_set('gzip', true);
-
-						$browser->get($source_url);
-
-						$rss_data = $browser->data_get();
-
 							//--------------------------------------------------
 							// Disabled as jakearchibald.com cannot return more
 							// than 81701 bytes of data without GZip (nginx issue?).
-							// It also means we can start using GZip though :-)
+							// It also means we can use GZip though :-)
 							//
 							// $headers = array(
 							// 		'User-Agent: RSS Reader',
@@ -344,8 +339,24 @@
 							//
 							//--------------------------------------------------
 
-						if (trim($rss_data) == '') {
-							$error = 'Cannot return feed';
+						$browser->reset();
+						$browser->encoding_accept_set('gzip', true);
+						$browser->header_set('User-Agent', self::$browser_user_agent); // Not user_agent_set(), as we don't want the headers: accept, accept-language, cache-control, pragma.
+						$browser->header_set('Accept', 'application/rss+xml');
+						$browser->get($source_url);
+
+						if ($socket->response_code_get() == 200) {
+
+							$rss_data = $browser->data_get();
+
+							if (trim($rss_data) == '') {
+								$error = 'Cannot return feed';
+							}
+
+						} else {
+
+							$error = 'Cannot return feed (' . $socket->error_string_get() . ')';
+
 						}
 
 					//--------------------------------------------------
