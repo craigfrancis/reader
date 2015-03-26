@@ -9,9 +9,14 @@
 		protected function setup($config) {
 
 			//--------------------------------------------------
-			// Source error
+			// Config
 
 				$db = db_get();
+
+			//--------------------------------------------------
+			// Source error
+
+				$error_limit = new timestamp('-6 hours');
 
 				$sql = 'SELECT
 							1
@@ -19,6 +24,7 @@
 							' . DB_PREFIX . 'source AS s
 						WHERE
 							s.error_date >= s.updated AND
+							s.updated <= "' . $db->escape($error_limit) . '" AND
 							s.deleted = "0000-00-00 00:00:00"
 						LIMIT
 							1';

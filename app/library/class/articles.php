@@ -355,7 +355,7 @@
 
 						} else {
 
-							$error = 'Cannot return feed (' . $browser->error_message_get() . ')';
+							$error = 'Cannot return feed: ' . $browser->error_message_get();
 
 						}
 
