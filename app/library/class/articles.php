@@ -125,8 +125,8 @@
 
 										$browser->get($remote_url);
 
-										$remote_code = $browser->response_code_get();
-										$remote_data = $browser->response_data_get();
+										$remote_code = $browser->code_get();
+										$remote_data = $browser->data_get();
 
 										if ($remote_code == 200 && $remote_data) {
 
@@ -164,7 +164,7 @@
 
 						$browser->get($article_link_source);
 
-						$article_link_code = $browser->response_code_get();
+						$article_link_code = $browser->code_get();
 						$article_link_clean = trim($browser->url_get());
 
 						if ($article_link_code != 200) {
@@ -345,7 +345,7 @@
 						$browser->header_set('Accept', 'application/rss+xml');
 						$browser->get($source_url);
 
-						if ($socket->response_code_get() == 200) {
+						if ($browser->code_get() == 200) {
 
 							$rss_data = $browser->data_get();
 
@@ -355,7 +355,7 @@
 
 						} else {
 
-							$error = 'Cannot return feed (' . $socket->error_string_get() . ')';
+							$error = 'Cannot return feed (' . $browser->error_string_get() . ')';
 
 						}
 
