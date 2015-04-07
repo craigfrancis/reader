@@ -152,7 +152,7 @@
 							'read_url' => url('/articles/:source/', array('source' => 'read')),
 						));
 
-					$source_html = '<span>Sources</span>' . ($unit->get('source_error') ? '<abbr class="error">*</abbr>' : '');
+					$setup_html = '<span>Setup</span>' . (source_error() ? '<abbr class="error">*</abbr>' : '');
 
 				//--------------------------------------------------
 				// Set
@@ -160,9 +160,9 @@
 					$response->title_full_set('Reader');
 
 					$response->set('footer_urls', array(
-							array('html' => $source_html, 'class' => 'sources', 'href' => url('/sources/')),
-							array('text' => '↻',          'class' => 'reload',  'href' => url('/articles/')),
-							array('text' => 'Logout',     'class' => 'logout',  'href' => url('/logout/')),
+							array('html' => $setup_html, 'class' => 'setup',   'href' => url('/setup/')),
+							array('text' => '↻',         'class' => 'reload',  'href' => url('/articles/')),
+							array('text' => 'Logout',    'class' => 'logout',  'href' => url('/logout/')),
 						));
 
 			}

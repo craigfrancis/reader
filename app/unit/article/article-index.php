@@ -18,24 +18,6 @@
 				$db = db_get();
 
 			//--------------------------------------------------
-			// Source error
-
-				$error_limit = new timestamp('-6 hours');
-
-				$sql = 'SELECT
-							1
-						FROM
-							' . DB_PREFIX . 'source AS s
-						WHERE
-							s.error_date >= s.updated AND
-							s.updated <= "' . $db->escape($error_limit) . '" AND
-							s.deleted = "0000-00-00 00:00:00"
-						LIMIT
-							1';
-
-				$source_error = ($db->num_rows($sql) > 0);
-
-			//--------------------------------------------------
 			// Sources
 
 				$sources = array();
@@ -81,7 +63,6 @@
 			// Variables
 
 				$this->set('sources', $sources);
-				$this->set('source_error', $source_error);
 				$this->set('read_url', $config['read_url']);
 
 		}

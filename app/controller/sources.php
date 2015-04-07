@@ -19,7 +19,7 @@
 				if (request_folder_get(1) == NULL) {
 
 					$response->set('footer_urls', array(
-							array('text' => 'Back', 'class' => 'back', 'href' => url('/articles/')),
+							array('text' => 'Back', 'class' => 'back', 'href' => url('/setup/')),
 						));
 
 				} else {

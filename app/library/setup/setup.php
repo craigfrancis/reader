@@ -25,4 +25,28 @@
 
 	config::set('user', $user);
 
+//--------------------------------------------------
+// Source error
+
+	function source_error() {
+
+		$db = db_get();
+
+		$error_limit = new timestamp('-6 hours');
+
+		$sql = 'SELECT
+					1
+				FROM
+					' . DB_PREFIX . 'source AS s
+				WHERE
+					s.error_date >= s.updated AND
+					s.updated <= "' . $db->escape($error_limit) . '" AND
+					s.deleted = "0000-00-00 00:00:00"
+				LIMIT
+					1';
+
+		return ($db->num_rows($sql) > 0);
+
+	}
+
 ?>

@@ -8,7 +8,7 @@
 			// Index unit
 
 				unit_add('user_login', array(
-						'helper' => config::get('user'),
+						'user' => config::get('user'),
 						'dest_url' => url('/articles/'),
 					));
 

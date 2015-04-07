@@ -862,6 +862,19 @@
                 "options": null,
                 "definition": "tinytext NOT NULL"
             },
+            "delay": {
+                "type": "enum",
+                "length": 2,
+                "collation": "utf8_unicode_ci",
+                "null": false,
+                "default": null,
+                "extra": "",
+                "options": [
+                    "none",
+                    "1-day"
+                ],
+                "definition": "enum('none','1-day') NOT NULL"
+            },
             "created": {
                 "type": "datetime",
                 "length": 19,

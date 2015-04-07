@@ -1,1 +1,2 @@
-Hello <?= html($name) ?>.
+
+	<?= $form->html(); ?>
