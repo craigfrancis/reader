@@ -8,9 +8,9 @@
 				'edit_url'  => array('type' => 'url'),
 			);
 
-		// protected function authenticate($config) {
-		// 	return false;
-		// }
+		protected function authenticate($config) {
+			return USER_LOGGED_IN;
+		}
 
 		protected function setup($config) {
 

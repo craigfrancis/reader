@@ -14,6 +14,10 @@
 		private $article_link = NULL;
 		private $article_read = NULL;
 
+		protected function authenticate($config) {
+			return USER_LOGGED_IN;
+		}
+
 		protected function setup($config) {
 
 			//--------------------------------------------------

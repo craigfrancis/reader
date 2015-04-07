@@ -7,6 +7,10 @@
 				'dest_url' => NULL,
 			);
 
+		protected function authenticate($config) {
+			return true;
+		}
+
 		protected function setup($config) {
 
 			//--------------------------------------------------

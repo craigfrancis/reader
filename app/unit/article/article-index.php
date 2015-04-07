@@ -6,6 +6,10 @@
 				'read_url' => NULL,
 			);
 
+		protected function authenticate($config) {
+			return USER_LOGGED_IN;
+		}
+
 		protected function setup($config) {
 
 			//--------------------------------------------------

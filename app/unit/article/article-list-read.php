@@ -7,6 +7,10 @@
 				'read' => false,
 			);
 
+		protected function authenticate($config) {
+			return USER_LOGGED_IN;
+		}
+
 		protected function setup($config) {
 
 			//--------------------------------------------------
