@@ -7,7 +7,7 @@
 			);
 
 		protected function authenticate($config) {
-			return USER_LOGGED_IN;
+			return (USER_LOGGED_IN === true);
 		}
 
 		protected function setup($config) {
