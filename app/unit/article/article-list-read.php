@@ -32,6 +32,7 @@
 						LEFT JOIN
 							' . DB_PREFIX . 'source AS s ON s.id = sa.source_id
 						WHERE
+							sa.created < "' . $db->escape(USER_DELAY) . '" AND
 							sar.article_id IS NOT NULL AND
 							s.deleted = "0000-00-00 00:00:00"
 						GROUP BY

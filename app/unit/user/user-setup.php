@@ -22,24 +22,33 @@
 			//--------------------------------------------------
 			// Form setup
 
-				$form = $user->form_get();
-				$form->form_button_set('Save');
-				$form->form_class_set('basic_form');
+				//--------------------------------------------------
+				// Start
 
-				$form->print_group_start('Details');
-				// $form->field_get('identification_new');
+					$form = $user->form_get();
+					$form->form_button_set('Save');
+					$form->form_class_set('basic_form');
 
-				$field_username = new form_field_info($form, 'Username');
-				$field_username->value_set(USER_NAME);
+				//--------------------------------------------------
+				// Details
 
-				$form->field_get('delay');
+					$form->print_group_start('Details');
 
-				$field_links = new form_field_info($form, 'Extra');
-				$field_links->value_set_html('<a href="' . html($config['sources_url']) . '" class="sources"><span>Sources</span>' . (source_error() ? '<abbr class="error">*</abbr>' : '') . '</a>');
+					// $form->field_get('identification_new');
+					$field_username = new form_field_info($form, 'Username');
+					$field_username->value_set(USER_NAME);
 
-				$form->print_group_start('Change password');
-				$form->field_get('password_new');
-				$form->field_get('password_repeat');
+					$form->field_get('delay');
+
+					$field_links = new form_field_info($form, 'Extra');
+					$field_links->value_set_html('<a href="' . html($config['sources_url']) . '" class="sources"><span>Sources</span>' . (source_error() ? '<abbr class="error">*</abbr>' : '') . '</a>');
+
+				//--------------------------------------------------
+				// Change password
+
+					$form->print_group_start('Change password');
+					$form->field_get('password_new');
+					$form->field_get('password_repeat');
 
 			//--------------------------------------------------
 			// Form submitted

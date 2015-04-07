@@ -36,6 +36,7 @@
 						WHERE
 							s.deleted = "0000-00-00 00:00:00" AND
 							sa.id IS NOT NULL AND
+							sa.created < "' . $db->escape(USER_DELAY) . '" AND
 							sar.article_id IS NULL
 						GROUP BY
 							s.id

@@ -11,15 +11,23 @@
 
 	if (USER_LOGGED_IN) {
 
-		$user_details = $user->values_get(array('username'));
+		$user_details = $user->values_get(array('username', 'delay'));
+
+		if ($user_details['delay'] == '1-day') {
+			$user_delay = new timestamp('00:00:00');
+		} else {
+			$user_delay = new timestamp();
+		}
 
 		define('USER_NAME', $user_details['username']);
+		define('USER_DELAY', $user_delay->format('db'));
 
 		config::array_set('debug.values', 'User', USER_NAME . ' (' . USER_ID . ')');
 
 	} else {
 
 		define('USER_NAME', NULL);
+		define('USER_DELAY', NULL);
 
 	}
 

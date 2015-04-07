@@ -61,7 +61,8 @@
 							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
 						WHERE
 							sa.id = "' . $db->escape($config['article']) . '" AND
-							sa.source_id = "' . $db->escape($source_id) . '"
+							sa.source_id = "' . $db->escape($source_id) . '" AND
+							sa.created < "' . $db->escape(USER_DELAY) . '"
 						GROUP BY
 							sa.id';
 
@@ -360,6 +361,7 @@
 			$db = db_get();
 
 			$where_sql = '
+				sa.created < "' . $db->escape(USER_DELAY) . '" AND
 				sa.source_id = "' . $db->escape($this->article_source_id) . '"';
 
 			if ($rel > 0) {

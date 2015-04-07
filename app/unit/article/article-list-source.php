@@ -39,7 +39,8 @@
 			// Articles
 
 				$where_sql = '
-					sa.source_id = "' . $db->escape($source_id) . '"';
+					sa.source_id = "' . $db->escape($source_id) . '" AND
+					sa.created < "' . $db->escape(USER_DELAY) . '"';
 
 				if ($config['state'] === 'read') {
 
