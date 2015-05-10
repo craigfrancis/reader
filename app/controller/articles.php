@@ -38,6 +38,11 @@
 
 			$article_id = request('id');
 
+			$state = request('state');
+			if ($state !== 'all' && $state !== 'read') {
+				$state = 'unread';
+			}
+
 			if ($article_id !== NULL) {
 
 				//--------------------------------------------------
@@ -67,16 +72,16 @@
 				//--------------------------------------------------
 				// Footer URLs
 
-					$sibling_prev_id = $unit->sibling_id_get(-1);
+					$sibling_prev_id = $unit->sibling_id_get(($state == 'unread' ? -1 : 1), array('state' => $state));
 					if ($sibling_prev_id) {
-						$sibling_prev_url = url('/articles/:source/', array('source' => $source, 'id' => $sibling_prev_id));
+						$sibling_prev_url = url('/articles/:source/', array('source' => $source, 'id' => $sibling_prev_id, 'state' => ($state == 'unread' ? NULL : $state)));
 					} else {
 						$sibling_prev_url = NULL;
 					}
 
-					$sibling_next_id = $unit->sibling_id_get(+1);
+					$sibling_next_id = $unit->sibling_id_get(($state == 'unread' ? 1 : -1), array('state' => $state));
 					if ($sibling_next_id) {
-						$sibling_next_url = url('/articles/:source/', array('source' => $source, 'id' => $sibling_next_id));
+						$sibling_next_url = url('/articles/:source/', array('source' => $source, 'id' => $sibling_next_id, 'state' => ($state == 'unread' ? NULL : $state)));
 					} else {
 						$sibling_next_url = NULL;
 					}
@@ -114,14 +119,10 @@
 
 					} else {
 
-						$state = request('state');
-						if ($state !== 'all' && $state !== 'read') {
-							$state = 'unread';
-						}
-
 						$unit = unit_add('article_list_source', array(
 								'source' => $source,
 								'state' => $state,
+								'view_url' => url('/articles/:source/'),
 							));
 
 						if (request('back') == 'source') {

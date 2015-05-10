@@ -356,9 +356,13 @@
 			return $this->article_link;
 		}
 
-		public function sibling_id_get($rel) {
+		public function sibling_id_get($rel, $config = array()) {
 
 			$db = db_get();
+
+			$config = array_merge(array(
+					'state' => 'unread',
+				), $config);
 
 			$where_sql = '
 				sa.created < "' . $db->escape(USER_DELAY) . '" AND
@@ -406,10 +410,24 @@
 
 			}
 
+			if ($config['state'] === 'read') {
+
+				$where_sql .= ' AND
+					sar.article_id IS NOT NULL';
+
+			} else if ($config['state'] === 'unread') {
+
+				$where_sql .= ' AND
+					sar.article_id IS NULL';
+
+			}
+
 			$sql = 'SELECT
 						sa.id
 					FROM
 						' . DB_PREFIX . 'source_article AS sa
+					LEFT JOIN
+						' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
 					WHERE
 						' . $where_sql . '
 					ORDER BY

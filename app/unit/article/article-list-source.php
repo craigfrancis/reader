@@ -3,8 +3,9 @@
 	class article_list_source_unit extends unit {
 
 		protected $config = array(
-				'source' => NULL,
-				'state' => 'unread',
+				'view_url' => array('type' => 'url'),
+				'source'   => NULL,
+				'state'    => 'unread',
 			);
 
 		protected function authenticate($config) {
@@ -74,14 +75,14 @@
 							sa.id
 						ORDER BY
 							sa.published ' . ($config['state'] === 'unread' ? 'ASC' : 'DESC') . ',
-							sa.id ASC
+							sa.id ' . ($config['state'] === 'unread' ? 'ASC' : 'DESC') . '
 						LIMIT
 							50';
 
 				foreach ($db->fetch_all($sql) as $row) {
 
 					$articles[] = array(
-							'url' => url('/articles/:source/', array('source' => $source_ref, 'id' => $row['id'])),
+							'url' => $config['view_url']->get(array('source' => $source_ref, 'id' => $row['id'], 'state' => ($config['state'] == 'unread' ? NULL : $config['state']))),
 							'title' => $row['title'],
 							'new' => ($config['state'] === 'all' && $row['article_id'] == 0),
 						);
