@@ -12,7 +12,7 @@
 
 			$local_path = self::img_local_path($article_id, $img_url);
 			if ($local_path !== NULL && is_file($local_path)) {
-				return FILE_URL . prefix_replace(FILE_ROOT, $local_path);
+				return FILE_URL . prefix_replace(FILE_ROOT, '', $local_path);
 			} else {
 				return NULL;
 			}
