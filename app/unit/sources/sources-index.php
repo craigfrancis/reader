@@ -41,9 +41,9 @@
 					$source_error = new timestamp($row['error_date'], 'db');
 
 					$error = false;
-					if ($source_updated->null() === true) {
+					if ($source_updated->null()) {
 						$error = true;
-					} else if ($source_error->null() === false) {
+					} else if ($source_error->null() == false) {
 						$error = ($source_error >= $source_updated);
 					}
 
