@@ -53,7 +53,7 @@
 						$source_updated = new timestamp($row['updated'], 'db');
 						$source_error = new timestamp($row['error_date'], 'db');
 
-						if ($source_updated->null() == false && $source_error->null() == false && $source_error >= $source_updated) {
+						if ($source_error->null() == false && ($source_updated->null() == true || $source_error >= $source_updated)) {
 							$source_error = $row['error_text'] . ' (' . $source_error->format('D, g:ia') . ')';
 						} else {
 							$source_error = NULL;

@@ -40,17 +40,10 @@
 					$source_updated = new timestamp($row['updated'], 'db');
 					$source_error = new timestamp($row['error_date'], 'db');
 
-					$error = false;
-					if ($source_updated->null()) {
-						$error = true;
-					} else if ($source_error->null() == false) {
-						$error = ($source_error >= $source_updated);
-					}
-
 					$sources[] = array(
 							'url' => $config['edit_url']->get(array('id' => $row['id'])),
 							'title' => $row['title'],
-							'error' => $error,
+							'error' => ($source_error->null() == false && ($source_updated->null() == true || $source_error >= $source_updated)),
 						);
 
 				}
