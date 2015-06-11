@@ -162,18 +162,27 @@
 					//--------------------------------------------------
 					// Clean link
 
-						$browser->get($article_link_source);
+						$result = $browser->get($article_link_source);
 
 						$article_link_code = $browser->code_get();
 						$article_link_clean = trim($browser->url_get());
 
 						if ($article_link_code != 200) {
 
-							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL' . "\n\n";
-							$report .= $article_link_source . "\n";
-							$report .= $article_link_clean . "\n\n";
-							$report .= trim($browser->request_full_get()) . "\n\n";
-							$report .= trim($browser->response_headers_get());
+							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL';
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $article_link_source;
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $article_link_clean;
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->request_full_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->response_headers_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->error_message_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->error_details_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
 
 							report_add($report);
 
@@ -355,7 +364,7 @@
 
 						} else {
 
-							$error = 'Cannot return feed: ' . $browser->error_message_get();
+							$error = 'Cannot return feed: ' . $browser->error_message_get() . "\n\n" . $browser->error_details_get();
 
 						}
 
