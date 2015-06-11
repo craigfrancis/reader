@@ -104,6 +104,8 @@
 				),
 		);
 
+	$config['socket.insecure_domains'] = 'all'; // Too many issues with other websites.
+
 //--------------------------------------------------
 // Upload
 
