@@ -3,11 +3,9 @@
 //--------------------------------------------------
 // Update
 
-	$article_id = intval(request('article'));
+	$article_id = request('article');
 
-	if ($article_id > 0) {
-		articles::local_cache($article_id);
-	}
+	articles::local_cache($article_id);
 
 //--------------------------------------------------
 // Redirect
@@ -21,6 +19,6 @@
 //--------------------------------------------------
 // Done
 
-	exit('Done');
+	exit("Done\n");
 
 ?>
