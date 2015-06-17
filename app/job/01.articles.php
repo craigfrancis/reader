@@ -22,12 +22,7 @@
 
 		public function run() {
 
-			//--------------------------------------------------
-			// Update
-
-				articles::update();
-
-				articles::local_cache();
+			articles::update();
 
 		}
 
