@@ -63,7 +63,9 @@
 			//--------------------------------------------------
 			// Articles
 
-				if (is_int($article_id)) {
+				$article_id = intval($article_id);
+
+				if ($article_id > 0) {
 					$where_sql = 'sa.id = "' . $db->escape($article_id) . '"';
 				} else {
 					$where_sql = 'sa.link_clean = ""';
