@@ -124,7 +124,7 @@
 									if ($local_path !== NULL && !is_file($local_path)) {
 
 										// $remote_data = file_get_contents($remote_url);
-echo 'Image: ' . $remote_url . "\n";
+
 										$browser->get($remote_url);
 
 										$remote_code = $browser->code_get();
@@ -163,7 +163,7 @@ echo 'Image: ' . $remote_url . "\n";
 
 					//--------------------------------------------------
 					// Clean link
-echo 'Source: ' . $article_link_source . "\n";
+
 						$result = $browser->get($article_link_source);
 
 						$article_link_code = $browser->code_get();
