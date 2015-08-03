@@ -161,7 +161,8 @@
 		/* overflow: auto; - Causes iOS to crash */
 	}
 
-	#article_wrapper span.image_wrapper img {
+	#article_wrapper span.image_wrapper img,
+	#article_wrapper svg {
 		display: block;
 		max-width: 100%;
 		height: auto;
