@@ -202,7 +202,7 @@
 					//--------------------------------------------------
 					// Remove bad tags
 
-						foreach (array('script', 'link', 'iframe') as $tag) {
+						foreach (array('script', 'link', 'iframe', 'style') as $tag) {
 
 							$nodes = $article_dom->getElementsByTagName($tag);
 
