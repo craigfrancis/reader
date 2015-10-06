@@ -74,12 +74,17 @@
 					$article_html = $row['description'];
 					$article_read = ($row['article_read'] == 1);
 					$article_recache_url = gateway_url('recache', array('article' => $article_id, 'dest' => url()));
+					$article_link_clean = $row['link_clean'];
 
 					if ($row['link_clean'] != '' && $row['link_clean'] != '-') {
 						$article_link = $row['link_clean'];
+						$article_domain = $row['link_clean'];
 					} else {
 						$article_link = $row['link_source'];
+						$article_domain = $source_url;
 					}
+
+					$article_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $article_link);
 
 				} else {
 
@@ -162,7 +167,7 @@
 
 							$src_old = trim($image->getAttribute('src'));
 							if ($src_old) {
-								$src_remote = articles::img_remote_url($source_url, $src_old);
+								$src_remote = articles::img_remote_url($article_domain, $src_old);
 								$src_local = articles::img_local_url($article_id, $src_remote);
 								if ($src_local !== NULL) {
 									$image->setAttribute('src', $src_local);

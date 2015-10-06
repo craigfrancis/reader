@@ -31,7 +31,7 @@
 
 		}
 
-		static function img_remote_url($source_url, $img_url) {
+		static function img_remote_url($article_domain, $img_url) {
 
 			if (substr($img_url, 0, 2) == '//') {
 
@@ -39,7 +39,7 @@
 
 			} else if (substr($img_url, 0, 1) == '/') { // e.g. what-if.xkcd.com
 
-				$img_url = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $source_url) . $img_url;
+				$img_url = $article_domain . $img_url;
 
 			}
 
@@ -103,6 +103,61 @@
 						$browser->reset();
 
 					//--------------------------------------------------
+					// Clean link
+
+						$result = $browser->get($article_link_source);
+
+						$article_link_code = $browser->code_get();
+						$article_link_clean = trim($browser->url_get());
+
+						$article_domain = $source_url;
+
+						if ($article_link_code != 200) {
+
+							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL';
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $article_link_source;
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $article_link_clean;
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->request_full_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->response_headers_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->error_message_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+							$report .= $browser->error_details_get();
+							$report .= "\n\n--------------------------------------------------\n\n";
+
+							report_add($report);
+
+							$article_link_clean = '-';
+
+						} else if ($article_link_clean == '') {
+
+							$article_link_clean = $article_link_source;
+
+							report_add('Cannot return clean URL for: ' . $article_link_source);
+
+						} else {
+
+							$article_domain = $article_link_clean;
+
+						}
+
+						$db->query('UPDATE
+										' . DB_PREFIX . 'source_article AS sa
+									SET
+										sa.link_clean = "' . $db->escape($article_link_clean) . '"
+									WHERE
+										sa.id = "' . $db->escape($article_id) . '"');
+
+					//--------------------------------------------------
+					// Article domain
+
+						$article_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $article_domain);
+
+					//--------------------------------------------------
 					// Images
 
 						if ($article_html != '') {
@@ -118,7 +173,7 @@
 								$img_url = trim($image->getAttribute('src'));
 								if ($img_url) {
 
-									$remote_url = self::img_remote_url($source_url, $img_url);
+									$remote_url = self::img_remote_url($article_domain, $img_url);
 									$local_path = self::img_local_path($article_id, $remote_url);
 
 									if ($local_path !== NULL && !is_file($local_path)) {
@@ -156,17 +211,23 @@
 									} else {
 
 										$remote_code = NULL;
+										$remote_data = NULL;
+										$image_info = (is_file($local_path) ? @getimagesize($local_path) : NULL);
 
 									}
 
 									if ($debug) {
+
 										debug(array(
-												'source_url' => $source_url,
+												'article_domain' => $article_domain,
 												'img_url' => $img_url,
 												'remote_url' => $remote_url,
 												'remote_code' => $remote_code,
+												'remote_data' => ($remote_data === NULL ? NULL : strlen($remote_data) . 'b, sha1 = ' . sha1($remote_data)),
 												'local_path' => $local_path,
+												'image_info' => $image_info,
 											));
+
 									}
 
 								}
@@ -174,50 +235,6 @@
 							}
 
 						}
-
-					//--------------------------------------------------
-					// Clean link
-
-						$result = $browser->get($article_link_source);
-
-						$article_link_code = $browser->code_get();
-						$article_link_clean = trim($browser->url_get());
-
-						if ($article_link_code != 200) {
-
-							$report  = 'Got a "' . $article_link_code . '" response when getting a clean URL';
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $article_link_source;
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $article_link_clean;
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $browser->request_full_get();
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $browser->response_headers_get();
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $browser->error_message_get();
-							$report .= "\n\n--------------------------------------------------\n\n";
-							$report .= $browser->error_details_get();
-							$report .= "\n\n--------------------------------------------------\n\n";
-
-							report_add($report);
-
-							$article_link_clean = '-';
-
-						} else if ($article_link_clean == '') {
-
-							$article_link_clean = $article_link_source;
-
-							report_add('Cannot return clean URL for: ' . $article_link_source);
-
-						}
-
-						$db->query('UPDATE
-										' . DB_PREFIX . 'source_article AS sa
-									SET
-										sa.link_clean = "' . $db->escape($article_link_clean) . '"
-									WHERE
-										sa.id = "' . $db->escape($article_id) . '"');
 
 				}
 
