@@ -121,6 +121,11 @@
 									$remote_url = self::img_remote_url($source_url, $img_url);
 									$local_path = self::img_local_path($article_id, $remote_url);
 
+debug($source_url);
+debug($img_url);
+debug($remote_url);
+debug($local_path);
+
 									if ($local_path !== NULL && !is_file($local_path)) {
 
 										// $remote_data = file_get_contents($remote_url);
