@@ -47,7 +47,7 @@
 
 		}
 
-		static function local_cache($article_id = NULL) {
+		static function local_cache($article_id = NULL, $debug = false) {
 
 			//--------------------------------------------------
 			// Config
@@ -121,11 +121,6 @@
 									$remote_url = self::img_remote_url($source_url, $img_url);
 									$local_path = self::img_local_path($article_id, $remote_url);
 
-debug($source_url);
-debug($img_url);
-debug($remote_url);
-debug($local_path);
-
 									if ($local_path !== NULL && !is_file($local_path)) {
 
 										// $remote_data = file_get_contents($remote_url);
@@ -158,6 +153,20 @@ debug($local_path);
 
 										}
 
+									} else {
+
+										$remote_code = NULL;
+
+									}
+
+									if ($debug) {
+										debug(array(
+												'source_url' => $source_url,
+												'img_url' => $img_url,
+												'remote_url' => $remote_url,
+												'remote_code' => $remote_code,
+												'local_path' => $local_path,
+											));
 									}
 
 								}

@@ -4,8 +4,9 @@
 // Update
 
 	$article_id = request('article');
+	$debug = (request('debug') == 'true');
 
-	articles::local_cache($article_id);
+	articles::local_cache($article_id, $debug);
 
 //--------------------------------------------------
 // Redirect
