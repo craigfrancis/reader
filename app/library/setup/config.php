@@ -98,6 +98,7 @@
 			'form-action'  => array("'self'"),
 			'style-src'    => array("'self'"),
 			'img-src'      => array("*"),
+			'media-src'    => array("*"),
 			'script-src'   => array("'self'", 'https://www.google-analytics.com'),
 			'connect-src'  => array(
 					'www.devcf.com', // For to-do list
