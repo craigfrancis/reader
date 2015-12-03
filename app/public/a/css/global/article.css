@@ -111,6 +111,8 @@
 
 	#article_wrapper pre {
 		overflow-x: auto;
+		border: 3px solid #0000DD;
+		padding: 3px;
 	}
 
 	#article_wrapper a.script_tag,
