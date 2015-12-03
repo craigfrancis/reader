@@ -109,11 +109,8 @@
 		color: #777;
 	}
 
-	@media screen and (min-width: 40em) {
-		#article_wrapper pre {
-			overflow: auto;
-			word-wrap: break-word;
-		}
+	#article_wrapper pre {
+		overflow-x: auto;
 	}
 
 	#article_wrapper a.script_tag,
