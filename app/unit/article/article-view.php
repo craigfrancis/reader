@@ -178,9 +178,8 @@
 								}
 							}
 
-							if ($image->getAttribute('srcset') != '') {
-								$image->removeAttribute('srcset');
-							}
+							if ($image->getAttribute('srcset') != '') $image->removeAttribute('srcset');
+							if ($image->getAttribute('sizes') != '')  $image->removeAttribute('sizes');
 
 							if ($title) {
 								$title_node = $article_dom->createElement('em', $title);
