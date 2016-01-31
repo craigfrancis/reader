@@ -178,6 +178,10 @@
 								}
 							}
 
+							if ($image->getAttribute('srcset') != '') {
+								$image->removeAttribute('srcset');
+							}
+
 							if ($title) {
 								$title_node = $article_dom->createElement('em', $title);
 								$wrapper_node->appendChild($title_node);
