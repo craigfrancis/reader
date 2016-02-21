@@ -257,7 +257,7 @@
 					//--------------------------------------------------
 					// Convert <tag /> to <tag></tag>
 
-						foreach (array('a') as $tag) { // Did include iframe, but should also fix "<a name='more'></a>"
+						foreach (array('video', 'a') as $tag) { // Used to fix "<a name='more'></a>", was also used for 'iframe' (but now that is treated as a bad tag).
 
 							$nodes = $article_dom->getElementsByTagName($tag);
 
