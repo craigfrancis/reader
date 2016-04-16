@@ -84,7 +84,7 @@
 		padding: 5px;
 	}
 
-	@media screen and (min-width: 30em) { /* Moves large images to the right in iOS 8.2, and iframe width is larger than device-width */
+	@media screen and (min-device-width: 480px) { /* Must use device-width, as iOS 9 still scales up the content (e.g. 560px comics), and applies weird scaling */
 		#article_wrapper {
 			 margin: 0 auto;
 			 max-width: 25em;
