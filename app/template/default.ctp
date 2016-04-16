@@ -75,7 +75,7 @@
 
 						if ($footer_url['href']) {
 							echo '
-								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"' . (isset($footer_url['target']) ? ' target="' . html($footer_url['target']) . '"' : '') . '><span>' . $label_html . '</span></a>';
+								<a href="' . html($footer_url['href']) . '" class="' . html($footer_url['class']) . '"' . (isset($footer_url['target']) ? ' target="' . html($footer_url['target']) . '"' : '') . '' . (isset($footer_url['label']) ? ' aria-label="' . html($footer_url['label']) . '"' : '') . '><span>' . $label_html . '</span></a>';
 						} else {
 							echo '
 								<span class="' . html($footer_url['class']) . '"><span>' . $label_html . '</span></span>';

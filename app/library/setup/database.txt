@@ -135,7 +135,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -254,7 +254,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -267,7 +267,7 @@
             },
             "source_id": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "source_id",
                     "collation": "A",
                     "sub_part": null,
@@ -278,7 +278,7 @@
                     "index_comment": ""
                 },
                 "2": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "guid",
                     "collation": "A",
                     "sub_part": null,
@@ -327,7 +327,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "article_id",
                     "collation": "A",
                     "sub_part": null,
@@ -338,7 +338,7 @@
                     "index_comment": ""
                 },
                 "2": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "user_id",
                     "collation": "A",
                     "sub_part": null,
@@ -387,7 +387,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -400,7 +400,7 @@
             },
             "run_end": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "run_end",
                     "collation": "A",
                     "sub_part": null,
@@ -469,7 +469,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -482,7 +482,7 @@
             },
             "job": {
                 "1": {
-                    "non_unique": "1",
+                    "non_unique": 1,
                     "column_name": "job",
                     "collation": "A",
                     "sub_part": null,
@@ -493,7 +493,7 @@
                     "index_comment": ""
                 },
                 "2": {
-                    "non_unique": "1",
+                    "non_unique": 1,
                     "column_name": "created",
                     "collation": "A",
                     "sub_part": null,
@@ -598,7 +598,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "url_src",
                     "collation": "A",
                     "sub_part": null,
@@ -687,7 +687,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -806,7 +806,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "blocked_uri",
                     "collation": "A",
                     "sub_part": null,
@@ -817,7 +817,7 @@
                     "index_comment": ""
                 },
                 "2": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "violated_directive",
                     "collation": "A",
                     "sub_part": null,
@@ -909,7 +909,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -922,7 +922,7 @@
             },
             "username": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "username",
                     "collation": "A",
                     "sub_part": null,
@@ -1021,7 +1021,7 @@
         "keys": {
             "PRIMARY": {
                 "1": {
-                    "non_unique": "0",
+                    "non_unique": 0,
                     "column_name": "id",
                     "collation": "A",
                     "sub_part": null,
@@ -1034,7 +1034,7 @@
             },
             "user_id": {
                 "1": {
-                    "non_unique": "1",
+                    "non_unique": 1,
                     "column_name": "user_id",
                     "collation": "A",
                     "sub_part": null,

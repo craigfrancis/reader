@@ -23,15 +23,16 @@
 	}
 
 	body {
-		font-family: verdana, arial, helvetica, sans-serif;
-		font-size: 0.8em;
+		font-family: times, georgia, serif;
+		font-size: 1.05em;
 		line-height: 1.3em;
-		color: #000;
-		background-color: #FFF;
+		color: #3F2A18;
+		background-color: #F5EFDC;
 	}
 
 	a {
 		color: #00E;
+		text-decoration: none;
 	}
 
 	a img {
@@ -201,13 +202,13 @@
 		#page_footer a.setup {
 			float: left;
 			text-align: left;
-			width: 5em;
+			width: 4.5em;
 		}
 
 		#page_footer a.reload {
 			display: inline-block;
 			text-decoration: none;
-			width: 5em;
+			width: 4em;
 			line-height: 0.6em;
 			font-size: 1.5em;
 		}
@@ -254,21 +255,11 @@
 		#page_footer a.logout {
 			float: right;
 			text-align: right;
-			width: 5em;
+			width: 4.5em;
 		}
 
 /*--------------------------------------------------*/
 /* Error notice links                               */
-
-	#page_footer a.setup,
-	#p_setup a.sources {
-		text-decoration: none;
-	}
-
-	#page_footer a.setup span span,
-	#p_setup a.sources span {
-		text-decoration: underline;
-	}
 
 	#page_footer a.setup span abbr.error,
 	#p_setup a.sources abbr.error {
@@ -306,14 +297,9 @@
 	}
 
 	#reader_index li {
-		border-bottom: 1px solid #EEE;
+		border-bottom: 1px solid #DBD1AF;
 		display: -webkit-flex;  /* NEW, Chrome 21+ */
 		display: flex;          /* NEW: Opera 12.1, Firefox 22+ */
-	}
-
-	#reader_index li.read a {
-		color: #BBB;
-		text-decoration: none;
 	}
 
 	#reader_index li a {
@@ -321,6 +307,10 @@
 		flex: 1;                  /* NEW: Opera 12.1, Firefox 22+ */
 		display: block;
 		padding: 5px;
+	}
+
+	#reader_index li.read a {
+		color: #B09A87;
 	}
 
 	#reader_index li em {
@@ -339,7 +329,7 @@
 	}
 
 	#reader_list li {
-		border-bottom: 1px solid #EEE;
+		border-bottom: 1px solid #DBD1AF;
 		display: block;
 		padding: 5px;
 	}
@@ -393,11 +383,11 @@
 	}
 
 	.basic_form .error_list {
-		color: #A00;
+		color: #C00;
 		background: inherit;
 		font-weight: bold;
-		margin: 0 0 0 2em;
-		padding: 1em 0;
+		margin: 1em 0 1em 2em;
+		padding: 0;
 	}
 
 	.basic_form .row {

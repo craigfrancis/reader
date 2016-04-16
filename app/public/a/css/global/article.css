@@ -22,12 +22,13 @@
 		display: block;
 	}
 
+	html,
 	body {
-		font-family: verdana, arial, helvetica, sans-serif;
-		font-size: 0.9em;
+		font-family: times, georgia, serif;
+		font-size: 1.05em;
 		line-height: 1.3em;
-		color: #000;
-		background-color: #FFF;
+		color: #3F2A18;
+		background-color: #F5EFDC;
 	}
 
 	sup {
@@ -83,10 +84,12 @@
 		padding: 5px;
 	}
 
-	@media screen and (min-device-width: 480px) { /* Moves large images to the right in iOS 8.2, and iframe width is larger than device-width */
+	@media screen and (min-width: 30em) { /* Moves large images to the right in iOS 8.2, and iframe width is larger than device-width */
 		#article_wrapper {
 			 margin: 0 auto;
-			 max-width: 40em;
+			 max-width: 25em;
+			 font-size: 1.2em;
+			 line-height: 1.35em;
 		}
 	}
 
@@ -224,7 +227,7 @@
 	}
 
 	#article_wrapper.what-if article.entry .refbody {
-		background: #CCC;
+		background: #CFCFCF;
 		margin: 0 0 0 3px;
 		padding: 0 1px;
 	}

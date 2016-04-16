@@ -162,7 +162,7 @@
 
 					$response->set('footer_urls', array(
 							array('html' => $setup_html, 'class' => 'setup',   'href' => url('/setup/')),
-							array('text' => '↻',         'class' => 'reload',  'href' => url('/articles/')),
+							array('text' => '↻',         'class' => 'reload',  'href' => url('/articles/'), 'label' => 'Reload'),
 							array('text' => 'Logout',    'class' => 'logout',  'href' => url('/logout/')),
 						));
 
