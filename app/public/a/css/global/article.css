@@ -37,7 +37,7 @@
 		margin-left: 0.25em; /* Small separating gap */
 	}
 
-	a {
+	a[href] { /* For when articles use anchor links (which have their href stripped) */
 		color: #00E;
 	}
 
@@ -82,6 +82,7 @@
 
 	#article_wrapper {
 		padding: 5px;
+		word-break: break-word; /* Other browsers may be a bit buggy, was in iPhone media query, but now needs to work on iPad (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
 	}
 
 	@media screen and (min-device-width: 480px) { /* Must use device-width, as iOS 9 still scales up the content (e.g. 560px comics), and applies weird scaling */
@@ -99,7 +100,7 @@
 
 	@media only screen and (max-device-width: 480px) {
 		#article_wrapper {
-			word-break: break-word; /* Works in iOS, other solutions are very buggy (http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/) */
+
 		}
 		#article_wrapper > * {
 			max-width: 310px; /* Avoid horizontal scroll, page width gets messed up (re-collocation of page width), can cause many crash scenarios */
