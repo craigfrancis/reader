@@ -16,6 +16,8 @@
 		RewriteCond %{HTTP_HOST} !^reader\.craigfrancis\.co\.uk$
 		RewriteRule ^(.*) https://reader.craigfrancis.co.uk$1 [R=301,L]
 
+		RewriteRule ^/\.well-known/acme-challenge/(.*)$ /etc/acme/public/$1 [L]
+
 		RewriteRule ^/a/files/(.*) /www/live/craig.reader/files/$1 [S=1]
 		RewriteRule ^(.*)$ %{DOCUMENT_ROOT}$1
 
