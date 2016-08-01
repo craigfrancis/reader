@@ -150,6 +150,8 @@
 						$article_dom = new DomDocument();
 						$article_dom->loadHTML('<?xml encoding="UTF-8">' . $article_html);
 
+						$xpath = new DOMXPath($article_dom);
+
 					//--------------------------------------------------
 					// Images
 
@@ -251,12 +253,17 @@
 					//--------------------------------------------------
 					// Remove bad attributes
 
-						$xpath = new DOMXPath($article_dom);
-
 						foreach (array('style', 'onclick') as $attribute) {
 							foreach ($xpath->query('//*[@' . $attribute . ']') as $element) {
 								$element->removeAttributeNode($element->getAttributeNode($attribute));
 							}
+						}
+
+					//--------------------------------------------------
+					// Remove pocket links
+
+						foreach ($xpath->query('//a[starts-with(@href, "https://getpocket.com/save")]') as $element) {
+							$element->parentNode->removeChild($element);
 						}
 
 					//--------------------------------------------------
