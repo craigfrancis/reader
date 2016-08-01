@@ -135,7 +135,8 @@
 				$article_html = trim($article_html);
 				$article_html = str_replace('< ', '&lt; ', $article_html); // Bad HTML encoding, e.g. "<code> if (count < 0) {"
 
-				while (strpos($article_html, '&amp;amp;') !== false) { // Includes double HTML encoding.
+				$k = 0;
+				while (($k++ < 3) && (preg_match('/&amp;[a-z]+;/', $article_html))) { // Includes double HTML encoding.
 					$article_html = html_decode($article_html);
 				}
 
