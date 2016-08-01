@@ -135,6 +135,10 @@
 				$article_html = trim($article_html);
 				$article_html = str_replace('< ', '&lt; ', $article_html); // Bad HTML encoding, e.g. "<code> if (count < 0) {"
 
+				if (strpos($article_html, '&amp;amp;') !== false) { // Includes double HTML encoding.
+					$article_html = html_decode($article_html);
+				}
+
 				if ($article_html != '') {
 
 					//--------------------------------------------------
