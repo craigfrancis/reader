@@ -258,6 +258,13 @@
 	}
 
 /*--------------------------------------------------*/
+/* WDRL                                             */
+
+	#article_wrapper.wdrl svg.pocket {
+		display: none;
+	}
+
+/*--------------------------------------------------*/
 /* DZone                                            */
 
 	#article_wrapper.dzone span.image_wrapper img {
