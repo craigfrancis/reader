@@ -101,7 +101,7 @@
 			'style-src'    => array("'self'"),
 			'img-src'      => array("*"),
 			'media-src'    => array("*"),
-			'script-src'   => array("'self'", 'https://www.google-analytics.com'),
+			'script-src'   => array("'self'"),
 			'connect-src'  => array(
 					'www.devcf.com', // For to-do list
 				),
