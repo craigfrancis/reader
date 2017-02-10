@@ -1,5 +1,5 @@
 
-	<VirtualHost 85.13.244.131:443>
+	<VirtualHost *:443>
 
 		ServerName reader.craigfrancis.co.uk
 		DocumentRoot /www/live/craig.reader/app/public/
