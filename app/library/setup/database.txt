@@ -92,14 +92,14 @@
                 "definition": "datetime NOT NULL"
             },
             "error_text": {
-                "type": "tinytext",
-                "length": 255,
+                "type": "text",
+                "length": 65535,
                 "collation": "utf8_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
                 "options": null,
-                "definition": "tinytext NOT NULL"
+                "definition": "text NOT NULL"
             },
             "created": {
                 "type": "datetime",
