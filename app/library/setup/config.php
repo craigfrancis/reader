@@ -37,7 +37,7 @@
 
 			$config['gateway.maintenance'] = true;
 
-	} else if (prefix_match('/www/demo/', ROOT)) {
+	} else if (prefix_match('/mnt/files/www/demo/', ROOT)) {
 
 		//--------------------------------------------------
 		// Server
