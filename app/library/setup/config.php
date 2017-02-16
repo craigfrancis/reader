@@ -97,6 +97,7 @@
 	$config['output.csp_enforced'] = true;
 	$config['output.csp_directives'] = array(
 			'default-src'  => array("'none'"),
+			'base-uri'     => array("'none'"),
 			'form-action'  => array("'self'"),
 			'style-src'    => array("'self'"),
 			'img-src'      => array("*"),
