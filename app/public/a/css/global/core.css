@@ -402,6 +402,7 @@
 
 	.basic_form .row .label abbr.required {
 		border: 0;
+		text-decoration: none;
 	}
 
 	.basic_form .row.text .input input,
