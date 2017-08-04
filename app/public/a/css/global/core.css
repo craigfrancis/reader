@@ -486,4 +486,6 @@
 
 	#p_sources #page_content ol abbr.error {
 		color: #C00;
+		border: 0;
+		text-decoration: none;
 	}
