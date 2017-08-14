@@ -114,7 +114,7 @@
 	}
 
 	#article_wrapper pre {
-		overflow-x: scroll;
+		overflow-x: auto;
 		border: 3px solid #0000DD;
 		padding: 3px;
 		word-break: normal;
