@@ -1,0 +1,491 @@
+
+
+
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,figure,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,font,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+margin:0;
+padding:0;
+border:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
+}
+
+article,aside,figcaption,figure,footer,
+header,hgroup,main,nav,section {
+display:block;
+}
+
+body {
+font-family:times,georgia,serif;
+font-size:1.05em;
+line-height:1.3em;
+color:#3F2A18;
+background-color:#F5EFDC;
+}
+
+a {
+color:#00E;
+text-decoration:none;
+}
+
+a img {
+border:0;
+}
+
+p,
+h1,
+h2,
+h3 {
+margin:0 0 1em 0;
+}
+
+ul,
+ol {
+margin:0 0 1em 2em;
+}
+
+hr {
+margin:1em 0 1em 0;
+border:0;
+border-bottom:1px solid #000;
+}
+
+table {
+border-collapse:collapse;
+border-spacing:0;
+}
+
+table th,
+table td {
+vertical-align:top;
+}
+
+
+
+
+@media only screen and (max-device-width:480px) {
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+font-size:16px;
+}
+
+}
+
+
+
+
+.visually_hidden {
+position:absolute;
+width:1px;
+height:1px;
+overflow:hidden;
+clip:rect(0 0 0 0);
+border:0;
+margin:-1px;
+padding:0;
+}
+
+
+
+
+
+
+
+html,
+body,
+#page_wrapper {
+height:100%;
+}
+
+#page_wrapper {
+
+display:-webkit-flex;
+display:flex;
+
+-webkit-flex-direction:column;
+flex-direction:column;
+
+height:100%;
+width:100%;
+
+}
+
+
+
+
+#page_header {
+display:none;
+}
+
+
+
+
+#page_content {
+
+-webkit-flex:1;
+flex:1;
+
+position:relative;
+
+-webkit-overflow-scrolling:touch;
+overflow:auto;
+
+}
+
+@media only screen and (min-width:35em) {
+
+
+}
+
+
+
+
+#page_footer {
+
+background:#000;
+color:#FFF;
+padding:20px 5px;
+text-align:center;
+overflow:hidden;
+
+-webkit-user-select:none;
+-khtml-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+
+}
+
+#page_footer a {
+color:#FFF;
+}
+
+#page_footer a.back,
+#page_footer a.prev,
+#page_footer a.next,
+#page_footer a.read,
+#page_footer a.unread,
+#page_footer a.sources,
+#page_footer a.reload,
+#page_footer a.logout {
+-webkit-touch-callout:none;
+}
+
+#page_footer > span,
+#page_footer a[href="#"] {
+color:#666;
+}
+
+#page_footer a.back,
+#page_footer a.setup {
+float:left;
+text-align:left;
+width:4.5em;
+}
+
+#page_footer a.reload {
+display:inline-block;
+text-decoration:none;
+width:4em;
+line-height:0.6em;
+font-size:1.5em;
+}
+
+#page_footer .next,
+#page_footer .view {
+margin-left:30px;
+}
+
+#page_footer .prev,
+#page_footer .next {
+content:'';
+position:relative;
+border:15px solid #000;
+}
+
+#page_footer a.prev {
+top:-15px;
+border-bottom-color:#FFF;
+}
+
+#page_footer span.prev {
+top:-15px;
+border-bottom-color:#666;
+}
+
+#page_footer a.next {
+top:15px;
+border-top-color:#FFF;
+}
+
+#page_footer span.next {
+top:15px;
+border-top-color:#666;
+}
+
+#page_footer .prev span,
+#page_footer .next span {
+display:none;
+}
+
+#page_footer a.read,
+#page_footer a.unread,
+#page_footer a.logout {
+float:right;
+text-align:right;
+width:4.5em;
+}
+
+
+
+
+#page_footer a.setup span abbr.error,
+#p_setup a.sources abbr.error {
+padding-left:0.2em;
+color:#C00;
+}
+
+
+
+
+#page_message {
+border:1px solid #191D58;
+margin:1em 0 1em 0;
+padding:1em;
+text-align:center;
+color:#FFF;
+background:#20287A;
+font-weight:bold;
+}
+
+#page_message p {
+margin:0;
+}
+
+#page_message p a {
+color:#FFF;
+}
+
+
+
+
+#reader_index {
+list-style:none;
+margin:0;
+}
+
+#reader_index li {
+border-bottom:1px solid #DBD1AF;
+display:-webkit-flex;
+display:flex;
+}
+
+#reader_index li a {
+-webkit-flex:1;
+flex:1;
+display:block;
+padding:5px;
+}
+
+#reader_index li.read a {
+color:#B09A87;
+}
+
+#reader_index li em {
+float:right;
+padding:5px;
+font-style:normal;
+position:relative;
+}
+
+
+
+
+#reader_list {
+list-style:none;
+margin:0;
+}
+
+#reader_list li {
+border-bottom:1px solid #DBD1AF;
+display:block;
+padding:5px;
+}
+
+#reader_list li span {
+color:#BBB;
+}
+
+#reader_list li.no_articles {
+padding:20px;
+text-align:center;
+}
+
+#reader_list li iframe {
+display:block;
+width:100%;
+}
+
+
+
+
+#reader_view {
+position:absolute;
+height:100%;
+width:100%;
+}
+
+#reader_view iframe {
+display:block;
+width:100%;
+height:100%;
+}
+
+
+
+
+#debug_output {
+display:none;
+}
+
+
+
+
+.basic_form fieldset {
+margin:0 10px 1em 0;
+padding:0 0 0 1em;
+}
+
+.basic_form h2 {
+margin:1em 0;
+}
+
+.basic_form .error_list {
+color:#C00;
+background:inherit;
+font-weight:bold;
+margin:1em 0 1em 2em;
+padding:0;
+}
+
+.basic_form .row {
+padding:5px 0 0 1em;
+clear:both;
+}
+
+.basic_form .row .label {
+display:block;
+font-weight:normal;
+}
+
+.basic_form .row .label abbr.required {
+border:0;
+text-decoration:none;
+}
+
+.basic_form .row.text .input input,
+.basic_form .row.password .input input,
+.basic_form .row.url .input input {
+width:90%;
+max-width:40em;
+}
+
+.basic_form .row.number.sort .input input {
+width:5em;
+}
+
+.basic_form .row.info .input,
+.basic_form .row.radio .input,
+.basic_form .row.radios .input,
+.basic_form .row.check .input {
+display:block;
+padding:0 0 0.5em 1.5em;
+}
+
+.basic_form .row.radios .input:not(:last-child) {
+padding-bottom:0;
+}
+
+@media only screen and (min-width:40em) {
+.basic_form .row {
+padding-left:11.5em;
+}
+.basic_form .row .label {
+float:left;
+width:11em;
+margin:0 0 0 -11.5em;
+text-align:right;
+}
+.basic_form .row.text .label,
+.basic_form .row.date .label,
+.basic_form .row.email .label,
+.basic_form .row.password .label,
+.basic_form .row.postcode .label,
+.basic_form .row.textarea .label,
+.basic_form .row.number .label {
+margin-top:2px;
+}
+.basic_form .row.info .input {
+margin-bottom:0;
+margin-left:0;
+}
+.basic_form .row.info .input,
+.basic_form .row.radio .input,
+.basic_form .row.radios .input,
+.basic_form .row.check .input {
+display:block;
+padding:0;
+}
+}
+
+
+
+
+#p_home #page_content fieldset {
+padding:5px;
+}
+
+
+
+
+#p_sources #page_content,
+#p_sources_edit #page_content,
+#p_sources_delete #page_content {
+padding:5px;
+}
+
+#p_sources #page_content ol {
+margin:0 0 0.8em 2.5em;
+}
+
+#p_sources #page_content ol li {
+margin:0.2em;
+}
+
+#p_sources #page_content ol abbr.error {
+color:#C00;
+border:0;
+text-decoration:none;
+}

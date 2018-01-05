@@ -1,0 +1,278 @@
+
+
+
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,figure,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,font,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+margin:0;
+padding:0;
+border:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
+}
+
+article,aside,figcaption,figure,footer,
+header,hgroup,main,nav,section {
+display:block;
+}
+
+html,
+body {
+font-family:times,georgia,serif;
+font-size:1.05em;
+line-height:1.3em;
+color:#3F2A18;
+background-color:#F5EFDC;
+}
+
+sup {
+vertical-align:text-top;
+font-size:0.65em;
+margin-left:0.25em;
+}
+
+a[href]{
+color:#00E;
+}
+
+a img {
+border:0;
+}
+
+p,
+h1,
+h2,
+h3 {
+margin:1em 0;
+}
+
+ul,
+ol {
+margin:1em 0 1em 2em;
+}
+
+hr {
+margin:1em 0 1em 0;
+border:0;
+border-bottom:1px solid #000;
+}
+
+table {
+border:1px solid #000;
+border-collapse:collapse;
+border-spacing:0;
+margin:1em 0;
+}
+
+table th,
+table td {
+border:1px solid #000;
+vertical-align:top;
+padding:3px;
+}
+
+
+
+
+#article_wrapper {
+padding:5px;
+word-break:break-word;
+}
+
+@media screen and (min-device-width:480px){
+#article_wrapper {
+margin:0 auto;
+max-width:25em;
+font-size:1.2em;
+line-height:1.35em;
+}
+}
+
+#article_wrapper :first-child {
+margin-top:0;
+}
+
+@media only screen and (max-device-width:480px) {
+#article_wrapper {
+
+}
+#article_wrapper > * {
+max-width:310px;
+}
+}
+
+#article_wrapper blockquote {
+margin:1em 0;
+padding:0 0 0 5px;
+color:#777;
+}
+
+#article_wrapper pre {
+overflow-x:auto;
+border:3px solid #0000DD;
+padding:3px;
+word-break:normal;
+}
+
+#article_wrapper a.script_tag,
+#article_wrapper a.link_tag,
+#article_wrapper a.iframe_tag,
+#article_wrapper span.script_tag,
+#article_wrapper span.link_tag,
+#article_wrapper span.iframe_tag {
+text-decoration:none;
+color:#D00;
+word-wrap:break-word;
+display:block;
+margin:1em 0;
+}
+
+#article_wrapper span.image_wrapper em {
+display:block;
+margin:5px auto;
+color:#000;
+background:#FFFFD8;
+padding:5px;
+border:1px solid #ffcc00;
+clear:both;
+max-width:35em;
+font-style:normal;
+}
+
+#article_wrapper p.article_info {
+margin:1em 0;
+}
+
+#article_wrapper p.article_info span.published {
+color:#BBB;
+font-style:italic;
+}
+
+#article_wrapper p.article_info span.recache a {
+float:right;
+color:#F5F5F5;
+text-decoration:none;
+}
+
+#article_wrapper span.image_wrapper {
+display:block;
+
+}
+
+#article_wrapper span.image_wrapper img,
+#article_wrapper video,
+#article_wrapper svg {
+display:block;
+max-width:100%;
+height:auto;
+margin:0 auto;
+}
+
+#article_wrapper.dilbert span.image_wrapper img,
+#article_wrapper.garfield span.image_wrapper img,
+#article_wrapper.xkcd span.image_wrapper img {
+max-width:none;
+}
+
+
+
+
+#article_wrapper.webmaster-help > div > div {
+width:auto !important;
+}
+
+#article_wrapper.webmaster-help table table {
+display:block;
+}
+
+#article_wrapper.webmaster-help table td {
+display:block;
+vertical-align:top;
+padding:0 0 1em 0;
+}
+
+#article_wrapper.webmaster-help table td:last-child,
+#article_wrapper.webmaster-help table td:nth-child(2) div:first-child {
+display:none;
+}
+
+#article_wrapper.webmaster-help table td:first-child img {
+width:100px;
+}
+
+
+
+
+#article_wrapper.a-list-apart div > a:first-child {
+display:none;
+}
+
+
+
+
+#article_wrapper.smashing > div > table[width="650"]:first-child {
+display:none;
+}
+
+
+
+
+#article_wrapper.what-if article.entry h1 {
+display:none;
+}
+
+#article_wrapper.what-if article.entry .refbody {
+background:#CFCFCF;
+margin:0 0 0 3px;
+padding:0 1px;
+}
+
+
+
+
+#article_wrapper.the-daily-wtf > div > div:nth-last-child(3) {
+display:none;
+}
+
+#article_wrapper.the-daily-wtf .feedflare {
+display:none;
+}
+
+
+
+
+#article_wrapper.macrumors .mf-viral,
+#article_wrapper.macrumors .feedflare {
+display:none;
+}
+
+#article_wrapper.macrumors br[clear="all"] ~ br,
+#article_wrapper.macrumors a[href^="http://da.feedsportal.com/r/"] {
+display:none;
+}
+
+
+
+
+#article_wrapper.dzone span.image_wrapper img {
+margin:0;
+}
+
+#article_wrapper.dzone > div img {
+float:none !important;
+}
+
+#article_wrapper.dzone > div a:first-child img {
+width:120px;
+height:90px;
+}
+
+#article_wrapper.dzone > div > p {
+margin:1em 0 0 0 !important;
+}
