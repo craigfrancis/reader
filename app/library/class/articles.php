@@ -315,7 +315,7 @@
 					// Details
 
 						$error = false;
-
+debug($row);
 						$source_id = $row['id'];
 						$source_url = $row['url_feed'];
 						$source_deleted = ($row['deleted'] != '0000-00-00 00:00:00');
