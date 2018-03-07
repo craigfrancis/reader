@@ -1,133 +1,96 @@
-/*******************************************************************************************
- * itemLink
- * Written by Craig Francis
- * Automatically generate the item link
- *******************************************************************************************/
 
-	var itemLink = new function() {
+;(function(document, window, undefined) {
 
-		//--------------------------------------------------
-		// Old browsers
+	'use strict';
 
-			if (!document.getElementById || !document.getElementsByTagName) {
-				return;
-			}
+	if (!document.addEventListener || !document.querySelector) {
+		return;
+	}
 
-		//--------------------------------------------------
-		// Initialisation
+	function value_clean(text, max_length) {
 
-			this.init = function() {
+		text = text.toLowerCase();
+		text = text.replace('\'', '');
+		text = text.replace(/[^a-z0-9]/gi, '-');
+		text = text.replace(/--+/, '-');
+		text = text.replace(/-+$/, '');
+		text = text.replace(/^-+/, '');
 
-				//--------------------------------------------------
-				// Debug
+		max_length = parseInt(max_length, 10);
+		if (max_length > 0) {
+			text = text.substr(0, max_length);
+		}
 
-					//console.log('itemLink.js: Initialisation');
+		return text;
 
-				//--------------------------------------------------
-				// Get the references
+	}
 
-					itemLink.fldName = null;
-					itemLink.fldLink = null;
+	function change_name(e) {
 
-					$('input[data-js-item-link-src]').each(function() {
-							itemLink.fldLink = this;
-							itemLink.fldName = $('#' + $(this).data('js-item-link-src')).get(0);
-						});
+		var link_ref = this.itemLinkRef,
+			link_value = value_clean(this.value, link_ref.getAttribute('maxlength'));
 
-					if (!itemLink.fldName) {
-						console.log('itemLink.js: Could not find the "name" field');
-						return;
-					}
+		if (link_ref.getAttribute('itemLinkEditable') == 1) {
 
-					if (!itemLink.fldLink) {
-						console.log('itemLink.js: Could not find the "url" field');
-						return;
-					}
+			link_ref.setAttribute('itemLinkGenerated', link_value);
 
-				//--------------------------------------------------
-				// Set the generatedLink
+			link_ref.value = link_value;
 
-					itemLink.updateGeneratedLink();
+			// console.log('itemLink.js: Updated link to "' + link_value + '"');
 
-				//--------------------------------------------------
-				// Determine if the link is editable
+		} else {
 
-					itemLink.editable = true;
+			// console.log('itemLink.js: Did not update link');
 
-					itemLink.linkChange();
+		}
 
-					itemLink.fldLink.onkeyup = itemLink.linkChange;
+	}
 
-				//--------------------------------------------------
-				// Update the link field
+	function change_link(e) {
 
-					itemLink.fldName.onkeyup = itemLink.nameChange;
+		var name_ref = this.itemLinkRef,
+			old_editable = (this.getAttribute('itemLinkEditable') == 1),
+			new_editable = ((this.value.trim() == '') || (old_editable && this.value == this.getAttribute('itemLinkGenerated')));
 
-					itemLink.fldLink.onblur = itemLink.nameChange; // When clearing the link, auto-re-fill.
+		this.setAttribute('itemLinkEditable', (new_editable ? 1 : 0));
 
-					itemLink.nameChange();
+		// if (old_editable != new_editable) {
+		// 	console.log('itemLink.js: Changed editable state to "' + (new_editable ? 'true' : 'false') + '"');
+		// }
 
-			}
+	}
 
-		//--------------------------------------------------
-		// Generate link
+	function init() {
 
-			this.updateGeneratedLink = function() {
+		var link_inputs = document.querySelectorAll('input[data-js-item-link-src]'),
+			name_input = null;
 
-				var text = itemLink.fldName.value;
-				text = text.toLowerCase();
-				text = text.replace('\'', '');
-				text = text.replace(/[^a-z0-9]/gi, '-');
-				text = text.replace(/--+/, '-');
-				text = text.replace(/-+$/, '');
-				text = text.replace(/^-+/, '');
-				text = text.substr(0, itemLink.fldLink.maxLength);
+		for (var k = (link_inputs.length - 1); k >= 0; k--) {
 
-				itemLink.generatedLink =  text;
+			name_input = document.getElementById(link_inputs[k].getAttribute('data-js-item-link-src'));
+
+			if (name_input) {
+
+				link_inputs[k].setAttribute('itemLinkEditable', (link_inputs[k].value.trim() == '' ? 1 : 0));
+				link_inputs[k].setAttribute('itemLinkGenerated', value_clean(name_input.value, link_inputs[k].getAttribute('maxlength')));
+
+				link_inputs[k].itemLinkRef = name_input;
+				name_input.itemLinkRef = link_inputs[k];
+
+				link_inputs[k].addEventListener('keyup', change_link);
+				name_input.addEventListener('keyup', change_name);
+				name_input.addEventListener('blur', change_name);
 
 			}
 
-		//--------------------------------------------------
-		// Name changed - try to update link
+		}
 
-			this.nameChange = function() {
+	}
 
-				if (itemLink.editable) {
+	if (document.readyState !== 'loading') {
+		window.setTimeout(init); // Handle asynchronously
+	} else {
+		document.addEventListener('DOMContentLoaded', init);
+	}
 
-					itemLink.updateGeneratedLink();
-
-					itemLink.fldLink.value = itemLink.generatedLink;
-
-					//console.log('itemLink.js: Updated link to "' + itemLink.generatedLink + '"');
-
-				} else {
-
-					//console.log('itemLink.js: Did not update link');
-
-				}
-
-			}
-
-		//--------------------------------------------------
-		// Link changed - see if it is now user set
-
-			this.linkChange = function() {
-
-				var old = itemLink.editable;
-
-				itemLink.editable = ((itemLink.fldLink.value == '') || (itemLink.editable && itemLink.fldLink.value == itemLink.generatedLink));
-
-				if (old != itemLink.editable) {
-
-					//console.log('itemLink.js: Changed editable state to "' + (itemLink.editable ? 'true' : 'false') + '"');
-
-				}
-
-			}
-
-		//--------------------------------------------------
-		// On page load
-
-			$(this.init);
-
-	};
+})(document, window);

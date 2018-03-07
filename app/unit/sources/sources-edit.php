@@ -260,8 +260,6 @@
 			// JavaScript
 
 				$response = response_get();
-
-				$response->js_add('/a/js/jquery/jquery-1.11.0.js');
 				$response->js_add('/a/js/item-link.js');
 
 		}
