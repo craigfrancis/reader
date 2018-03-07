@@ -48,12 +48,15 @@
 					' . DB_PREFIX . 'source AS s
 				WHERE
 					s.error_date >= s.updated AND
-					s.updated <= "' . $db->escape($error_limit) . '" AND
+					s.updated <= ? AND
 					s.deleted = "0000-00-00 00:00:00"
 				LIMIT
 					1';
 
-		return ($db->num_rows($sql) > 0);
+		$parameters = array();
+		$parameters[] = array('s', $error_limit);
+
+		return ($db->num_rows($sql, $parameters) > 0);
 
 	}
 

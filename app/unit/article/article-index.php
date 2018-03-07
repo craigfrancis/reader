@@ -26,24 +26,28 @@
 							s.ref,
 							s.title,
 							COUNT(sa.id) AS unread_count,
-							sa.id AS article_id
+							MIN(sa.id) AS article_id
 						FROM
 							' . DB_PREFIX . 'source AS s
 						LEFT JOIN
 							' . DB_PREFIX . 'source_article AS sa ON sa.source_id = s.id
 						LEFT JOIN
-							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
+							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = ?
 						WHERE
 							s.deleted = "0000-00-00 00:00:00" AND
 							sa.id IS NOT NULL AND
-							sa.created < "' . $db->escape(USER_DELAY) . '" AND
+							sa.created < ? AND
 							sar.article_id IS NULL
 						GROUP BY
 							s.id
 						ORDER BY
 							s.sort';
 
-				foreach ($db->fetch_all($sql) as $row) {
+				$parameters = array();
+				$parameters[] = array('i', USER_ID);
+				$parameters[] = array('s', USER_DELAY);
+
+				foreach ($db->fetch_all($sql, $parameters) as $row) {
 
 					if ($row['unread_count'] == 1) {
 						$url = url('/articles/:source/', array('source' => $row['ref'], 'id' => $row['article_id']));

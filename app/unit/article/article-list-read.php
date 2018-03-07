@@ -28,11 +28,11 @@
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
 						LEFT JOIN
-							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
+							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = ?
 						LEFT JOIN
 							' . DB_PREFIX . 'source AS s ON s.id = sa.source_id
 						WHERE
-							sa.created < "' . $db->escape(USER_DELAY) . '" AND
+							sa.created < ? AND
 							sar.article_id IS NOT NULL AND
 							s.deleted = "0000-00-00 00:00:00"
 						GROUP BY
@@ -42,7 +42,11 @@
 						LIMIT
 							50';
 
-				foreach ($db->fetch_all($sql) as $row) {
+				$parameters = array();
+				$parameters[] = array('i', USER_ID);
+				$parameters[] = array('s', USER_DELAY);
+
+				foreach ($db->fetch_all($sql, $parameters) as $row) {
 
 					$articles[] = array(
 							'url' => url('/articles/:source/', array('source' => $row['source_ref'], 'id' => $row['id'])),

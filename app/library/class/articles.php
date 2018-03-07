@@ -369,11 +369,12 @@
 									ORDER BY
 										sar.read_date DESC
 									LIMIT
-										' . intval($article_count) . ', 100000';
+										?, 100000';
 
 							$parameters = array();
 							$parameters[] = array('i', $source_id);
-							$parameters[] = array('i', $read_limit);
+							$parameters[] = array('s', $read_limit);
+							$parameters[] = array('i', $article_count);
 
 						}
 
@@ -614,22 +615,42 @@
 							// Record as updated
 
 								if ($error) {
-									$values = array(
-											'error_text' => $error,
-											'error_date' => $now,
-										);
+
+									$sql = 'UPDATE
+												' . DB_PREFIX . 'source AS s
+											SET
+												s.error_text = ?,
+												s.error_date = ?
+											WHERE
+												s.id = ? AND
+												s.deleted = "0000-00-00 00:00:00"';
+
+									$parameters = array();
+									$parameters[] = array('s', $error);
+									$parameters[] = array('s', $now);
+									$parameters[] = array('i', $source_id);
+
+									$db->query($sql, $parameters);
+
 								} else {
-									$values = array(
-											'article_count' => count($source_articles),
-											'updated' => $now,
-										);
+
+									$sql = 'UPDATE
+												' . DB_PREFIX . 'source AS s
+											SET
+												s.error_text = ?,
+												s.error_date = ?
+											WHERE
+												s.id = ? AND
+												s.deleted = "0000-00-00 00:00:00"';
+
+									$parameters = array();
+									$parameters[] = array('i', count($source_articles));
+									$parameters[] = array('s', $now);
+									$parameters[] = array('i', $source_id);
+
+									$db->query($sql, $parameters);
+
 								}
-
-								$where_sql = '
-									id = "' . $db->escape($source_id) . '" AND
-									deleted = "0000-00-00 00:00:00"';
-
-								$db->update(DB_PREFIX . 'source', $values, $where_sql);
 
 						}
 

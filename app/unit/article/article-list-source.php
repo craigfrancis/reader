@@ -25,10 +25,13 @@
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
-							s.ref = "' . $db->escape($config['source']) . '" AND
+							s.ref = ? AND
 							s.deleted = "0000-00-00 00:00:00"';
 
-				if ($row = $db->fetch_row($sql)) {
+				$parameters = array();
+				$parameters[] = array('s', $config['source']);
+
+				if ($row = $db->fetch_row($sql, $parameters)) {
 					$source_id = $row['id'];
 					$source_title = $row['title'];
 					$source_ref = $config['source'];
@@ -39,9 +42,15 @@
 			//--------------------------------------------------
 			// Articles
 
+				$parameters = array();
+				$parameters[] = array('i', USER_ID);
+
 				$where_sql = '
-					sa.source_id = "' . $db->escape($source_id) . '" AND
-					sa.created < "' . $db->escape(USER_DELAY) . '"';
+					sa.source_id = ? AND
+					sa.created < ?';
+
+				$parameters[] = array('i', $source_id);
+				$parameters[] = array('s', USER_DELAY);
 
 				if ($config['state'] === 'read') {
 
@@ -68,7 +77,7 @@
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
 						LEFT JOIN
-							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
+							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = ?
 						WHERE
 							' . $where_sql . '
 						GROUP BY
@@ -79,7 +88,7 @@
 						LIMIT
 							50';
 
-				foreach ($db->fetch_all($sql) as $row) {
+				foreach ($db->fetch_all($sql, $parameters) as $row) {
 
 					$articles[] = array(
 							'url' => $config['view_url']->get(array('source' => $source_ref, 'id' => $row['id'], 'state' => ($config['state'] == 'unread' ? NULL : $config['state']))),

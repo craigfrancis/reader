@@ -168,13 +168,18 @@
 
 							$field_sort->value_set($sort_new);
 
-							$db->query('UPDATE
-											' . DB_PREFIX . 'source AS s
-										SET
-											s.sort = (s.sort + 1)
-										WHERE
-											s.sort >= "' . $db->escape($sort_new) . '" AND
-											s.deleted = "0000-00-00 00:00:00"');
+							$sql = 'UPDATE
+										' . DB_PREFIX . 'source AS s
+									SET
+										s.sort = (s.sort + 1)
+									WHERE
+										s.sort >= ? AND
+										s.deleted = "0000-00-00 00:00:00"';
+
+							$parameters = array();
+							$parameters[] = array('i', $sort_new);
+
+							$db->query($sql, $parameters);
 
 						//--------------------------------------------------
 						// Ref
@@ -186,13 +191,17 @@
 									FROM
 										' . DB_PREFIX . 'source AS s
 									WHERE
-										s.id != "' . $db->escape($source_id) . '" AND
-										s.ref = "' . $db->escape($clean_ref) . '" AND
+										s.id != ? AND
+										s.ref = ? AND
 										s.deleted = "0000-00-00 00:00:00"
 									LIMIT
 										1';
 
-							if ($row = $db->fetch_row($sql)) {
+							$parameters = array();
+							$parameters[] = array('i', $source_id);
+							$parameters[] = array('s', $clean_ref);
+
+							if ($row = $db->fetch_row($sql, $parameters)) {
 								$field_ref->error_add('This URL is already in use');
 							} else {
 								$field_ref->value_set($clean_ref);

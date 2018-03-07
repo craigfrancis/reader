@@ -32,10 +32,13 @@
 						FROM
 							' . DB_PREFIX . 'source AS s
 						WHERE
-							s.ref = "' . $db->escape($config['source']) . '" AND
+							s.ref = ? AND
 							s.deleted = "0000-00-00 00:00:00"';
 
-				if ($row = $db->fetch_row($sql)) {
+				$parameters = array();
+				$parameters[] = array('s', $config['source']);
+
+				if ($row = $db->fetch_row($sql, $parameters)) {
 					$source_id = $row['id'];
 					$source_title = $row['title'];
 					$source_url = $row['url_http'];
@@ -58,15 +61,21 @@
 						FROM
 							' . DB_PREFIX . 'source_article AS sa
 						LEFT JOIN
-							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
+							' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = ?
 						WHERE
-							sa.id = "' . $db->escape($config['article']) . '" AND
-							sa.source_id = "' . $db->escape($source_id) . '" AND
-							sa.created < "' . $db->escape(USER_DELAY) . '"
+							sa.id = ? AND
+							sa.source_id = ? AND
+							sa.created < ?
 						GROUP BY
 							sa.id';
 
-				if ($row = $db->fetch_row($sql)) {
+				$parameters = array();
+				$parameters[] = array('i', USER_ID);
+				$parameters[] = array('i', $config['article']);
+				$parameters[] = array('i', $source_id);
+				$parameters[] = array('s', USER_DELAY);
+
+				if ($row = $db->fetch_row($sql, $parameters)) {
 
 					$article_id = $row['id'];
 					$article_title = $row['title'];
@@ -117,11 +126,17 @@
 
 					if ($article_read) {
 
-						$db->query('DELETE FROM
-										' . DB_PREFIX . 'source_article_read
-									WHERE
-										article_id = "' . $db->escape($article_id) . '" AND
-										user_id = "' . $db->escape(USER_ID) . '"');
+						$sql = 'DELETE FROM
+									' . DB_PREFIX . 'source_article_read
+								WHERE
+									article_id = ? AND
+									user_id = ?';
+
+						$parameters = array();
+						$parameters[] = array('i', $article_id);
+						$parameters[] = array('i', USER_ID);
+
+						$db->query($sql, $parameters);
 
 					}
 
@@ -384,20 +399,30 @@
 					'state' => 'unread',
 				), $config);
 
+			$parameters = array();
+			$parameters[] = array('i', USER_ID);
+
 			$where_sql = '
-				sa.created < "' . $db->escape(USER_DELAY) . '" AND
-				sa.source_id = "' . $db->escape($this->article_source_id) . '"';
+				sa.created < ? AND
+				sa.source_id = ?';
+
+			$parameters[] = array('s', USER_DELAY);
+			$parameters[] = array('i', $this->article_source_id);
 
 			if ($rel > 0) {
 
 				$where_sql .= ' AND
 					(
-						sa.published > "' . $db->escape($this->article_published) . '" OR
+						sa.published > ? OR
 						(
-							sa.published = "' . $db->escape($this->article_published) . '" AND
-							sa.id > "' . $db->escape($this->article_id) . '"
+							sa.published = ? AND
+							sa.id > ?
 						)
 					)';
+
+				$parameters[] = array('s', $this->article_published);
+				$parameters[] = array('s', $this->article_published);
+				$parameters[] = array('i', $this->article_id);
 
 					// [2013-09-13 07:43:34] ... id=5650 ... (2013-09-11 15:54:32)
 					// [XXXX-XX-XX XX:XX:XX] ... id=5649 ... (2013-09-11 15:54:32)
@@ -417,12 +442,16 @@
 
 				$where_sql .= ' AND
 					(
-						sa.published < "' . $db->escape($this->article_published) . '" OR
+						sa.published < ? OR
 						(
-							sa.published = "' . $db->escape($this->article_published) . '" AND
-							sa.id < "' . $db->escape($this->article_id) . '"
+							sa.published = ? AND
+							sa.id < ?
 						)
 					)';
+
+				$parameters[] = array('s', $this->article_published);
+				$parameters[] = array('s', $this->article_published);
+				$parameters[] = array('i', $this->article_id);
 
 				$order_sql = '
 					sa.published DESC,
@@ -447,7 +476,7 @@
 					FROM
 						' . DB_PREFIX . 'source_article AS sa
 					LEFT JOIN
-						' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = "' . $db->escape(USER_ID) . '"
+						' . DB_PREFIX . 'source_article_read AS sar ON sar.article_id = sa.id AND sar.user_id = ?
 					WHERE
 						' . $where_sql . '
 					ORDER BY
@@ -455,7 +484,7 @@
 					LIMIT
 						1';
 
-			if ($row = $db->fetch_row($sql)) {
+			if ($row = $db->fetch_row($sql, $parameters)) {
 				return $row['id'];
 			} else {
 				return NULL;
