@@ -285,14 +285,21 @@
 
 					$updated_limit = new timestamp('-10 minutes');
 					$error_limit = new timestamp('-1 hour');
+					$deleted_limit = new timestamp('-1 week');
 
 					$where_sql = '
-						s.updated    <= ? AND
-						s.error_date <= ? AND
-						s.deleted = "0000-00-00 00:00:00"';
+						(
+							s.updated <= ? AND
+							s.error_date <= ? AND
+							s.deleted = "0000-00-00 00:00:00"
+						) OR (
+							s.deleted != "0000-00-00 00:00:00" AND
+							s.deleted > ?
+						)';
 
 					$parameters[] = array('s', $updated_limit);
 					$parameters[] = array('s', $error_limit);
+					$parameters[] = array('s', $deleted_limit);
 
 				}
 
@@ -315,7 +322,7 @@
 					// Details
 
 						$error = false;
-debug($row);
+
 						$source_id = $row['id'];
 						$source_url = $row['url_feed'];
 						$source_deleted = ($row['deleted'] != '0000-00-00 00:00:00');
