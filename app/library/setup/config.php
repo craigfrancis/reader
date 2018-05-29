@@ -71,10 +71,7 @@
 		//--------------------------------------------------
 		// General
 
-			$config['output.protocols'] = array('https');
 			$config['output.domain'] = 'PRIVATE';
-
-			$config['cookie.prefix'] = '__Host-'; // A `Secure` cookie, with no `Domain` attribute
 
 	}
 
@@ -90,7 +87,14 @@
 //--------------------------------------------------
 // Security
 
+	$config['cookie.prefix'] = '__Host-'; // A `Secure` cookie, with no `Domain` attribute
+
+	$config['output.protocols'] = array('https');
+
 	$config['output.framing'] = 'DENY'; // or SAMEORIGIN
+
+	$config['output.fp_enabled'] = true;
+
 	$config['output.xss_reflected'] = 'block';
 
 	$config['output.csp_enabled'] = true;
@@ -107,6 +111,10 @@
 					'www.devcf.com', // For to-do list
 				),
 		);
+
+	if (SERVER != 'stage') {
+		$config['output.ct_enabled'] = true;
+	}
 
 	$config['socket.insecure_domains'] = 'all'; // Too many issues with other websites.
 
