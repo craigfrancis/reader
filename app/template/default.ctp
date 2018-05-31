@@ -5,7 +5,7 @@
 
 	$response->css_add('/a/css/global/core.css');
 
-	config::array_set('output.links', 'apple-touch-icon', '/a/img/global/favicon.png');
+	$response->link_set('apple-touch-icon', '/a/img/global/favicon.png');
 
 ?>
 <!DOCTYPE html>
