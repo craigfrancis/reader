@@ -637,8 +637,8 @@
 									$sql = 'UPDATE
 												' . DB_PREFIX . 'source AS s
 											SET
-												s.error_text = ?,
-												s.error_date = ?
+												s.article_count = ?,
+												s.updated = ?
 											WHERE
 												s.id = ? AND
 												s.deleted = "0000-00-00 00:00:00"';
