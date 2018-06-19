@@ -93,7 +93,7 @@
 						$article_domain = $source_url;
 					}
 
-					$article_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $article_link);
+					$article_domain = preg_replace('/^(https?:\/\/[^\/]+).*/', '$1', $article_domain);
 
 				} else {
 
