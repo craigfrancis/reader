@@ -477,6 +477,10 @@
 
 										libxml_clear_errors();
 
+									} else {
+
+										$rss_xml_name_spaces = array_filter(array_keys($rss_xml->getNamespaces(true)));
+
 									}
 
 								}
@@ -534,14 +538,31 @@
 											}
 
 											$url = '';
+
 											if (count($entry->link) > 1) { // ref "Chromium Blog"
+
 												foreach ($entry->link as $link) {
 													if ((!isset($link['type']) || $link['type'] != 'application/atom+xml') && (!isset($link['rel']) || $link['rel'] != 'replies')) {
 														$url = strval($link['href']);
 													}
 												}
+
 											} else {
+
 												$url = strval($entry->link['href']);
+
+												if ($url === '') { // ref what-if.xkcd.com ... "<link xmlns:ns="http://www.w3.org/2005/Atom" ns:href="https://what-if.xkcd.com/157/" ns:rel="alternate" ns:type="text/html"/>"
+													foreach ($rss_xml_name_spaces as $name_space) {
+														$attributes = $entry->link->attributes($name_space, true);
+														if (isset($attributes['href'])) {
+															$url = strval($attributes['href']);
+															if ($url !== '') {
+																break;
+															}
+														}
+													}
+												}
+
 											}
 
 											$source_articles[] = array(
