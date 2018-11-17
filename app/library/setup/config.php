@@ -59,6 +59,7 @@
 			$config['db.pass'] = 'PRIVATE';
 			$config['db.name'] = 'PRIVATE';
 
+			$config['db.ca_file'] = '/etc/mysql/tls.pem';
 			$config['db.prefix'] = 'rdr_';
 
 		//--------------------------------------------------
