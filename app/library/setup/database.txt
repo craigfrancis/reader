@@ -14,7 +14,7 @@
             "ref": {
                 "type": "varchar",
                 "length": "30",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -24,7 +24,7 @@
             "title": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -44,7 +44,7 @@
             "url_http": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -54,7 +54,7 @@
             "url_feed": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -94,7 +94,7 @@
             "error_text": {
                 "type": "text",
                 "length": 65535,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -172,18 +172,18 @@
             },
             "guid": {
                 "type": "varchar",
-                "length": "250",
-                "collation": "utf8_unicode_ci",
+                "length": "150",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
                 "options": null,
-                "definition": "varchar(250) NOT NULL"
+                "definition": "varchar(150) NOT NULL"
             },
             "title": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -193,7 +193,7 @@
             "link_source": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -203,7 +203,7 @@
             "link_clean": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -213,7 +213,7 @@
             "description": {
                 "type": "mediumtext",
                 "length": 16777215,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -428,7 +428,7 @@
             "job": {
                 "type": "varchar",
                 "length": "20",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -448,7 +448,7 @@
             "output": {
                 "type": "text",
                 "length": 65535,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -511,7 +511,7 @@
             "url_src": {
                 "type": "varchar",
                 "length": "150",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -521,7 +521,7 @@
             "url_dst": {
                 "type": "varchar",
                 "length": "150",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -531,7 +531,7 @@
             "permanent": {
                 "type": "enum",
                 "length": 2,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -544,7 +544,7 @@
             "enabled": {
                 "type": "enum",
                 "length": 2,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -567,7 +567,7 @@
             "referrer": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -626,7 +626,7 @@
             "type": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -646,7 +646,7 @@
             "message": {
                 "type": "text",
                 "length": 65535,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -656,7 +656,7 @@
             "request": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -666,7 +666,7 @@
             "referrer": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -676,7 +676,7 @@
             "ip": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -705,7 +705,7 @@
             "blocked_uri": {
                 "type": "varchar",
                 "length": "100",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -715,7 +715,7 @@
             "violated_directive": {
                 "type": "varchar",
                 "length": "100",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -725,7 +725,7 @@
             "referrer": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -735,7 +735,7 @@
             "document_uri": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -745,7 +745,7 @@
             "original_policy": {
                 "type": "text",
                 "length": 65535,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -755,7 +755,7 @@
             "data_raw": {
                 "type": "text",
                 "length": 65535,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -765,7 +765,7 @@
             "ip": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -775,7 +775,7 @@
             "browser": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -845,7 +845,7 @@
             "username": {
                 "type": "varchar",
                 "length": "30",
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -855,7 +855,7 @@
             "pass": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -865,7 +865,7 @@
             "delay": {
                 "type": "enum",
                 "length": 2,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -950,7 +950,7 @@
             "pass": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -970,7 +970,7 @@
             "ip": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
@@ -980,7 +980,7 @@
             "browser": {
                 "type": "tinytext",
                 "length": 255,
-                "collation": "utf8_unicode_ci",
+                "collation": "utf8mb4_unicode_ci",
                 "null": false,
                 "default": null,
                 "extra": "",
