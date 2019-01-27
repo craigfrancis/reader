@@ -54,10 +54,10 @@
 		//--------------------------------------------------
 		// Database
 
-			$config['db.host'] = 'PRIVATE'; // Hide from source control, see /private/config/live.ini
-			$config['db.user'] = 'PRIVATE';
-			$config['db.pass'] = 'PRIVATE';
-			$config['db.name'] = 'PRIVATE';
+			$config['db.host'] = NULL; // Hide from source control, see /private/config/live.ini
+			$config['db.user'] = NULL;
+			$config['db.pass'] = NULL;
+			$config['db.name'] = NULL;
 
 			$config['db.ca_file'] = '/etc/mysql/tls.pem';
 			$config['db.prefix'] = 'rdr_';
