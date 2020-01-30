@@ -24,6 +24,8 @@
 
 			articles::local_cache();
 
+			articles::image_cleanup();
+
 		}
 
 	}

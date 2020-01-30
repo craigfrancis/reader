@@ -380,11 +380,6 @@
 
 						foreach ($db->fetch_all($sql, $parameters) as $row) {
 
-							$cache_dir = FILE_ROOT . '/article-images/original/' . intval($row['id']) . '/';
-							if (is_dir($cache_dir)) {
-								rrmdir($cache_dir);
-							}
-
 							$sql = 'DELETE FROM
 										' . DB_PREFIX . 'source_article
 									WHERE
@@ -676,6 +671,51 @@
 						}
 
 				}
+
+		}
+
+		static function image_cleanup() {
+
+			$folder_article_ids = [];
+			$record_article_ids = [];
+			$cache_dir = FILE_ROOT . '/article-images/original';
+
+			if ($handle = opendir($cache_dir)) {
+				while (false !== ($file = readdir($handle))) {
+					if (preg_match('/^[0-9]+$/', $file) && is_dir($cache_dir . '/' . $file)) { // Article ID's only, and not hidden folders
+						$folder_article_ids[] = intval($file);
+					}
+				}
+				closedir($handle);
+			}
+
+			if (count($folder_article_ids) > 0) {
+
+				$db = db_get();
+
+				$parameters = [];
+
+				$in_sql = $db->parameter_in($parameters, 'i', $folder_article_ids);
+
+				$sql = 'SELECT
+							sa.id
+						FROM
+							' . DB_PREFIX . 'source_article AS sa
+						WHERE
+							sa.id IN (' . $in_sql . ')';
+
+				foreach ($db->fetch_all($sql, $parameters) as $row) {
+					$record_article_ids[] = intval($row['id']);
+				}
+
+				foreach (array_diff($folder_article_ids, $record_article_ids) as $article_id) {
+					$article_dir = $cache_dir . '/' . intval($article_id) . '/';
+					if (is_dir($article_dir)) {
+						rrmdir($article_dir);
+					}
+				}
+
+			}
 
 		}
 
