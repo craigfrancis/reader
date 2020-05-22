@@ -1,0 +1,18 @@
+
+Mark all articles as read for a source:
+
+	INSERT INTO
+		rdr_source_article_read
+	SELECT
+		sa.id,
+		1,
+		NOW()
+	FROM
+		rdr_source_article AS sa
+	LEFT JOIN
+		rdr_source_article_read AS sar ON sar.article_id = sa.id
+	WHERE
+		source_id = 123 AND
+		read_date IS NULL
+	ORDER BY
+		sa.published DESC
