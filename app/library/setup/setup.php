@@ -22,7 +22,7 @@
 		define('USER_NAME', $user_details['username']);
 		define('USER_DELAY', $user_delay->format('db'));
 
-		config::array_set('debug.values', 'User', USER_NAME . ' (' . USER_ID . ')');
+		config::array_set('debug.report_values', 'User', USER_NAME . ' (' . USER_ID . ')');
 
 	} else {
 
