@@ -6,7 +6,7 @@
 
 		static function img_local_url($article_id, $img_url) {
 
-			if (prefix_match('http://da.feedsportal.com/r/', $img_url) || prefix_match('http://pi.feedsportal.com/r/', $img_url) || prefix_match('http://dmp.adform.net/dmp/profile/', $img_url)) {
+			if (str_starts_with($img_url, 'http://da.feedsportal.com/r/') || str_starts_with($img_url, 'http://pi.feedsportal.com/r/') || str_starts_with($img_url, 'http://dmp.adform.net/dmp/profile/')) {
 				 return '/a/img/global/blank.gif';
 			}
 
