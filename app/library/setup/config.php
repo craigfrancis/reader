@@ -117,7 +117,7 @@
 		$config['output.ct_enabled'] = true;
 	}
 
-	$config['socket.insecure_domains'] = 'all'; // Too many issues with other websites.
+	$config['connection.insecure_domains'] = 'all'; // Too many issues with other websites.
 
 //--------------------------------------------------
 // Upload

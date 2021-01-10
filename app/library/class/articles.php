@@ -54,7 +54,7 @@
 
 				$db = db_get();
 
-				$browser = new socket_browser();
+				$browser = new connection_browser();
 				$browser->exit_on_error_set(false);
 				$browser->user_agent_set(self::$browser_user_agent);
 
@@ -258,7 +258,7 @@
 
 				$now = new timestamp();
 
-				$browser = new socket_browser();
+				$browser = new connection_browser();
 				$browser->exit_on_error_set(false);
 
 				libxml_use_internal_errors(true);
