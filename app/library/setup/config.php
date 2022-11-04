@@ -113,10 +113,6 @@
 				),
 		);
 
-	if (SERVER != 'stage') {
-		$config['output.ct_enabled'] = true;
-	}
-
 	$config['connection.insecure_domains'] = 'all'; // Too many issues with other websites.
 
 //--------------------------------------------------
