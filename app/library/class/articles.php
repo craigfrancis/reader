@@ -57,6 +57,10 @@
 				$browser = new connection_browser();
 				$browser->exit_on_error_set(false);
 				$browser->user_agent_set(self::$browser_user_agent);
+				$browser->header_set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
+				$browser->header_set('Accept-Language', 'en-GB,en-US;q=0.8,en;q=0.6');
+				$browser->header_set('Cache-Control', 'no-cache');
+				$browser->header_set('Pragma', 'no-cache');
 
 				libxml_use_internal_errors(true);
 
